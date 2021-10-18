@@ -4,8 +4,10 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
+    "start:customer": "nx serve web-customer",
     "build": "nx build",
     "test": "nx test",
+    "lint": "nx workspace-lint && nx lint",
     "format": "nx format:write",
     "format:write": "nx format:write",
     "format:check": "nx format:check",
