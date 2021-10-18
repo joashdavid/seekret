@@ -2,3 +2,5 @@
 
 /dist
 /coverage
+apps/**/assets
+apps/web/customer-e2e/src/support/commands.ts

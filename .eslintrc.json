@@ -1,0 +1,135 @@
+{
+  "root": true,
+  "ignorePatterns": ["**/*"],
+  "plugins": ["@nrwl/nx"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "@nrwl/nx/enforce-module-boundaries": [
+          "error",
+          {
+            "enforceBuildableLibDependency": true,
+            "allow": [],
+            "depConstraints": [
+              {
+                "sourceTag": "*",
+                "onlyDependOnLibsWithTags": ["*"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nrwl/nx/typescript"],
+      "rules": {
+        "@typescript-eslint/default-param-last": "error",
+        "@typescript-eslint/no-require-imports": "error",
+        "semi": ["error", "never"],
+        "eol-last": "error",
+        "no-nested-ternary": "error",
+        "no-unneeded-ternary": "error",
+        "max-len": [
+          "error",
+          {
+            "code": 100,
+            "ignoreStrings": true,
+            "ignoreComments": true,
+            "ignoreUrls": true
+          }
+        ],
+        "eqeqeq": "error",
+        "max-depth": ["error", 4],
+        "max-nested-callbacks": ["error", 3],
+        "max-lines": [
+          "error",
+          {
+            "max": 200,
+            "skipBlankLines": true,
+            "skipComments": true
+          }
+        ],
+        "prefer-const": "error",
+        "no-return-await": "off",
+        "@typescript-eslint/no-explicit-any": [
+          "error",
+          {
+            "ignoreRestArgs": true
+          }
+        ],
+        "@typescript-eslint/prefer-enum-initializers": "error",
+        "@typescript-eslint/require-await": "error",
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+            "args": "after-used",
+            "ignoreRestSiblings": true,
+            "varsIgnorePattern": "_"
+          }
+        ],
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": "default",
+            "format": ["strictCamelCase"],
+            "filter": {
+              "regex": "^(_id|__typename|access_token|refresh_token|_)$",
+              "match": false
+            }
+          },
+          {
+            "selector": "variableLike",
+            "format": ["strictCamelCase"]
+          },
+          {
+            "selector": "variable",
+            "types": ["function"],
+            "format": ["StrictPascalCase", "strictCamelCase"],
+            "filter": {
+              "regex": "^(bootstrap|User)$",
+              "match": false
+            }
+          },
+          {
+            "selector": "typeLike",
+            "format": ["StrictPascalCase"]
+          },
+          {
+            "selector": "variable",
+            "types": ["boolean"],
+            "format": ["StrictPascalCase"],
+            "prefix": ["is", "should", "has", "can", "did", "will"],
+            "filter": {
+              "regex": "^(loading|User)$",
+              "match": false
+            }
+          },
+          {
+            "selector": "variable",
+            "modifiers": ["const"],
+            "format": ["StrictPascalCase", "strictCamelCase", "UPPER_CASE"]
+          },
+          {
+            "selector": "enumMember",
+            "format": ["UPPER_CASE"]
+          },
+          {
+            "selector": "property",
+            "format": ["strictCamelCase", "UPPER_CASE"],
+            "filter": {
+              "regex": "^(_id|__typename|access_token|refresh_token|token_type|id)$",
+              "match": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nrwl/nx/javascript"],
+      "rules": {}
+    }
+  ]
+}
