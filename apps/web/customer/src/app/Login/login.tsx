@@ -15,9 +15,9 @@ const Login = () => {
             password
         }
         const response = await userLoginApi(dataToserver)
-      if(response.success){
-        setLoggedIn(true)
-      }
+        if(response.success){
+            setLoggedIn(true)
+        }
     }
 
     // const userLogout = async () => {
@@ -53,19 +53,19 @@ const Login = () => {
                 </p>
                 
                
-                <FloatLabel label="Email Address" name="firstName"  value={email}>
+            <FloatLabel label="Email Address" name="email"  value={email}>
                 <div className={styles.textfield}>
-                        <input className={styles.textfield} value={email}
-                          onChange={e=>setemail(e.target.value)}/>
-                        <img src="./assets/email.svg" alt="" className={styles.icon}/>
-                    </div>
+                    <input className={styles.textfield} value={email}
+                        onChange={e=>setemail(e.target.value)}/>
+                    <img src="./assets/email.svg" alt="" className={styles.icon}/>
+                </div>
              </FloatLabel>
              
-             <FloatLabel label="Password" name="firstName"  value={password}>
+             <FloatLabel label="Password" name="password"  value={password}>
                 <div className={styles.textfield}>
-                        <input type="password" value={password} className={styles.textfield} onChange={e=>setpassword(e.target.value)}/>
-                        <img src="./assets/eyeopen.svg" alt="" className={styles.icon}/>
-                    </div>
+                    <input type="password" value={password} className={styles.textfield} onChange={e=>setpassword(e.target.value)}/>
+                    <img src="./assets/eyeopen.svg" alt="" className={styles.icon}/>
+                </div>
              </FloatLabel>
                 
 

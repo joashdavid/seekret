@@ -3,15 +3,15 @@
 import axios from 'axios'
 
 
-const axiosApi = axios.create({ baseURL: "https://cyclops.powerofn.in/cyclops/server/" })
+const axiosApi = axios.create({ baseURL: "http://3.108.18.49:7002/cyclops/server/" })
 
 const apiRequest = (method: any, url: any, request: any): any => {
     const headers = {
-              Authorization: 'Bearer ' + '',
+              // Authorization: 'Bearer ' + '',
               'Content-Type': 'application/json',
-              bfa: '3359060008',
-              mfa: 'Linux x86_64 Asia/Calcutta',
-              'X-Forwarded-For': '14.98.225.138',
+              // bfa: '3359060008',
+              // mfa: 'Linux x86_64 Asia/Calcutta',
+              // 'X-Forwarded-For': '14.98.225.138',
             }
     return axiosApi({ method, url, data: request, headers })
     .then((res) => {
