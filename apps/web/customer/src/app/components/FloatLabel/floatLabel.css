@@ -7,7 +7,7 @@
     /* margin-bottom: 12px; */
   }
   .float-label input{
-    padding:1vh 1vh 0 0.7vh;
+    padding:1vh 1vh 0 1.2vh;
     height: 4.35vh;
     border-radius: 0.93vh;
     background:#F7F8FD;
@@ -24,14 +24,14 @@
     font-weight: normal;
     position: absolute;
     pointer-events: none;
-    left: 0.7vh;
+    left: 1.2vh;
     top: 1.2vh;
     transition: 0.2s ease all;
     color: #6F91A8;
   }
   
   .label-float {
-    top: 0.2vh;
+    top: 0.4vh;
     font-size: 0.89vh;
   }
   

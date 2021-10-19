@@ -2,7 +2,7 @@ import styles from './login.module.less'
 import { Checkbox, Divider} from 'antd'
 import FloatLabel from '../components/FloatLabel/floatLabel'
 import { useState } from 'react'
-import {userLoginApi  } from './api'
+import {userLoginApi, userLogoutApi  } from './api'
 
 const Login = () => {
     const [email, setemail] = useState("")
@@ -20,10 +20,10 @@ const Login = () => {
         }
     }
 
-    // const userLogout = async () => {
-    //     const response = await userLogoutApi()
-    //     console.log(response)
-    // }
+    const userLogout = async () => {
+        const response = await userLogoutApi()
+        console.log(response)
+    }
 
     return(
         <div className={styles.flex}>
@@ -41,15 +41,17 @@ const Login = () => {
            </p>
            <p className={styles.content}></p>
             </div>
-             <div className={styles.loginform}>
+             {!isLoggedIn && <div className={styles.loginform}>
                 <div className={styles.formheader}>
                 <img
-                src="./assets/Cyclops.svg"
-                alt=""
+                    src="./assets/Cyclops.svg"
+                    alt=""
                 />
-                <p className={styles.formcontent}> Let’s get started! </p>
+                <p className={styles.formcontent}> 
+                    Let’s get started! 
+                </p>
                 <p className={styles.loginguide}>
-                You’ve come to the right place, login or set up your account.
+                    You’ve come to the right place, login or set up your account.
                 </p>
                 
                
@@ -81,10 +83,9 @@ const Login = () => {
                     </div>
                 </div>
                 <input type="Button" className={styles.loginbutton} value="LOGIN" onClick={userLogin}/>
-                     
-                
-
-                <p className={styles.createaccount}>Don’t have an account?</p>
+                <p className={styles.createaccount}>
+                    Don’t have an account?
+                </p>
                 <div>
                     <p className={styles.newaccount}>Create New  <img src="/assets/greenarrow.svg" alt=""/> </p>
                 </div>
@@ -97,10 +98,10 @@ const Login = () => {
                 </div>
 
                 
-            </div>
-            {/* {isLoggedIn && <div>
+            </div>}
+            {isLoggedIn && <div>
                 <input type="Button" className={styles.loginbutton} value="LOGOUT" onClick={userLogout}/>
-                </div>} */}
+                </div>}
             
             </div>
     )
