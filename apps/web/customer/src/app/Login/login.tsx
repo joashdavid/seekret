@@ -64,14 +64,14 @@ const Login = () => {
              <FloatLabel label="Password" name="password"  value={password}>
                 <div className={styles.textfield}>
                     <input type="password" value={password} className={styles.textfield} onChange={e=>setpassword(e.target.value)}/>
-                    <img src="./assets/eyeopen.svg" alt="" className={styles.icon}/>
+                    <img src="./assets/eyeopen.svg" alt=""  className={styles.icon}/>
                 </div>
              </FloatLabel>
                 
 
                 <div className={styles.flexcont}>
                     <div>
-                        <Checkbox style={{borderRadius:5}}>
+                        <Checkbox>
                             <p className={styles.checkbox}> Remember me </p>
                         </Checkbox>
                     </div>
@@ -80,8 +80,6 @@ const Login = () => {
                         <p className={styles.password}>Forgot Password?</p>
                     </div>
                 </div>
-                </div>
-
                 <input type="Button" className={styles.loginbutton} value="LOGIN" onClick={userLogin}/>
                      
                 
@@ -96,6 +94,9 @@ const Login = () => {
                         OR LOGIN WITH
                     </p>
                 </Divider>
+                </div>
+
+                
             </div>
             {/* {isLoggedIn && <div>
                 <input type="Button" className={styles.loginbutton} value="LOGOUT" onClick={userLogout}/>
