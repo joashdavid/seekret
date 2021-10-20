@@ -1,192 +1,125 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import createAccountstyles from './createAccount.module.less'
+import { Checkbox, Divider} from 'antd'
+import TextField from '../components/textField/textField'
 import { useState } from 'react'
-import {RuleObject} from "rc-field-form/lib/interface"
-import { ReactComponent as UserIcon } from  "../../assets/IndividualIcon.svg"
-import styles from './createAccount.module.less'
-import { Form, Input, Button, Checkbox } from 'antd'
-import { PhoneOutlined, MailOutlined } from '@ant-design/icons'
 import createAccountApi from './api'
-import { UserRegistrationModel } from '../../model/model'
-import FloatLabel from '../components/FloatLabel/floatLabel'
-
+import CycButton from '../components/cycButton/cycButton'
 
 const CreateAccount = () => {
-  const [form] = Form.useForm()
-  const [isChecked, setChecked] = useState(false)
-  const [firstName, setFirstName] = useState("")
-  // const [password, setPassword] = useState('')
-  // const [confirmPassword, setConfirmPassword] = useState('')
+    const [name, setname] = useState('')
+    const [email, setemail] = useState("")
+    const [mobileNumber, setmobileNumber] = useState("")
+    const [password, setpassword] = useState("")
+    const [confirmPassword, setconfirmPassword] = useState("")
 
-  const onFinish = async(values: UserRegistrationModel) => {
-    form.resetFields()
-    const response  = await createAccountApi(values)
-    console.log(response)
-  }
-
-  const onFinishFailed = () => {
-    console.log('Failed:')
-  }
-
-  const onReset = () => {
-      form.resetFields()
-  }
-
-  const onCheckboxChange = (event :any) => {
-       setChecked(event.target.checked)
-  }
-  const checkBoxValidation = (rule: RuleObject, value: any, callback: (error?: string) => void) => {
-    if(isChecked) {
-        return callback()
+    const getFullName = (data:string) => {
+      setname(data)
     }
-    return callback("Please accept the terms and conditions")
+    const getEmail = (data:string) => {
+      setemail(data)
+    }
+    const getMobileNumber = (data:string) => {
+      setmobileNumber(data)
+    }
+    const getPassword = (data:string) => {
+      setpassword(data)
+    }
+    const getConfirmPassword = (data:string) => {
+      setconfirmPassword(data)
+    }
+
+    const createAccount = async() => {
+        const response = await createAccountApi(name,email,mobileNumber,password)
+    }
+    return(
+        <div className={createAccountstyles.containers}>
+        <div className={createAccountstyles.flex}>
+            <div className={createAccountstyles.wallpaper}>
+            <img
+            src="./assets/cyc-img.svg" className={createAccountstyles.wallpaper}
+            alt=""
+           />
+           <p className={createAccountstyles.para1}>
+           Welcome to  <span className={createAccountstyles.para2}>Cyclops</span>
+           <p className={createAccountstyles.text}>
+                Lorem ipsum dolor sit amete consectetur adipiscing elit sed eiusmod
+                tempor incididunt ut labore et dolore magna aliqua minim labore veniam. 
+            </p>
+           </p>
+           <p className={createAccountstyles.content}></p>
+            </div>
+            <div className={createAccountstyles.loginform}>
+                <div className={createAccountstyles.formheader}>
+                
+                <p className={createAccountstyles.formcontent}> Create Account </p>
+                <p className={createAccountstyles.cyccontent}>
+                Let’s get you started on Cyclops.
+                </p>
+                <TextField
+                onUserInput={getFullName}
+                label="Full Name"
+                name="Full Name"
+                type="text"
+                img={'./assets/fullname.svg'}
+                />
+                <TextField
+                onUserInput={getEmail}
+                label="Email Address"
+                name="email"
+                type="text"
+                img={'./assets/email.svg'}
+                />
+                 <TextField
+                onUserInput={getMobileNumber}
+                label="Mobile Number"
+                name="mobileNumber"
+                type="text"
+                img={'./assets/phoneNumber.svg'}
+                />
+                 <TextField
+                onUserInput={getPassword}
+                label="Password"
+                name="password"
+                type="password"
+                img={'./assets/eyeopen.svg'}
+                />
+                 <TextField
+                onUserInput={getConfirmPassword}
+                label="Confirm Password"
+                name="password"
+                type="password"
+                img={'./assets/eyeopen.svg'}
+                />
+               
+                <div className={createAccountstyles.flexcont}>
+                    <div>
+                        <Checkbox>
+                            <p className={createAccountstyles.checkbox}> 
+                                I agree to the 
+                                <span className={createAccountstyles.terms}>  
+                                 terms & conditions 
+                                </span>
+                            </p>
+                        </Checkbox>
+                    </div>
+                </div>
+               <CycButton value="CONTINUE" disabled={true} />
+                {/* <input type="Button" className={createAccountstyles.continueButton} value="CONTINUE" onClick={createAccount}/> */}
+                <p className={createAccountstyles.loginPara}>Already  have an account?</p>
+                <div>
+                    <p className={createAccountstyles.gotoLogin}>Login  <img src="/assets/greenarrow.svg" alt=""/> </p>
+                </div>
+                <Divider style={{height:0.4}}>
+                    <p className={createAccountstyles.divider}>
+                        OR SIGN UP WITH
+                    </p>
+                </Divider>
+                
+            </div>
+            </div>
+            </div>
+            </div>
+    )
 }
-
-  return (
-    <Form
-      name="basic"
-      form = {form}
-      labelCol={{
-        span: 8,
-      }}
-      wrapperCol={{
-        span: 16,
-      }}
-      initialValues={{
-        remember: true,
-      }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      autoComplete="off"
-    >
-      <Form.Item
-        label="Username"
-        name="name"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your username!',
-            validateTrigger : 'onSubmit'
-        }
-        ]}
-      >
-        <Input className={styles.textFeild} 
-        suffix={<UserIcon className={styles.textFeildIcon} 
-        />} />
-        
-      </Form.Item>
-
-      <Form.Item
-        label="Email"
-        name="email"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your Email!',
-            validateTrigger : 'onSubmit'
-          },{
-            pattern:/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-            message: 'Please enter a valid mail',
-            validateTrigger : 'onSubmit'
-          },
-        ]}
-      >
-        <Input suffix = {<MailOutlined />}/>
-      </Form.Item>
-      <FloatLabel label="First Name" name="firstName"  value={firstName}>
-          <Input value={firstName} className={styles.textFeildInput}
-            onChange={e => setFirstName(e.target.value)}  />
-      </FloatLabel>
-      <Form.Item
-        label="Mobile no"
-        name="phoneNo"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your Phone!',
-            validateTrigger : 'onSubmit'
-          },
-        ]}
-      >
-        <Input suffix = {<PhoneOutlined />} />
-        
-      </Form.Item>
-
-      <Form.Item
-        label="Password"
-        name="password"
-        // value = {password}
-        rules={[
-          {
-            required: true,
-            message: 'Please input your password!',
-            validateTrigger : 'onSubmit'
-          },
-            {
-            pattern:/^[\u0021-\u007E]{8,64}$/,
-            message:"Please enter a valid password",
-            validateTrigger : 'onSubmit'
-          },{
-          }
-        ]}
-      >
-        <Input.Password />
-      </Form.Item>
-
-      <Form.Item
-        label="Confirm Password"
-        name="confirmPassword"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your password!',
-            validateTrigger : 'onSubmit'
-          },
-          {
-            pattern:/^[\u0021-\u007E]{8,64}$/,
-            message:"Please enter a valid password",
-            validateTrigger : 'onSubmit'
-          },
-          {
-            // validator:changePasswordMatch
-          }
-        ]}
-      >
-        <Input.Password />
-      </Form.Item>
-      <Form.Item
-        name="remember"
-        valuePropName="checked"
-        wrapperCol={{
-          offset: 8,
-          span: 16,
-        }}
-        rules={
-          [
-          {
-            validator:checkBoxValidation,
-            validateTrigger : 'onSubmit'
-          }
-        ]}
-      >
-        <Checkbox checked={isChecked} onChange={onCheckboxChange}
-        >I agree the terms and conditions</Checkbox>
-      </Form.Item>
-
-      <Form.Item
-        wrapperCol={{
-          offset: 8,
-          span: 16,
-        }}
-      >
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-        <Button htmlType="button" onClick={onReset}>
-          Reset
-        </Button>
-      </Form.Item>
-    </Form>
-  )
-}
-
 export default CreateAccount

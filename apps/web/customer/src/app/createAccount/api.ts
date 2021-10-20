@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import type {UserRegistrationModel} from '../../model/model'
-// import { apiRequest } from '../../services/axios/axios'
 
-const createAccountApi = (data: UserRegistrationModel) => {
+import { apiRequest } from '../../services/axios/axios'
+
+const createAccountApi = async(name:string,email:string,mobileNumber:string,password:string) => {
     const dataToServer = {
-        name: data.name,
-        email: data.email,
+        name,
+        email,
         country_code :"+91",
-        phone_no:data.phoneNo,
-        password: data.password,
+        phone_no:mobileNumber,
+        password,
     }
     console.log(dataToServer)
-    // const response = await apiRequest("POST",'users/create',dataToServer)
-    // return response
+    const response = await apiRequest("POST",'users/create',dataToServer)
+    return response
 }
 
 export default createAccountApi

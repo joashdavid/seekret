@@ -1,17 +1,184 @@
-.textFeildIcon{
-    width: 2vh;
-    height:2vh;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800&display=swap');
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+  .containers{
+    margin: 0 20px;
+  }
 }
+/* ----------- Retina Screens ----------- */
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+}
+body{
+  background-color: #FAFDFF;
+  font-family: Inter;
+}
+.justifycenter{
+  justify-content: center;
+}
+.wallpaper{
+  width: 56.112vh;
+  align-items: center;
+  margin-left: 0vh;
+  margin-top: 5vh;
+}
+.flex{
+  display: flex;
+  justify-content: space-around;
+  padding: 5vh 0 0 0;
+}
+.para{
+  font-size: 4.26vh;
+  color: #2B3134;
+}
+.text{
+  font-size: 1.82vh;
+  color: #2B3134;
+  width: 80% !important;
+  padding: 0 0 0 0.4vh;
+  flex: 0 0 auto;
 
-.textFeild, .textFeild input{
-    background-color:#F7F8FD
-    
 }
-.textFeild{
-    border-radius: 0.92vh;
+.loginform{
+  width: 59.259vh;
+  height: 77.8vh;
+  background-color: #fff;
+  justify-content: center;
+  display: flex;
+  box-shadow: 0px 0px 38px #2733460f;
+  // margin-left: 40vh;
+  margin-top: 6vh;
+  flex-direction: column;
+  align-items: center;
+}
+.formheader{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width:40vh;
+}
+.formcontent{
+  text-align: center;
+  font-size: 2.408vh;
+  font-weight: 700;
+  color: #2B3134;
+  margin-top: 1.3vh;
+  margin-bottom: 0;
+}
+.cyccontent{
+    font-size: 1.29vh;
+    color: #2B3134;
+    text-align: center;
+}
+p{
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+.textfield{
+  border: 1px solid #F7F8FD;
+  font-size: 1.3vh;
+  width: 37.78vh;
+  height: 4.356vh;
+  background: #F7F8FD 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+  outline: none;
+}
+.icon{
+  position: absolute;
+    top: 35%;
+    left: 89%;
+    bottom: 10px;
+    height: 30%;
+    width: 10%;
+}
+::placeholder{
+  color: #6F91A8;
+  font-size: 1.3vh;
+  padding-left: 1vh;
+}
+.checkbox{
+  height: 0.5vh;
+  color: #2B3134;
+  font-size: 1.3vh;
+}
+.para1{
+  margin: 2.5vh 0 0.5549vh;
+  font-size: 4.26vh;
+  font-weight: 300;
+  color:#2B3134;
+  letter-spacing: -0.46px;
+}
+.para2{
+  font-size: 4.26vh;
+  font-weight: 700;
+  color:#2B3134;
+}
+.formitem{
+  margin-bottom: 1vh;
+}
+.flexcont{
+  display: flex;
+  width: 37.78vh;
+}
+.flexcont > div {
+  flex: 1 1 50%;
+}
+.password{
+  text-align: right;
+  font-size: 1.3vh;
+  color: #2B3134;
+}
+.continueButton{
+    background: transparent linear-gradient(96deg, #315B81 0%, #003463 100%) 0% 0% no-repeat padding-box;
+    opacity: 0.3;
+    color: #FFFFFF;
+    width: 100%;
     border: none;
+    letter-spacing: 0.1vh;
+    line-height: 4.22vh;
+    padding: 2px;
+    font-weight: bold;
+    border-radius: 1.03vh;
+    text-align: center;
+    width: 37.78vh;
+    height: 4.356vh; 
+    margin-top: 1.4vh;
 }
-.textFeildInput{
-    font-size:1.2vh;
+.loginvalue{
+  font-size:1.486vh;
+  font-weight: 700;
+  text-align: center;
+}
+.loginPara{
+  font-size: 1.486vh;
+  text-align: center;
+  color: #2B3134;
+  font-weight: 400;
+  margin: 2.462vh 0 0.569vh 0;
+}
+.gotoLogin{
+  color: #33B986;
+  font-size: 1.486vh;
+  font-weight: 700;
+  text-align: center;
+}
+.arrow{
+  margin: 0.4vh 4px;
+  width: 1.6vh;
+  align-items: center;
+}
+.divider{
+    font-weight: 400;
+    font-size: 1.1111vh;
+    color: #3B444D;
+    padding: 0 0.65vh;
+    letter-spacing: 1.2px;
+    text-align: center;
+    margin-top: -5px;
 }
 
+.terms{
+    color: #003d63;
+    font-weight: 600; 
+    font-size: 1.3vh;
+   
+}
