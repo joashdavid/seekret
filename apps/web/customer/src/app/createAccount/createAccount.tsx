@@ -2,9 +2,11 @@
 import createAccountstyles from './createAccount.module.less'
 import { Checkbox, Divider} from 'antd'
 import TextField from '../components/textField/textField'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import createAccountApi from './api'
 import CycButton from '../components/cycButton/cycButton'
+import validate from './validation'
+import {Link, Redirect} from 'react-router-dom'
 
 const CreateAccount = () => {
     const [name, setname] = useState('')
@@ -12,6 +14,19 @@ const CreateAccount = () => {
     const [mobileNumber, setmobileNumber] = useState("")
     const [password, setpassword] = useState("")
     const [confirmPassword, setconfirmPassword] = useState("")
+    const [isAgreed, setisAgreed] = useState(true)
+    const [errorIn, setErrorIn] = useState("")
+    const [isUserCreated , setIsUserCreated] = useState(false)
+
+    useEffect(() => {
+      setErrorIn(validate(name,email,mobileNumber,password,confirmPassword,isAgreed))
+    }
+    ,[name,email,mobileNumber,password,confirmPassword,isAgreed]
+    )
+
+    // useEffect(() => {
+    //   setmobileNumber(mobileNumber.replace(/[a-z@#$!^%*&={}<>~|?:;_`"',.[\]\\/]/g, ''))
+    // },[mobileNumber])
 
     const getFullName = (data:string) => {
       setname(data)
@@ -21,6 +36,7 @@ const CreateAccount = () => {
     }
     const getMobileNumber = (data:string) => {
       setmobileNumber(data)
+
     }
     const getPassword = (data:string) => {
       setpassword(data)
@@ -28,10 +44,24 @@ const CreateAccount = () => {
     const getConfirmPassword = (data:string) => {
       setconfirmPassword(data)
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const getAgree = (event:any) => {
+      setisAgreed(event.target.checked)
+    }
 
     const createAccount = async() => {
         const response = await createAccountApi(name,email,mobileNumber,password)
+        localStorage.setItem("email",email)
+        console.log(response)
+        if(response.sucess){
+          setIsUserCreated(response.sucess)
+        }
+       
     }
+    if(isUserCreated){
+      return <Redirect to='/otp' push></Redirect>
+    }
+
     return(
         <div className={createAccountstyles.containers}>
         <div className={createAccountstyles.flex}>
@@ -62,6 +92,7 @@ const CreateAccount = () => {
                 name="Full Name"
                 type="text"
                 img={'./assets/fullname.svg'}
+                value ={name}
                 />
                 <TextField
                 onUserInput={getEmail}
@@ -69,20 +100,31 @@ const CreateAccount = () => {
                 name="email"
                 type="text"
                 img={'./assets/email.svg'}
+                value = {email}
                 />
-                 <TextField
+                <div className={createAccountstyles.phoneNumberWrapper}>
+                  <div className = {createAccountstyles.phoneCode}>
+                    <img src="./assets/india.png" className={createAccountstyles.flag} alt=''></img> 
+                    <p>+91</p>
+                    <img src='./assets/drop-down-down-black.svg'className={createAccountstyles.dropdown} alt=''></img>
+                  </div>
+                  <TextField
                 onUserInput={getMobileNumber}
                 label="Mobile Number"
                 name="mobileNumber"
-                type="text"
+                type="number"
                 img={'./assets/phoneNumber.svg'}
+                value = {mobileNumber}
                 />
+                </div>
+                 
                  <TextField
                 onUserInput={getPassword}
                 label="Password"
                 name="password"
                 type="password"
                 img={'./assets/eyeopen.svg'}
+                value = {password}
                 />
                  <TextField
                 onUserInput={getConfirmPassword}
@@ -90,25 +132,28 @@ const CreateAccount = () => {
                 name="password"
                 type="password"
                 img={'./assets/eyeopen.svg'}
+                value = {confirmPassword}
                 />
                
                 <div className={createAccountstyles.flexcont}>
                     <div>
-                        <Checkbox>
+                        <Checkbox onChange={getAgree} checked={isAgreed}>
                             <p className={createAccountstyles.checkbox}> 
-                                I agree to the 
+                                I agree to the  
                                 <span className={createAccountstyles.terms}>  
-                                 terms & conditions 
+                                  terms & conditions 
                                 </span>
                             </p>
                         </Checkbox>
                     </div>
                 </div>
-               <CycButton value="CONTINUE" disabled={true} />
+               <CycButton value="CONTINUE" disabled={errorIn !== 'valid'} onClick={createAccount}/>
                 {/* <input type="Button" className={createAccountstyles.continueButton} value="CONTINUE" onClick={createAccount}/> */}
                 <p className={createAccountstyles.loginPara}>Already  have an account?</p>
                 <div>
+                  <Link to="/">
                     <p className={createAccountstyles.gotoLogin}>Login  <img src="/assets/greenarrow.svg" alt=""/> </p>
+                  </Link>
                 </div>
                 <Divider style={{height:0.4}}>
                     <p className={createAccountstyles.divider}>

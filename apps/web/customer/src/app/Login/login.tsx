@@ -1,15 +1,17 @@
 import styles from './login.module.less'
 import { Checkbox, Divider } from 'antd'
 import { useState, useEffect } from 'react'
-import { userLoginApi, userLogoutApi } from './api'
+import { userLoginApi } from './api'
 import TextField from '../components/textField/textField'
 import { validate } from './validation'
+import  { Link, Redirect } from 'react-router-dom'
 
 const Login = () => {
   const [email, setemail] = useState('')
   const [password, setpassword] = useState('')
   const [isFormValid, setFormValid] = useState(false)
-  const [isLoggedIn, setLoggedIn] = useState(false)
+  const [isUserLogged, setIsUserLogged] = useState(false)
+
 
   const userLogin = async () => {
     const dataToserver = {
@@ -18,18 +20,20 @@ const Login = () => {
     }
     if(isFormValid){
         const response = await userLoginApi(dataToserver)
-        if (response.success) {
-          setLoggedIn(true)
+        console.log(response)
+        localStorage.setItem("Token",response.data)
+        if (response.sucess) {
+           setIsUserLogged(true)
         }
     }
     
   }
+
   useEffect(() => {
     setFormValid(validate(email,password))
   },[email,password] )
 
   
-
   const getPassword = (data: string) => {
     setpassword(data)
   }
@@ -37,9 +41,8 @@ const Login = () => {
     setemail(data)
   }
 
-  const userLogout = async () => {
-    const response = await userLogoutApi()
-    console.log(response)
+  if(isUserLogged){
+      return <Redirect to='/dashboard' push/>
   }
 
   return (
@@ -55,20 +58,22 @@ const Login = () => {
         </p>
         <p className={styles.content}></p>
       </div>
-      {!isLoggedIn && (
+
         <div className={styles.loginform}>
           <div className={styles.formheader}>
-            <img src="./assets/Cyclops.svg" alt="" />
+            <img src="./assets/Cyclops.svg" className={styles.formImage} alt="" />
             <p className={styles.formcontent}>Let’s get started!</p>
             <p className={styles.loginguide}>
               You’ve come to the right place, login or set up your account.
             </p>
+            <form>
             <TextField
               onUserInput={getEmail}
               label="Email"
               name="email"
               type="text"
               img={'./assets/email.svg'}
+              value={email}
             />
             <TextField
               onUserInput={getPassword}
@@ -76,6 +81,7 @@ const Login = () => {
               name="password"
               type="password"
               img={'./assets/eyeopen.svg'}
+              value={password}
             />
             <div className={styles.flexcont}>
               <div>
@@ -89,11 +95,14 @@ const Login = () => {
               </div>
             </div>
             <input type="Button" className={styles.loginbutton} value="LOGIN" onClick={userLogin} />
+            </form>
             <p className={styles.createaccount}>Don’t have an account?</p>
             <div>
-              <p className={styles.newaccount}>
-                Create New <img src="/assets/greenarrow.svg" alt="" />{' '}
-              </p>
+                <Link to="/createAccount">
+                    <p className={styles.newaccount}>
+                        Create New <img src="/assets/greenarrow.svg" alt="" />{' '}
+                    </p>
+              </Link>
             </div>
 
             <Divider style={{ height: 0.4 }}>
@@ -101,12 +110,8 @@ const Login = () => {
             </Divider>
           </div>
         </div>
-      )}
-      {isLoggedIn && (
-        <div>
-          <input type="Button" className={styles.loginbutton} value="LOGOUT" onClick={userLogout} />
-        </div>
-      )}
+      
+    
     </div>
   )
 }

@@ -1,10 +1,14 @@
 import styles from './cycButton.module.less'
 
-const CycButton = (props: { disabled: boolean; value: string }) => {
+const CycButton = (props: { disabled: boolean; onClick: () => void; value: string }) => {
     const buttonClass = props.disabled ? "" : styles.buttonEnabled
+
+    const onClick = () => {
+        props.onClick()
+    }
     return (
         <div>
-            <input type="Button" className={`${buttonClass} ${styles.continueButton }`} value={props.value} />
+            <input type="Button" className={`${buttonClass} ${styles.continueButton }`} value={props.value} onClick={onClick}/>
         </div>
     )
 }

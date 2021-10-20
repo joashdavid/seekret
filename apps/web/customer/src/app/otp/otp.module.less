@@ -30,9 +30,9 @@ body{
   color: #2B3134;
 }
 .text{
-  font-size: 1.48vh;
+  font-size: 1.82vh;
   color: #2B3134;
-  width: 70%;
+  width: 80% !important;
   padding: 0 0 0 0.4vh;
   flex: 0 0 auto;
 
@@ -56,7 +56,6 @@ body{
   align-items: center;
   width:40vh;
 }
-
 .formcontent{
   text-align: center;
   font-size: 2.408vh;
@@ -66,40 +65,30 @@ body{
   margin-bottom: 0;
 }
 .cyccontent{
-    font-size: 1.29vh;
-    color: #2B3134;
-    text-align: center;
+  font-size: 1.38vh;
+  font-weight: 600;
+  color: #2B3134;
+  text-align: center;
 }
 p{
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom:0.4rem;
 }
-.textfield{
-  border: 1px solid #F7F8FD;
-  font-size: 1.3vh;
-  width: 37.78vh;
-  height: 4.356vh;
-  background: #F7F8FD 0% 0% no-repeat padding-box;
-  border-radius: 10px;
-  outline: none;
-}
-.icon{
-  position: absolute;
-    top: 35%;
-    left: 89%;
-    bottom: 10px;
-    height: 30%;
-    width: 10%;
-}
-::placeholder{
-  color: #6F91A8;
-  font-size: 1.3vh;
-  padding-left: 1vh;
-}
-.checkbox{
-  height: 0.5vh;
+.userMail{
+  text-align: center;
+  font-weight: 700;
   color: #2B3134;
-  font-size: 1.3vh;
+  font-size: 1.38vh;
+}
+
+.editButton{
+  color: #6f91a8;
+  letter-spacing: 0.15vh;
+  border: none;
+  margin: 0 0.8vh;
+  border-radius: 0.39vh;
+  font-size: 1.12vh;
+  font-weight: 700;
 }
 .para1{
   margin: 2.5vh 0 0.5549vh;
@@ -113,25 +102,13 @@ p{
   font-weight: 700;
   color:#2B3134;
 }
-.formitem{
-  margin-bottom: 1vh;
+.otpWrapper input{
+    letter-spacing: 3vh;
 }
-.flexcont{
-  display: flex;
-  width: 37.78vh;
-}
-.flexcont > div {
-  flex: 1 1 50%;
-}
-.password{
-  text-align: right;
-  font-size: 1.3vh;
-  color: #2B3134;
-}
-.continueButton{
+.verifybutton{
     background: transparent linear-gradient(96deg, #315B81 0%, #003463 100%) 0% 0% no-repeat padding-box;
-    opacity: 0.3;
     color: #FFFFFF;
+    // opacity: 0.3;
     width: 100%;
     border: none;
     letter-spacing: 0.1vh;
@@ -141,79 +118,68 @@ p{
     border-radius: 1.03vh;
     text-align: center;
     width: 37.78vh;
-    height: 4.356vh; 
-    margin-top: 1.4vh;
-}
-.loginvalue{
-  font-size:1.486vh;
-  font-weight: 700;
-  text-align: center;
-}
-.loginPara{
-  font-size: 1.486vh;
-  text-align: center;
-  color: #2B3134;
-  font-weight: 400;
-  margin: 2.462vh 0 0.569vh 0;
-}
-.gotoLogin{
-  color: #33B986;
-  font-size: 1.486vh;
-  font-weight: 700;
-  text-align: center;
-}
-.arrow{
-  margin: 0.4vh 4px;
-  width: 1.6vh;
-  align-items: center;
-}
-.divider{
-    font-weight: 400;
-    font-size: 1.1111vh;
-    color: #3B444D;
-    padding: 0 0.65vh;
-    letter-spacing: 1.2px;
-    text-align: center;
-    margin-top: -5px;
+    height: 4.356vh;
 }
 
-.terms{
-    color: #003d63;
-    font-weight: 600; 
-    font-size: 1.3vh;
-    margin: 0 0 0 0.4vh;
-   
-}
-.phoneNumberWrapper{
-    display: flex;
-    justify-content:space-between;
-    width: 37.78vh;
-}
-.phoneCode{
-    border: 1px solid #f7f8fd;
-  font-size: 1.3vh;
-  height: 4.356vh;
-  background: #F7F8FD 0% 0% no-repeat padding-box;
-  border-radius: 10px;
+.otpFields {
+  width: 40.556vh;
+  height: 7.2223vh;
+  background-color: #f7f8fd;
+  border: 1px solid #fff;
+  border-radius: 1.03vh;
+  justify-content: center;
+  margin-bottom: 0.4vh;
   outline: none;
-  display: flex;
-  justify-content:center;
-  align-items: center;
-  width:20%;
+  font-size: 3.8588754134509373vh;
   font-weight: 600;
-  color:#2B3134;
+  box-shadow: none;
+  background-color: #f7f8fd;
+  text-align: center;
 }
-.phoneCode p{
-    margin:0;
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
-.flag{
-    border-radius: 50%;
-    width: 2vh;
-    height: 2vh;
-    margin: 0 0.3vh 0 0;
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
-.dropdown{
-    width: 1vh;
-    height: 1vh;
-    margin: 0 0 0 0.5vh;
+
+.otpWrapper{
+  display: flex;
+  flex-direction: row;
 }
+
+.otpSingleField{
+  margin-right:0.8864809081527347vh;
+}
+.otpGuide{
+  letter-spacing: 0.1vh;
+  color: #6f91a8;
+  display: flex;
+  align-items: center;
+  margin-top: 1vh;
+  margin-left: 18vh;
+}
+
+.otpContent{
+  font-size:1.386vh;
+  color: #2B3134;
+  font-weight: 400;
+}
+
+.clock{
+  margin-top: -0.5vh;
+  width: 2.8vh;
+  height: 1.8vh;
+}
+
+.time{
+  letter-spacing: 1.6px;
+  color: #6f91a8;
+  width: 4vh;
+  font-size: 1.4vh;
+  font-weight: 700;
+} 
+
