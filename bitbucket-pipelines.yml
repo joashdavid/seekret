@@ -1,0 +1,91 @@
+image: node:14.18.0
+
+pipelines:
+  pull-requests:
+      '**':
+        - step:
+            caches:
+              - node
+            name: install node modules
+            script:
+              - npm install
+        - step:
+            name: test the app
+            script:
+              - npm install
+              - npm run lint
+              - npm run format:check || true
+              - npm run import-sort:check || true
+              - npm run cspell:check || true
+        - step:
+            name: build react app
+            script:
+              - npm install
+              - export NODE_OPTIONS=--max_old_space_size=3072
+              - npm run build:prod
+            artifacts:
+              - dist/**/*
+        - step:
+            name: copy to S3
+            deployment: production
+            script:
+              - pipe: atlassian/aws-s3-deploy:0.3.8
+                variables:
+                  AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                  AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                  AWS_DEFAULT_REGION: 'ap-south-1'
+                  S3_BUCKET: 'cyclops-pr-preview'
+                  LOCAL_PATH: 'dist/apps/web/customer' 
+        - step:
+           name: Invalidate Cloudfront Cache
+           script:
+             - pipe: atlassian/aws-cloudfront-invalidate:0.1.1
+               variables:
+                 AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                 AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                 AWS_DEFAULT_REGION: 'ap-south-1'
+                 DISTRIBUTION_ID: 'E1SSCNMI38JF9R'
+  branches:
+      master:
+        - step:
+            caches:
+              - node
+            name: install node modules
+            script:
+              - npm install
+        - step:
+            name: test the app
+            script:
+              - npm install
+              - npm run lint
+              - npm run format:check || true
+              - npm run import-sort:check || true
+              - npm run cspell:check || true
+        - step:
+            name: build react app
+            script:
+              - npm install
+              - export NODE_OPTIONS=--max_old_space_size=3072
+              - npm run build:prod
+            artifacts:
+              - dist/**/*
+        - step:
+            name: copy to S3
+            deployment: production
+            script:
+              - pipe: atlassian/aws-s3-deploy:0.3.8
+                variables:
+                  AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                  AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                  AWS_DEFAULT_REGION: 'ap-south-1'
+                  S3_BUCKET: 'cyclops-master'
+                  LOCAL_PATH: 'dist/apps/web/customer' 
+        - step:
+           name: Invalidate Cloudfront Cache
+           script:
+             - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
+               variables:
+                 AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                 AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                 AWS_DEFAULT_REGION: 'ap-south-1'
+                 DISTRIBUTION_ID: 'E1NXE9UP15A7Z8'
