@@ -38,6 +38,7 @@ pipelines:
                   LOCAL_PATH: 'dist/apps/web/customer' 
         - step:
            name: Invalidate Cloudfront Cache
+           deployment: production
            script:
              - pipe: atlassian/aws-cloudfront-invalidate:0.1.1
                variables:
@@ -82,6 +83,7 @@ pipelines:
                   LOCAL_PATH: 'dist/apps/web/customer' 
         - step:
            name: Invalidate Cloudfront Cache
+           deployment: production
            script:
              - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
                variables:
