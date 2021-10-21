@@ -50,7 +50,7 @@ const CreateAccount = () => {
         localStorage.setItem("email",email)
         console.log(response)
         if(response.success){
-          history.push('/otp',{email})
+          history.push('/otp',{email,password})
         }  
     }
 

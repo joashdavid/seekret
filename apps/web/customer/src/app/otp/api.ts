@@ -12,4 +12,9 @@ const otpToserverApi = async(email:string|null,data:string) => {
 
 }
 
-export default otpToserverApi
+const getAccessToken = async(data: unknown) => {
+    const response = await apiRequest("POST",'users/login',data)
+    return response
+}
+
+export  { otpToserverApi, getAccessToken}

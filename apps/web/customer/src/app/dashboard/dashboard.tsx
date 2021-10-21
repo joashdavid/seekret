@@ -1,12 +1,16 @@
-// import { Router, Switch, Route } from 'react-router'
 import landingPageStyles from './dashboard.module.less'
 import { useHistory } from 'react-router-dom'
 import { Layout, Menu, Breadcrumb,Button } from 'antd'
 import { UserOutlined, LogoutOutlined } from '@ant-design/icons'
 import { apiRequest } from '../../services/axios/axios'
 import styles from './dashboard.module.less'
-import { OrgForm } from '../org-form/org-form'
 import { Divider } from 'antd'
+import TextField from '../components/text-field/text-field'
+import { useState } from 'react'
+import globalStyles from '../app.module.less'
+import { Select} from 'antd'
+import { createOrganizationApi } from './api'
+
 
 const LandingPage = () => {
     const { SubMenu } = Menu
@@ -19,16 +23,55 @@ const LandingPage = () => {
       history.push('/')
     }
 
+    const [orgName, setOrgName] = useState("")
+    const [shortName, setShortName] = useState("")
+    const [theme , setTheme] = useState('')
+    const { Option } = Select 
+    const themeList = [
+      {
+          "color": "Teal",
+          "hexcode": "008080"
+      },
+      {
+          "color": "Turquoise",
+          "hexcode": "40E0D0"
+      },
+      {
+          "color": "Chartreuse",
+          "hexcode": "7FFF00"
+      },
+      {
+          "color": "Sienna",
+          "hexcode": "A0522D"
+      }
+  ]
+
+    const getOrgName = (data:string) => {
+      setOrgName(data)
+  }
+  const getShortName =(data: string) => {
+      setShortName(data)
+  }
+  const getTheme = (data:string) => {
+      setTheme(data)
+  }
+
+  const createOrganization = async() => {
+    const response = await createOrganizationApi(orgName,shortName,theme)
+    console.log(response)
+    if(response.success){
+        setOrgName('')
+        setShortName('')
+        setTheme('')
+    }
+  }
+
+
     return(
         <div className={landingPageStyles.containers}>
         <Layout style={{width:"100%",height:"100vh"}}>
         <Header className="header">
-          <div className="logo" />
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-            <Menu.Item key="1">nav 1</Menu.Item>
-            <Menu.Item key="2">nav 2</Menu.Item>
-            <Menu.Item key="3">nav 3</Menu.Item>
-          </Menu>
+          
         </Header>
         <Layout>
           <Sider width={200} className="site-layout-background">
@@ -55,19 +98,43 @@ const LandingPage = () => {
           <Layout style={{ padding: '0 24px 24px' }}>
             <Breadcrumb style={{ margin: '16px 0' }} >
               <Breadcrumb.Item className={styles.breadcrumb}>Add</Breadcrumb.Item>
-              <Breadcrumb.Item className={styles.breadcrumb}>Contact</Breadcrumb.Item>
+              <Breadcrumb.Item className={styles.breadcrumb}>Organization</Breadcrumb.Item>
             </Breadcrumb>
             <Content
               className="site-layout-background"
             >
               <Divider/>
+              <TextField
+                onUserInput={getOrgName}
+                label="Organization name"
+                name="orgName"
+                type="text"
+                img={''}
+                value = {orgName}
+                />
+                <TextField
+                onUserInput={getShortName}
+                label="Short name"
+                name="shortName"
+                type="text"
+                img={''}
+                value = {shortName}
+                />
+                <Select className={styles.dropDown} 
+                defaultValue={themeList[0].hexcode} onChange={getTheme}>
+                    {themeList .map(theme =>{
+                       return ( <Option value={theme.hexcode}>{theme.color}</Option>)
+                    })}
+                </Select>
+
+                <input className={globalStyles.formButton} onClick={createOrganization} type="Button"  value="Save"/>
               {/* <Router>
                 <Switch>
                     <Route exact path='/createOrganization' component={OrgForm}/>
                 </Switch>
               </Router> */}
-              <OrgForm/>
-            
+              {/* <OrgForm/> */}
+             
             </Content>
           </Layout>
         </Layout>

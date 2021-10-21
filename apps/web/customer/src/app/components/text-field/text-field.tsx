@@ -23,7 +23,7 @@ const TextField = (props: { onUserInput: (arg0: string) => void; label: string;
     return (
         <FloatLabel label={props.label} name={props.name}  value={props.value}>
             <div className={props.name !== "mobileNumber"?styles.textfield:styles.phoneNumber}>
-                <input type={isViewPassword ? "text": props.type} 
+                <input type={isViewPassword ? "text": props.type} value={props.value}
                      className={props.name !== "mobileNumber"?styles.textfield:styles.phoneNumber} onInput={getCurrentInput}
                     spellCheck={false}
                     />

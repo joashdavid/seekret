@@ -1,16 +1,37 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import globalStyles from '../app.module.less'
 import orgStyles from './create-org.module.less'
-import { Checkbox, Divider} from 'antd'
+import { Select} from 'antd'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
-// import { TextField } from '../components/text-field-nosuffix'
+import { useHistory } from 'react-router-dom'
+import styles from './create-org.module.less'
 import TextField from '../components/text-field/text-field'
+import { createOrganizationApi } from './api'
 
 const CreateOrg = () => {
     const [orgName, setOrgName] = useState("")
     const [shortName, setShortName] = useState("")
-    const [theme , setTheme] = useState('')   
+    const [theme , setTheme] = useState('') 
+    const { Option } = Select 
+    const history = useHistory() 
+    const themeList = [
+        {
+            "color": "Teal",
+            "hexcode": "008080"
+        },
+        {
+            "color": "Turquoise",
+            "hexcode": "40E0D0"
+        },
+        {
+            "color": "Chartreuse",
+            "hexcode": "7FFF00"
+        },
+        {
+            "color": "Sienna",
+            "hexcode": "A0522D"
+        }
+    ]
     
     const getOrgName = (data:string) => {
         setOrgName(data)
@@ -20,6 +41,14 @@ const CreateOrg = () => {
     }
     const getTheme = (data:string) => {
         setTheme(data)
+    }
+
+    const createOrganization = async() => {
+        const response = await createOrganizationApi(orgName,shortName,theme)
+        console.log(response)
+        if(response.success){
+            history.push('/dashboard')
+        }
     }
     return(
         <div className={globalStyles.containers}>
@@ -54,21 +83,20 @@ const CreateOrg = () => {
                 value = {orgName}
                 />
                  <TextField
-                onUserInput={getOrgName}
+                onUserInput={getShortName}
                 label="Short name"
                 name="shortName"
                 type="text"
                 img={''}
                 value = {shortName}
                 />
-                 <TextField
-                onUserInput={getOrgName}
-                label="Choose a theme"
-                name="theme"
-                type="text"
-                img={''}
-                value = {theme}
-                />
+
+                <Select className={styles.dropDown} placeholder='Choose a theme' 
+                defaultValue={themeList[0].hexcode} onChange={getTheme}>
+                    {themeList .map(theme =>{
+                       return ( <Option value={theme.hexcode}>{theme.color}</Option>)
+                    })}
+                </Select>
                 {/* <TextField label="Organization Name" name="Organization Name"  value={orgName}>
                 
                 </TextField>
@@ -81,7 +109,7 @@ const CreateOrg = () => {
                 
                 </TextField> */}
         
-                <input type="Button" className={globalStyles.formButton} value="CONTINUE"/>
+                <input type="Button" className={globalStyles.formButton} onClick={createOrganization} value="CONTINUE"/>
             </div>
             </div>
             </div>

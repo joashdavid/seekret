@@ -3,7 +3,7 @@ import Timer from '../components/timer/timer'
 import otpstyles from './otp.module.less'
 import CycButton from '../components/cyc-button/cyc-button'
 import { useHistory, useLocation } from 'react-router-dom'
-import otpToserverApi from './api'
+import {otpToserverApi, getAccessToken} from './api'
 
 const Otp = () => {
   const history = useHistory()
@@ -17,8 +17,11 @@ const Otp = () => {
   const otpToserver = async() => {
     console.log(otp)
     const response = await otpToserverApi(email,otp)
-    console.log(response)
-    if(response.sucess){
+    
+    if(response.success){
+      const response = await getAccessToken(location.state)
+      console.log(response)
+      localStorage.setItem("Token",response.data)
       history.push('/createOrganization')
     }
     
