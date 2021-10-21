@@ -1,7 +1,7 @@
 
 import landingPageStyles from './dashboard.module.less'
-import { useHistory } from 'react-router-dom'
-import { useState } from 'react'
+// import { useHistory } from 'react-router-dom'
+// import { useState } from 'react'
 import { Layout, Menu, Breadcrumb,Button } from 'antd'
 import { UserOutlined, LogoutOutlined } from '@ant-design/icons'
 import { apiRequest } from '../../services/axios/axios'
@@ -10,19 +10,19 @@ import { apiRequest } from '../../services/axios/axios'
 const LandingPage = () => {
     const { SubMenu } = Menu
     const { Header, Content, Sider } = Layout
-    const [isLoggedout , setIsLoggedout] = useState(false)
-    const history = useHistory()
+    // const [isLoggedout , setIsLoggedout] = useState(false)
+    // const history = useHistory()
 
     const logout = async() => {
       // localStorage.removeItem("Token")
       const response = await apiRequest('GET','users/logout','')
       console.log(response)
-      setIsLoggedout(true)
+      // setIsLoggedout(true)
     }
 
-    if(isLoggedout){
-      return history.push('/')
-    }
+    // if(isLoggedout){
+    //   return history.push('/')
+    // }
     return(
         <div className={landingPageStyles.containers}>
         <Layout style={{width:"100%",height:"100vh"}}>
