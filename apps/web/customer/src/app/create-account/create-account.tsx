@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import createAccountApi from './api'
 import CycButton from '../components/cyc-button/cyc-button'
 import validate from './validation'
-import {Link, Redirect} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
 
 const CreateAccount = () => {
@@ -17,6 +17,7 @@ const CreateAccount = () => {
     const [isAgreed, setisAgreed] = useState(true)
     const [errorIn, setErrorIn] = useState("")
     const [isUserCreated , setIsUserCreated] = useState(false)
+    const history = useHistory()
 
     useEffect(() => {
       setErrorIn(validate(name,email,mobileNumber,password,confirmPassword,isAgreed))
@@ -55,7 +56,7 @@ const CreateAccount = () => {
     }
 
     if(isUserCreated){
-      return <Redirect to='/otp' push></Redirect>
+      history.push('/otp',{email})
     }
 
     return(

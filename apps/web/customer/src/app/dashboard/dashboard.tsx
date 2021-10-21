@@ -1,6 +1,6 @@
 
 import landingPageStyles from './dashboard.module.less'
-import {Redirect} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useState } from 'react'
 import { Layout, Menu, Breadcrumb,Button } from 'antd'
 import { UserOutlined, LogoutOutlined } from '@ant-design/icons'
@@ -11,6 +11,7 @@ const LandingPage = () => {
     const { SubMenu } = Menu
     const { Header, Content, Sider } = Layout
     const [isLoggedout , setIsLoggedout] = useState(false)
+    const history = useHistory()
 
     const logout = async() => {
       // localStorage.removeItem("Token")
@@ -18,8 +19,9 @@ const LandingPage = () => {
       console.log(response)
       setIsLoggedout(true)
     }
+
     if(isLoggedout){
-      return <Redirect to='/'/>
+      return history.push('/')
     }
     return(
         <div className={landingPageStyles.containers}>
