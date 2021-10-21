@@ -13,7 +13,7 @@ const LandingPage = () => {
     const [isLoggedout , setIsLoggedout] = useState(false)
 
     const logout = async() => {
-      localStorage.removeItem("Token")
+      // localStorage.removeItem("Token")
       const response = await apiRequest('GET','users/logout','')
       console.log(response)
       setIsLoggedout(true)

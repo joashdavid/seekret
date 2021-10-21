@@ -4,14 +4,14 @@ import { useState, useEffect } from 'react'
 import { userLoginApi } from './api'
 import TextField from '../components/text-field/text-field'
 import { validate } from './validation'
-import  { Link, Redirect } from 'react-router-dom'
+import  { Link, useHistory } from 'react-router-dom'
 
 const Login = () => {
   const [email, setemail] = useState('')
   const [password, setpassword] = useState('')
   const [isFormValid, setFormValid] = useState(false)
   const [isUserLogged, setIsUserLogged] = useState(false)
-
+  const history = useHistory()
 
   const userLogin = async () => {
     const dataToserver = {
@@ -43,7 +43,7 @@ const Login = () => {
   }
 
   if(isUserLogged){
-      return <Redirect to='/dashboard' push/>
+      history.push('/dashboard')
   }
 
   return (

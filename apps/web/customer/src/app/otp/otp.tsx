@@ -1,12 +1,16 @@
 import otpstyles from './otp.module.less'
 import { useState } from 'react'
 import otpToserverApi from './api'
-import { Redirect } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 
 const Otp = () => {
   const [otp, setOtp] = useState('')
   const [isUserVerified, setIsUserVerified] = useState(false)
+  const dataFromPreviousComponents = useLocation()
+  const history = useHistory()
 
+  console.log(dataFromPreviousComponents)
+  
   const email = localStorage.getItem('email')
   const getOtp = (event: React.ChangeEvent<HTMLInputElement>) => {
     setOtp(event.target.value)
@@ -19,7 +23,7 @@ const Otp = () => {
     }
   }
   if (isUserVerified) {
-    return <Redirect to="/dashboard"></Redirect>
+    history.push('/dashboard')
   }
   return (
     <div className={otpstyles.containers}>
