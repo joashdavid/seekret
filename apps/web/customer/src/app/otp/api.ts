@@ -1,6 +1,6 @@
 import { apiRequest } from "../../services/axios/axios"
 
-const otpToserver = async(email:string|null,data:string) => {
+const otpToserverApi = async(email:string|null,data:string) => {
     const dataToserver = {
         email,
         otp:data
@@ -12,4 +12,4 @@ const otpToserver = async(email:string|null,data:string) => {
 
 }
 
-export default otpToserver
+export default otpToserverApi

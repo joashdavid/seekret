@@ -16,7 +16,6 @@ const CreateAccount = () => {
     const [confirmPassword, setconfirmPassword] = useState("")
     const [isAgreed, setisAgreed] = useState(true)
     const [errorIn, setErrorIn] = useState("")
-    const [isUserCreated , setIsUserCreated] = useState(false)
     const history = useHistory()
 
     useEffect(() => {
@@ -50,13 +49,9 @@ const CreateAccount = () => {
         const response = await createAccountApi(name,email,mobileNumber,password)
         localStorage.setItem("email",email)
         console.log(response)
-        if(response.sucess){
-          setIsUserCreated(response.sucess)
+        if(response.success){
+          history.push('/otp',{email})
         }  
-    }
-
-    if(isUserCreated){
-      history.push('/otp',{email})
     }
 
     return(

@@ -27,8 +27,11 @@ const TextField = (props: { onUserInput: (arg0: string) => void; label: string;
                      className={props.name !== "mobileNumber"?styles.textfield:styles.phoneNumber} onInput={getCurrentInput}
                     spellCheck={false}
                     />
-                {props.type === "password" ? <img src={isViewPassword ? "./assets/eyeclose.svg":"./assets/eyeopen.svg"} alt=""  className={`${styles.icon} ${styles.hover}`} onClick={changePasswordType} />
-                :   <img src={props.img} alt=""  className={props.name !== "mobileNumber" ? styles.icon: styles.icons}/>}
+                {props.type === "password" ? 
+                    <img src={isViewPassword ? "./assets/eyeclose.svg":"./assets/eyeopen.svg"} alt=""  className={`${styles.icon} ${styles.hover}`} onClick={changePasswordType} />
+                    :<img src={props.img} alt=""  className={props.name !== "mobileNumber" ? styles.icon: styles.icons}/>
+                }
+                
             </div>
         </FloatLabel>
     )

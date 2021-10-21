@@ -10,7 +10,6 @@ const Login = () => {
   const [email, setemail] = useState('')
   const [password, setpassword] = useState('')
   const [isFormValid, setFormValid] = useState(false)
-  const [isUserLogged, setIsUserLogged] = useState(false)
   const history = useHistory()
 
   const userLogin = async () => {
@@ -23,8 +22,8 @@ const Login = () => {
         console.log(response)
         localStorage.setItem("Token",response.data)
         
-        if (response.sucess) {
-           setIsUserLogged(true)
+        if (response.success) {
+           history.push('/dashboard')
         }
     }
     
@@ -40,10 +39,6 @@ const Login = () => {
   }
   const getEmail = (data: string) => {
     setemail(data)
-  }
-
-  if(isUserLogged){
-      history.push('/dashboard')
   }
 
   return (

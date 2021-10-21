@@ -1,30 +1,31 @@
-import otpstyles from './otp.module.less'
 import { useState } from 'react'
-import otpToserverApi from './api'
+import Timer from '../components/timer/timer'
+import otpstyles from './otp.module.less'
+import CycButton from '../components/cyc-button/cyc-button'
 import { useHistory, useLocation } from 'react-router-dom'
+import otpToserverApi from './api'
 
 const Otp = () => {
-  const [otp, setOtp] = useState('')
-  const [isUserVerified, setIsUserVerified] = useState(false)
-  const dataFromPreviousComponents = useLocation()
   const history = useHistory()
-
-  console.log(dataFromPreviousComponents)
-  
-  const email = localStorage.getItem('email')
+  const location = useLocation()
+  console.log(location.state)
+  const [otp, setOtp] = useState('')
   const getOtp = (event: React.ChangeEvent<HTMLInputElement>) => {
     setOtp(event.target.value)
   }
-
-  const otpToserver = async () => {
-    const response = await otpToserverApi(email, otp)
-    if (response.sucess) {
-      setIsUserVerified(true)
+  const email = localStorage.getItem('email')
+  const otpToserver = async() => {
+    console.log(otp)
+    const response = await otpToserverApi(email,otp)
+    console.log(response)
+    if(response.sucess){
+      history.push('/createOrganization')
     }
+    
   }
-  if (isUserVerified) {
-    history.push('/dashboard')
-  }
+    
+
+
   return (
     <div className={otpstyles.containers}>
       <div className={otpstyles.flex}>
@@ -46,8 +47,10 @@ const Otp = () => {
               Please enter the 6-digit code sent to your registered Email.
             </p>
             <p className={otpstyles.userMail}>
-              {email} <input type="Button" className={otpstyles.editButton} value="EDIT" />
+              {email}
+              <input type="Button" className={otpstyles.editButton} value="EDIT" />
             </p>
+            <div >
             <div className={otpstyles.otpWrapper}>
               <input
                 type="number"
@@ -56,19 +59,17 @@ const Otp = () => {
                 onChange={getOtp}
               />
             </div>
+            </div>
+            
+
             <div className={otpstyles.otpGuide}>
               <p className={otpstyles.otpContent}>Resend Code in</p>
               <img src="./assets/clock.svg" className={otpstyles.clock} alt="" />
               <p className={otpstyles.time} id="countdown">
-                120s
+                <Timer />
               </p>
             </div>
-            <input
-              type="Button"
-              className={otpstyles.verifybutton}
-              value="VERIFY"
-              onClick={otpToserver}
-            />
+            <CycButton value="VERIFY" disabled={otp.length !== 6} onClick={otpToserver}/>
           </div>
         </div>
       </div>

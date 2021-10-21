@@ -1,28 +1,24 @@
-
+// import { Router, Switch, Route } from 'react-router'
 import landingPageStyles from './dashboard.module.less'
-// import { useHistory } from 'react-router-dom'
-// import { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { Layout, Menu, Breadcrumb,Button } from 'antd'
 import { UserOutlined, LogoutOutlined } from '@ant-design/icons'
 import { apiRequest } from '../../services/axios/axios'
-
+import styles from './dashboard.module.less'
+import { OrgForm } from '../org-form/org-form'
+import { Divider } from 'antd'
 
 const LandingPage = () => {
     const { SubMenu } = Menu
     const { Header, Content, Sider } = Layout
-    // const [isLoggedout , setIsLoggedout] = useState(false)
-    // const history = useHistory()
+    const history = useHistory()
 
     const logout = async() => {
-      // localStorage.removeItem("Token")
       const response = await apiRequest('GET','users/logout','')
       console.log(response)
-      // setIsLoggedout(true)
+      history.push('/')
     }
 
-    // if(isLoggedout){
-    //   return history.push('/')
-    // }
     return(
         <div className={landingPageStyles.containers}>
         <Layout style={{width:"100%",height:"100vh"}}>
@@ -57,19 +53,21 @@ const LandingPage = () => {
             </Menu>
           </Sider>
           <Layout style={{ padding: '0 24px 24px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>Add</Breadcrumb.Item>
-              <Breadcrumb.Item>Contact</Breadcrumb.Item>
+            <Breadcrumb style={{ margin: '16px 0' }} >
+              <Breadcrumb.Item className={styles.breadcrumb}>Add</Breadcrumb.Item>
+              <Breadcrumb.Item className={styles.breadcrumb}>Contact</Breadcrumb.Item>
             </Breadcrumb>
             <Content
               className="site-layout-background"
-              style={{
-                padding: 24,
-                margin: 0,
-                minHeight: 280,
-              }}
             >
-              Content
+              <Divider/>
+              {/* <Router>
+                <Switch>
+                    <Route exact path='/createOrganization' component={OrgForm}/>
+                </Switch>
+              </Router> */}
+              <OrgForm/>
+            
             </Content>
           </Layout>
         </Layout>
