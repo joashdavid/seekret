@@ -1,8 +1,8 @@
 // import { Button } from 'antd'
 import styles from './app.module.less'
-import CreateAccount from './createAccount/createAccount'
+import CreateAccount from './create-account/create-account'
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
-import Login from './Login/login'
+import Login from './login/login'
 import Dashboard from './dashboard/dashboard'
 import Otp from './otp/otp'
 const App = () => {
@@ -16,7 +16,6 @@ const App = () => {
         <Route exact path='/otp' component={Otp}></Route> 
       </Switch> 
       </Router>
-    
     </div>
   )
 }

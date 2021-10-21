@@ -1,12 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import createAccountstyles from './createAccount.module.less'
+import createAccountstyles from './create-account.module.less'
 import { Checkbox, Divider} from 'antd'
-import TextField from '../components/textField/textField'
+import TextField from '../components/text-field/text-field'
 import { useState, useEffect } from 'react'
 import createAccountApi from './api'
-import CycButton from '../components/cycButton/cycButton'
+import CycButton from '../components/cyc-button/cyc-button'
 import validate from './validation'
 import {Link, Redirect} from 'react-router-dom'
+import { CheckboxChangeEvent } from 'antd/lib/checkbox'
 
 const CreateAccount = () => {
     const [name, setname] = useState('')
@@ -24,10 +24,6 @@ const CreateAccount = () => {
     ,[name,email,mobileNumber,password,confirmPassword,isAgreed]
     )
 
-    // useEffect(() => {
-    //   setmobileNumber(mobileNumber.replace(/[a-z@#$!^%*&={}<>~|?:;_`"',.[\]\\/]/g, ''))
-    // },[mobileNumber])
-
     const getFullName = (data:string) => {
       setname(data)
     }
@@ -44,8 +40,8 @@ const CreateAccount = () => {
     const getConfirmPassword = (data:string) => {
       setconfirmPassword(data)
     }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const getAgree = (event:any) => {
+
+    const getAgree = (event:CheckboxChangeEvent) => {
       setisAgreed(event.target.checked)
     }
 
@@ -55,9 +51,9 @@ const CreateAccount = () => {
         console.log(response)
         if(response.sucess){
           setIsUserCreated(response.sucess)
-        }
-       
+        }  
     }
+
     if(isUserCreated){
       return <Redirect to='/otp' push></Redirect>
     }
@@ -148,7 +144,6 @@ const CreateAccount = () => {
                     </div>
                 </div>
                <CycButton value="CONTINUE" disabled={errorIn !== 'valid'} onClick={createAccount}/>
-                {/* <input type="Button" className={createAccountstyles.continueButton} value="CONTINUE" onClick={createAccount}/> */}
                 <p className={createAccountstyles.loginPara}>Already  have an account?</p>
                 <div>
                   <Link to="/">

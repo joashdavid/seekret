@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react"
 
-import "./floatLabel.css"
+import React, { useState, ReactChild } from "react"
 
-const FloatLabel = (props: { children: any; label: string; value: string; name:string }) => {
+import "./float-label.css"
+
+const FloatLabel = (props: { children: ReactChild; label: string; value: string; name:string }) => {
   const [isFocus, setFocus] = useState(false)
   const { children, label, value } = props
 

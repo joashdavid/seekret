@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import landingPageStyles from './dashboard.module.less'
 import {Redirect} from 'react-router-dom'
 import { useState } from 'react'
 import { Layout, Menu, Breadcrumb,Button } from 'antd'
-import { UserOutlined, LaptopOutlined, NotificationOutlined,LogoutOutlined } from '@ant-design/icons'
+import { UserOutlined, LogoutOutlined } from '@ant-design/icons'
 import { apiRequest } from '../../services/axios/axios'
 
 
@@ -13,7 +13,7 @@ const LandingPage = () => {
     const [isLoggedout , setIsLoggedout] = useState(false)
 
     const logout = async() => {
-      console.log("Logout")
+      localStorage.removeItem("Token")
       const response = await apiRequest('GET','users/logout','')
       console.log(response)
       setIsLoggedout(true)

@@ -1,4 +1,4 @@
-import styles from './cycButton.module.less'
+import styles from './cyc-button.module.less'
 
 const CycButton = (props: { disabled: boolean; onClick: () => void; value: string }) => {
     const buttonClass = props.disabled ? "" : styles.buttonEnabled
