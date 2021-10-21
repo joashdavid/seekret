@@ -104,6 +104,8 @@ const LandingPage = () => {
               className="site-layout-background"
             >
               <Divider/>
+              <div style={{ width:"37vh"}}>
+                <span style={{marginBottom:"1vh"}}>1.Fill the organization details</span>
               <TextField
                 onUserInput={getOrgName}
                 label="Organization name"
@@ -126,6 +128,8 @@ const LandingPage = () => {
                        return ( <Option value={theme.hexcode}>{theme.color}</Option>)
                     })}
                 </Select>
+              </div>
+              
 
                 <input className={globalStyles.formButton} onClick={createOrganization} type="Button"  value="Save"/>
               {/* <Router>
