@@ -1,7 +1,7 @@
 import otpstyles from './otp.module.less'
 import { useState } from 'react'
 import otpToserverApi from './api'
-import { Redirect } from 'react-router'
+import { Redirect } from 'react-router-dom'
 
 const Otp = () => {
   const [otp, setOtp] = useState('')
