@@ -52,6 +52,7 @@ const CreateAccount = () => {
       </div>
   )
     const createAccount = async() => {
+      console.log(name,email,mobileNumber,password)
         const response = await createAccountApi(name,email,mobileNumber,password)
         localStorage.setItem("email",email)
         console.log(response)

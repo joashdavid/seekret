@@ -3,7 +3,7 @@
 import axios from 'axios'
 
 
-const axiosApi = axios.create({ baseURL: "https://dev-cyclops.powerofn.in/cyclops/server/" })
+const axiosApi = axios.create({ baseURL: "https://b2-cyclops.powerofn.in/cyclops/server/" })
 
 const apiRequest = (method: any, url: any, request: any): any => {
     const token = localStorage.getItem('Token')

@@ -3,49 +3,60 @@ import { useHistory } from 'react-router-dom'
 import { Layout, Menu, Breadcrumb,Button, Typography } from 'antd'
 import { UserOutlined, LogoutOutlined } from '@ant-design/icons'
 import { apiRequest } from '../../services/axios/axios'
-import { Divider } from 'antd'
+import { Divider, Select } from 'antd'
 import {TextFieldNoSuffix} from '../components/text-field-nosuffix'
 import { useState, useEffect } from 'react'
-import { createOrganizationApi, getThemeApi } from './api'
+import { createOrganizationApi, getThemeApi, fetchOrganizationApi } from './api'
 import CycButton from '../components/cyc-button/cyc-button'
 import { ThemeModel } from '../../model/model'
 import { ThemeDropDown } from '../components/theme-dropdown'
-
+import { OrgnizationModel } from './model'
 
 
 const Dashboard = () => {
     const { SubMenu } = Menu
+    const {Option} = Select
     const { Header, Content, Sider } = Layout
     const history = useHistory()
     const {Text} = Typography
-
+    const [orgName, setOrgName] = useState("")
+    const [shortName, setShortName] = useState("")
+    const [theme , setTheme] = useState('')
+    const [themeList ,setThemeList] = useState<ThemeModel[]>([])
+    const [orgList, setOrgList] = useState<OrgnizationModel[]>([])
+    
     const logout = async() => {
       const response = await apiRequest('GET','users/logout','')
       console.log(response)
       history.push('/')
     }
 
-    const [orgName, setOrgName] = useState("")
-    const [shortName, setShortName] = useState("")
-    const [theme , setTheme] = useState('')
-    const [themeList ,setThemeList] = useState<ThemeModel[]>([])
-
-  
     const getOrgName = (data:string) => {
       setOrgName(data)
-  }
-  const getShortName =(data: string) => {
-      setShortName(data)
-  }
-  const getTheme = (data:string) => {
-      setTheme(data)
-  }
+    }
+    const getShortName =(data: string) => {
+        setShortName(data)
+    }
+    const getTheme = (data:string) => {
+        setTheme(data)
+    }
+
 
   const getThemeData = async() => {
     const response = await getThemeApi()
     setThemeList(response.data)
     console.log(response)
   }
+  const fetchOrg = async () => {
+    const response = await fetchOrganizationApi()
+    setOrgList(response.data)
+    console.log((response.data))
+    // clearForm()
+  }
+
+  useEffect(() => {
+    fetchOrg()
+  }, [])
     useEffect(() => {
         getThemeData()
     },
@@ -54,10 +65,17 @@ const Dashboard = () => {
     const response = await createOrganizationApi(orgName,shortName,theme)
     console.log(response)
     if(response.success){
-        setOrgName('')
-        setShortName('')
-        setTheme('')
+       clearForm()
+       fetchOrg()
     }
+  }
+  const clearForm = () => {
+    setOrgName('')
+    setShortName('')
+    setTheme('')
+  }
+  const redirectToCreateOrganization = () => {
+    history.push('/dashboard')
   }
 
 
@@ -65,7 +83,22 @@ const Dashboard = () => {
         <div className={landingPageStyles.containers}>
         <Layout style={{width:"100%",height:"100vh"}}>
         <Header className="header">
-          
+        <Select
+            className={landingPageStyles.dropDown} onChange={fetchOrg}
+            style={{ width: 360}}
+            bordered={false}
+            dropdownRender={(menu) => (
+              <div>
+                <span className={landingPageStyles.optionValue}>{menu}</span>
+                <Divider style={{ margin: '4px 0' }} />
+                <CycButton value="+ ADD COMPANY" onClick={redirectToCreateOrganization} disabled={false}/>
+              </div>
+            )}
+          >
+            {orgList.map((org) => {
+              return <Option value={org.orgId}>{org.orgShortName}</Option>
+            })}
+          </Select>
         </Header>
         <Layout>
           <Sider width={200} className="site-layout-background">

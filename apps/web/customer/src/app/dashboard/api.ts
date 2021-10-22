@@ -14,4 +14,12 @@ const createOrganizationApi = async(orgName:string, shortName:string, theme:stri
 const getThemeApi = async() => {
     return await apiRequest("GET","organizations/fetchThemes",'')
 }
-export {createOrganizationApi, getThemeApi}
+const fetchOrganizationApi = async() => {
+    return  await apiRequest(
+        'GET',
+        'organizations/fetchOrg',
+        ""
+      )
+}
+
+export {createOrganizationApi, getThemeApi,fetchOrganizationApi}

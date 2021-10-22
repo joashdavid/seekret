@@ -6,8 +6,8 @@ const createAccountApi = async(name:string,email:string,mobileNumber:string,pass
     const dataToServer = {
         name,
         email,
-        country_code :"+91",
-        phone_no:mobileNumber,
+        countryCode :"+91",
+        phoneNo:mobileNumber,
         password,
     }
     console.log(dataToServer)

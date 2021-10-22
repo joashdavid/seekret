@@ -12,13 +12,13 @@ const ThemeDropDown = (props: {
   themeList: ThemeModel[]
   label: string
 }) => {
-    const [isOptionDidChange , setIsOptionDidChange] = useState(false)
+  const [isOptionDidChange, setIsOptionDidChange] = useState(false)
   const { Option } = Select
   const getTheme = (data: string) => {
     props.onChange(data)
   }
   const toogleSuffixIcon = () => {
-      setIsOptionDidChange(!isOptionDidChange)
+    setIsOptionDidChange(!isOptionDidChange)
   }
   return (
     <FloatLabel label={props.label} name="themeDropdown" value={props.value}>
@@ -34,6 +34,7 @@ const ThemeDropDown = (props: {
           return (
             <Option value={theme.hexcode}>
               <div className={styles.optionWrapper}>
+                {/* <Badge color={`${'#' + theme.hexcode}`} className={styles.themeBadge} /> */}
                 <div
                   className={styles.themeBadge}
                   style={{ backgroundColor: `${'#' + theme.hexcode}` }}

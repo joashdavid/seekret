@@ -20,6 +20,7 @@ const Login = () => {
       password,
     }
     if(isFormValid){
+      console.log(dataToserver)
         const response = await userLoginApi(dataToserver)
         console.log(response)
         localStorage.setItem("Token",response.data)
