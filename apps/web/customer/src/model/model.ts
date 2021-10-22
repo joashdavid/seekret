@@ -10,4 +10,11 @@ type UserLoginModel = {
     email: string;
     password: string;
 }
-export { UserRegistrationModel, UserLoginModel }
+interface ThemeModel{
+  color: string;
+  hexcode:string;
+}
+
+
+
+export { UserRegistrationModel, UserLoginModel,ThemeModel }

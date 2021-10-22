@@ -3,13 +3,14 @@ import { useHistory } from 'react-router-dom'
 import { Layout, Menu, Breadcrumb,Button, Typography } from 'antd'
 import { UserOutlined, LogoutOutlined } from '@ant-design/icons'
 import { apiRequest } from '../../services/axios/axios'
-import styles from './dashboard.module.less'
 import { Divider } from 'antd'
 import {TextFieldNoSuffix} from '../components/text-field-nosuffix'
-import { useState } from 'react'
-import { Select} from 'antd'
-import { createOrganizationApi } from './api'
+import { useState, useEffect } from 'react'
+import { createOrganizationApi, getThemeApi } from './api'
 import CycButton from '../components/cyc-button/cyc-button'
+import { ThemeModel } from '../../model/model'
+import { ThemeDropDown } from '../components/theme-dropdown'
+
 
 
 const Dashboard = () => {
@@ -27,26 +28,9 @@ const Dashboard = () => {
     const [orgName, setOrgName] = useState("")
     const [shortName, setShortName] = useState("")
     const [theme , setTheme] = useState('')
-    const { Option } = Select 
-    const themeList = [
-      {
-          "color": "Teal",
-          "hexcode": "008080"
-      },
-      {
-          "color": "Turquoise",
-          "hexcode": "40E0D0"
-      },
-      {
-          "color": "Chartreuse",
-          "hexcode": "7FFF00"
-      },
-      {
-          "color": "Sienna",
-          "hexcode": "A0522D"
-      }
-  ]
+    const [themeList ,setThemeList] = useState<ThemeModel[]>([])
 
+  
     const getOrgName = (data:string) => {
       setOrgName(data)
   }
@@ -57,6 +41,15 @@ const Dashboard = () => {
       setTheme(data)
   }
 
+  const getThemeData = async() => {
+    const response = await getThemeApi()
+    setThemeList(response.data)
+    console.log(response)
+  }
+    useEffect(() => {
+        getThemeData()
+    },
+    [])
   const createOrganization = async() => {
     const response = await createOrganizationApi(orgName,shortName,theme)
     console.log(response)
@@ -121,21 +114,11 @@ const Dashboard = () => {
                 type="text"
                 value = {shortName}
                 />
-                <Select className={styles.dropDown} 
-                defaultValue={themeList[0].hexcode} onChange={getTheme}>
-                    {themeList .map(theme =>{
-                       return ( <Option value={theme.hexcode}>{theme.color}</Option>)
-                    })}
-                </Select>
+                <ThemeDropDown label="Choose a theme" themeList = {themeList} onChange={getTheme} value={theme}/>
               </div>
               
                 <CycButton value="SAVE" onClick={createOrganization} disabled={false}/>
-              {/* <Router>
-                <Switch>
-                    <Route exact path='/createOrganization' component={OrgForm}/>
-                </Switch>
-              </Router> */}
-              {/* <OrgForm/> */}
+
              
             </Content>
           </Layout>

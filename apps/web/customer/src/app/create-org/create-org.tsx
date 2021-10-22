@@ -1,38 +1,18 @@
 import globalStyles from '../app.module.less'
 import orgStyles from './create-org.module.less'
-import { Select } from 'antd'
 import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import styles from './create-org.module.less'
 import {TextFieldNoSuffix} from '../components/text-field-nosuffix'
 import { createOrganizationApi, getThemeApi } from './api'
 import { ThemeModel } from './model'
+import { ThemeDropDown } from '../components/theme-dropdown'
 
 const CreateOrg = () => {
     const [orgName, setOrgName] = useState("")
     const [shortName, setShortName] = useState("")
     const [theme , setTheme] = useState('') 
     const [themeList ,setThemeList] = useState<ThemeModel[]>([])
-    const { Option } = Select 
     const history = useHistory() 
-    // const themeList = [
-    //     {
-    //         "color": "Teal",
-    //         "hexcode": "008080"
-    //     },
-    //     {
-    //         "color": "Turquoise",
-    //         "hexcode": "40E0D0"
-    //     },
-    //     {
-    //         "color": "Chartreuse",
-    //         "hexcode": "7FFF00"
-    //     },
-    //     {
-    //         "color": "Sienna",
-    //         "hexcode": "A0522D"
-    //     }
-    // ]
     const getThemeData = async() => {
         const response = await getThemeApi()
         setThemeList(response.data)
@@ -90,6 +70,7 @@ const CreateOrg = () => {
                 type="text"
                 value = {orgName}
                 />
+
                  <TextFieldNoSuffix
                 onUserInput={getShortName}
                 label="Short name"
@@ -97,24 +78,7 @@ const CreateOrg = () => {
                 type="text"
                 value = {shortName}
                 />
-
-                <Select className={styles.dropDown} placeholder='Choose a theme' 
-                onChange={getTheme}>
-                    {themeList .map(theme =>{
-                       return ( <Option value={theme.hexcode}>{theme.color}</Option>)
-                    })}
-                </Select>
-                {/* <TextField label="Organization Name" name="Organization Name"  value={orgName}>
-                
-                </TextField>
-
-                <TextField label="Short Name" name="Short Name"  value={shortName}>
-                
-                </TextField>
-
-                <TextField label="Choose a theme" name="Choose a theme"  value={theme}>
-                
-                </TextField> */}
+                <ThemeDropDown label="Choose a theme" themeList = {themeList} onChange={getTheme} value={theme}/>
         
                 <input type="Button" className={globalStyles.formButton} onClick={createOrganization} value="CONTINUE"/>
             </div>

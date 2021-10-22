@@ -40,7 +40,7 @@ const TextField = (props: { onUserInput: (arg0: string) => void; label: string;
             <div className={props.name !== "mobileNumber"?styles.textfield:styles.phoneNumber}>
                 <input type={isViewPassword ? "text": props.type} value={props.value}
                      className={props.name !== "mobileNumber"?styles.textfield:styles.phoneNumber} onInput={getCurrentInput}
-                    spellCheck={false}
+                    spellCheck={false} 
                     />
                 {props.type === "password" ? 
                     <img src={isViewPassword ? "./assets/eyeclose.svg":"./assets/eyeopen.svg"} alt=""  className={`${styles.icon} ${styles.hover}`} onClick={changePasswordType} />
