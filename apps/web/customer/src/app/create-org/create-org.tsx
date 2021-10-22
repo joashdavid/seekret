@@ -1,37 +1,47 @@
 import globalStyles from '../app.module.less'
 import orgStyles from './create-org.module.less'
-import { Select} from 'antd'
-import { useState } from 'react'
+import { Select } from 'antd'
+import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import styles from './create-org.module.less'
-import TextField from '../components/text-field/text-field'
-import { createOrganizationApi } from './api'
+import {TextFieldNoSuffix} from '../components/text-field-nosuffix'
+import { createOrganizationApi, getThemeApi } from './api'
+import { ThemeModel } from './model'
 
 const CreateOrg = () => {
     const [orgName, setOrgName] = useState("")
     const [shortName, setShortName] = useState("")
     const [theme , setTheme] = useState('') 
+    const [themeList ,setThemeList] = useState<ThemeModel[]>([])
     const { Option } = Select 
     const history = useHistory() 
-    const themeList = [
-        {
-            "color": "Teal",
-            "hexcode": "008080"
-        },
-        {
-            "color": "Turquoise",
-            "hexcode": "40E0D0"
-        },
-        {
-            "color": "Chartreuse",
-            "hexcode": "7FFF00"
-        },
-        {
-            "color": "Sienna",
-            "hexcode": "A0522D"
-        }
-    ]
-    
+    // const themeList = [
+    //     {
+    //         "color": "Teal",
+    //         "hexcode": "008080"
+    //     },
+    //     {
+    //         "color": "Turquoise",
+    //         "hexcode": "40E0D0"
+    //     },
+    //     {
+    //         "color": "Chartreuse",
+    //         "hexcode": "7FFF00"
+    //     },
+    //     {
+    //         "color": "Sienna",
+    //         "hexcode": "A0522D"
+    //     }
+    // ]
+    const getThemeData = async() => {
+        const response = await getThemeApi()
+        setThemeList(response.data)
+        console.log(response)
+    }
+    useEffect(() => {
+        getThemeData()
+    },
+    [])
     const getOrgName = (data:string) => {
         setOrgName(data)
     }
@@ -73,25 +83,23 @@ const CreateOrg = () => {
                 <p className={orgStyles.orgGuide}>
                 Let’s get you started on Cyclops. Create your organisation as a first step.
                 </p>
-                <TextField
+                <TextFieldNoSuffix
                 onUserInput={getOrgName}
                 label="Organization name"
                 name="orgName"
                 type="text"
-                img={''}
                 value = {orgName}
                 />
-                 <TextField
+                 <TextFieldNoSuffix
                 onUserInput={getShortName}
                 label="Short name"
                 name="shortName"
                 type="text"
-                img={''}
                 value = {shortName}
                 />
 
                 <Select className={styles.dropDown} placeholder='Choose a theme' 
-                defaultValue={themeList[0].hexcode} onChange={getTheme}>
+                onChange={getTheme}>
                     {themeList .map(theme =>{
                        return ( <Option value={theme.hexcode}>{theme.color}</Option>)
                     })}

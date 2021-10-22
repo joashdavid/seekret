@@ -5,14 +5,15 @@ import otpstyles from './otp.module.less'
 import CycButton from '../components/cyc-button/cyc-button'
 import { useHistory, useLocation } from 'react-router-dom'
 import {otpToserverApi, getAccessToken} from './api'
+import OtpFields from './otp-fields'
 
 const Otp = () => {
   const history = useHistory()
   const location = useLocation()
   console.log(location.state)
   const [otp, setOtp] = useState('')
-  const getOtp = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setOtp(event.target.value)
+  const getOtp = (otpValue:string) => {
+    setOtp(otpValue)
   }
   const email = localStorage.getItem('email')
   const otpToserver = async() => {
@@ -56,12 +57,7 @@ const Otp = () => {
             </p>
             <div >
             <div className={otpstyles.otpWrapper}>
-              <input
-                type="number"
-                className={otpstyles.otpFields}
-                maxLength={6}
-                onChange={getOtp}
-              />
+            <OtpFields isAutoFocus length={6} onChangeOtp={(otp: string) => getOtp(otp)}/>
             </div>
             </div>
             

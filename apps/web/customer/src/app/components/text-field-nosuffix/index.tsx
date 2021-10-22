@@ -1,28 +1,46 @@
-import { Input } from "antd"
-import React, { useState } from "react"
+import styles from './text-field.module.less'
+import FloatLabel from '../float-label/float-label'
 
-import './text-field.less'
 
-const TextField = (props: { label: string; value: string; name:string }) => {
-    const [isFocus, setFocus] = useState(false)
-    const { label, value } = props
-    const labelClass =
-      isFocus || (value && value.length !== 0) ? "label label-float" : "label"  
-   
-    return(
-              
-        <div
-        className="float-label"
-        onBlur={() => setFocus(false)}
-        onFocus={() => setFocus(true)}
-      >
-        <Input className="textfield"/>
-        <label className={labelClass}>{props.label}</label>
-        
-      </div>
-        
+const TextFieldNoSuffix = (props: { onUserInput: (arg0: string) => void; label: string; 
+    name: string; type: string;value: string }) => {
+
+    const getCurrentInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if(props.name === "mobileNumber"){
+            console.log(formatPhoneNumber(event.target.value))
+            props.onUserInput((event.target.value).replace(/[a-z@#$!^%*&={}<>~|?:;_`"',.[\]\\/]/g, ''))
+        }
+        else{
+            props.onUserInput(event.target.value)
+        }  
+    }
+
+    const  formatPhoneNumber = (value:string) => {
+  
+        if (!value) return value
+        const phoneNumber = value.replace(/[^\d]/g, "")
+        const phoneNumberLength = phoneNumber.length
+        if (phoneNumberLength < 4) return phoneNumber
+      
+        if (phoneNumberLength < 7) {
+          return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`
+        }
+        return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(
+          3,
+          6
+        )}-${phoneNumber.slice(6, 10)}`
+      }
+    return (
+        <FloatLabel label={props.label} name={props.name}  value={props.value}>
+            <div className={props.name !== "mobileNumber"?styles.textfield:styles.phoneNumber}>
+                <input type={props.type} value={props.value}
+                     className={props.name !== "mobileNumber"?styles.textfield:styles.phoneNumber} onInput={getCurrentInput}
+                    spellCheck={false}
+                    />
+                
+            </div>
+        </FloatLabel>
     )
 }
 
-export {TextField}
-
+export {TextFieldNoSuffix}

@@ -1,4 +1,3 @@
-
 import OtpField from '../components/otp-field/otp-input-field'
 import otpstyles from './otp.module.less'
 import { useState, useCallback } from 'react'
@@ -169,7 +168,7 @@ const OtpFields = (props: OtpInputProps) => {
     <div className={otpstyles.otpWrapper} {...rest}>
       {Array(length)
         .fill('')
-        .map((index) => (
+        .map((items, index) => (
           <OtpField
             key={`SingleInput-${index}`}
             type={isNumberInput ? 'number' : 'text'}

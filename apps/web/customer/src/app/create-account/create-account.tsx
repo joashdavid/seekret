@@ -114,7 +114,7 @@ const CreateAccount = () => {
                 img={'./assets/phoneNumber.svg'}
                 value = {mobileNumber}
                 />
-                <Popover content={content} className={createAccountstyles.popOver}>
+                <Popover content={content} className={createAccountstyles.popOver} placement="bottom">
                             
                             <img src= "./assets/i.svg" className={createAccountstyles.mobileIcon} alt=""/>
                         

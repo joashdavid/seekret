@@ -1,21 +1,22 @@
 import landingPageStyles from './dashboard.module.less'
 import { useHistory } from 'react-router-dom'
-import { Layout, Menu, Breadcrumb,Button } from 'antd'
+import { Layout, Menu, Breadcrumb,Button, Typography } from 'antd'
 import { UserOutlined, LogoutOutlined } from '@ant-design/icons'
 import { apiRequest } from '../../services/axios/axios'
 import styles from './dashboard.module.less'
 import { Divider } from 'antd'
-import TextField from '../components/text-field/text-field'
+import {TextFieldNoSuffix} from '../components/text-field-nosuffix'
 import { useState } from 'react'
-import globalStyles from '../app.module.less'
 import { Select} from 'antd'
 import { createOrganizationApi } from './api'
+import CycButton from '../components/cyc-button/cyc-button'
 
 
-const LandingPage = () => {
+const Dashboard = () => {
     const { SubMenu } = Menu
     const { Header, Content, Sider } = Layout
     const history = useHistory()
+    const {Text} = Typography
 
     const logout = async() => {
       const response = await apiRequest('GET','users/logout','')
@@ -95,31 +96,29 @@ const LandingPage = () => {
               </div>
             </Menu>
           </Sider>
-          <Layout style={{ padding: '0 24px 24px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }} >
-              <Breadcrumb.Item className={styles.breadcrumb}>Add</Breadcrumb.Item>
-              <Breadcrumb.Item className={styles.breadcrumb}>Organization</Breadcrumb.Item>
+          <Layout className={landingPageStyles.layout}>
+          <Breadcrumb style={{ margin: '16px 0' }}>
+              <Breadcrumb.Item>Add. Organization</Breadcrumb.Item>
             </Breadcrumb>
+            <Text strong>Add Organization</Text>
             <Content
               className="site-layout-background"
             >
               <Divider/>
               <div style={{ width:"37vh"}}>
-                <span style={{marginBottom:"1vh"}}>1.Fill the organization details</span>
-              <TextField
+                <p style={{marginBottom:"1vh"}}>1.Fill the organization details</p>
+              <TextFieldNoSuffix
                 onUserInput={getOrgName}
                 label="Organization name"
                 name="orgName"
                 type="text"
-                img={''}
                 value = {orgName}
                 />
-                <TextField
+                <TextFieldNoSuffix
                 onUserInput={getShortName}
                 label="Short name"
                 name="shortName"
                 type="text"
-                img={''}
                 value = {shortName}
                 />
                 <Select className={styles.dropDown} 
@@ -130,8 +129,7 @@ const LandingPage = () => {
                 </Select>
               </div>
               
-
-                <input className={globalStyles.formButton} onClick={createOrganization} type="Button"  value="Save"/>
+                <CycButton value="SAVE" onClick={createOrganization} disabled={false}/>
               {/* <Router>
                 <Switch>
                     <Route exact path='/createOrganization' component={OrgForm}/>
@@ -147,4 +145,4 @@ const LandingPage = () => {
         
         )
 }
-export default LandingPage
+export default Dashboard
