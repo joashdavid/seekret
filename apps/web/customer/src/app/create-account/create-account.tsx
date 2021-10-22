@@ -1,5 +1,6 @@
 import createAccountstyles from './create-account.module.less'
-import { Checkbox, Divider} from 'antd'
+import globalStyles from '../app.module.less'
+import { Checkbox, Divider, Popover} from 'antd'
 import TextField from '../components/text-field/text-field'
 import { useState, useEffect } from 'react'
 import createAccountApi from './api'
@@ -44,7 +45,12 @@ const CreateAccount = () => {
     const getAgree = (event:CheckboxChangeEvent) => {
       setisAgreed(event.target.checked)
     }
-
+    const content=(
+      <div className={createAccountstyles.popmessage}>
+              <span>Your number will be helpful to receive notifications and
+                alerts.</span>
+      </div>
+  )
     const createAccount = async() => {
         const response = await createAccountApi(name,email,mobileNumber,password)
         localStorage.setItem("email",email)
@@ -55,27 +61,27 @@ const CreateAccount = () => {
     }
 
     return(
-        <div className={createAccountstyles.containers}>
-        <div className={createAccountstyles.flex}>
-            <div className={createAccountstyles.wallpaper}>
+        <div className={globalStyles.containers}>
+        <div className={globalStyles.flex}>
+            <div className={globalStyles.wallpaper}>
             <img
-            src="./assets/cyc-img.svg" className={createAccountstyles.wallpaper}
+            src="./assets/cyc-img.svg" className={globalStyles.wallpaper}
             alt=""
            />
-           <p className={createAccountstyles.para1}>
-           Welcome to  <span className={createAccountstyles.para2}>Cyclops</span>
-           <p className={createAccountstyles.text}>
+           <p className={globalStyles.para1}>
+           Welcome to  <span className={globalStyles.para2}>Cyclops</span>
+           <p className={globalStyles.text}>
                 Lorem ipsum dolor sit amete consectetur adipiscing elit sed eiusmod
                 tempor incididunt ut labore et dolore magna aliqua minim labore veniam. 
             </p>
            </p>
-           <p className={createAccountstyles.content}></p>
+           <p className={globalStyles.content}></p>
             </div>
-            <div className={createAccountstyles.loginform}>
-                <div className={createAccountstyles.formheader}>
+            <div className={globalStyles.formStructure}>
+                <div className={globalStyles.formheader}>
                 
-                <p className={createAccountstyles.formcontent}> Create Account </p>
-                <p className={createAccountstyles.cyccontent}>
+                <p className={globalStyles.formcontent}> Create Account </p>
+                <p className={globalStyles.cyccontent}>
                 Let’s get you started on Cyclops.
                 </p>
                 <TextField
@@ -108,6 +114,11 @@ const CreateAccount = () => {
                 img={'./assets/phoneNumber.svg'}
                 value = {mobileNumber}
                 />
+                <Popover content={content} className={createAccountstyles.popOver}>
+                            
+                            <img src= "./assets/i.svg" className={createAccountstyles.mobileIcon} alt=""/>
+                        
+                        </Popover>
                 </div>
                  
                  <TextField

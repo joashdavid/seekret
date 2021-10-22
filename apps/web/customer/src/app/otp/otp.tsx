@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Timer from '../components/timer/timer'
+import globalStyles from '../app.module.less'
 import otpstyles from './otp.module.less'
 import CycButton from '../components/cyc-button/cyc-button'
 import { useHistory, useLocation } from 'react-router-dom'
@@ -30,23 +31,23 @@ const Otp = () => {
 
 
   return (
-    <div className={otpstyles.containers}>
-      <div className={otpstyles.flex}>
-        <div className={otpstyles.wallpaper}>
-          <img src="./assets/cyc-img.svg" className={otpstyles.wallpaper} alt="" />
-          <p className={otpstyles.para1}>
-            Welcome to <span className={otpstyles.para2}>Cyclops</span>
-            <p className={otpstyles.text}>
+    <div className={globalStyles.containers}>
+      <div className={globalStyles.flex}>
+        <div className={globalStyles.wallpaper}>
+          <img src="./assets/cyc-img.svg" className={globalStyles.wallpaper} alt="" />
+          <p className={globalStyles.para1}>
+            Welcome to <span className={globalStyles.para2}>Cyclops</span>
+            <p className={globalStyles.text}>
               Lorem ipsum dolor sit amete consectetur adipiscing elit sed eiusmod tempor incididunt
               ut labore et dolore magna aliqua minim labore veniam.
             </p>
           </p>
-          <p className={otpstyles.content}></p>
+          <p className={globalStyles.content}></p>
         </div>
-        <div className={otpstyles.loginform}>
-          <div className={otpstyles.formheader}>
-            <p className={otpstyles.formcontent}>Just A Moment </p>
-            <p className={otpstyles.cyccontent}>
+        <div className={globalStyles.formStructure}>
+          <div className={globalStyles.formheader}>
+            <p className={globalStyles.formcontent}>Just A Moment </p>
+            <p className={globalStyles.cyccontent}>
               Please enter the 6-digit code sent to your registered Email.
             </p>
             <p className={otpstyles.userMail}>

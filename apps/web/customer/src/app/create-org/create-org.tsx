@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import globalStyles from '../app.module.less'
 import orgStyles from './create-org.module.less'
 import { Select} from 'antd'

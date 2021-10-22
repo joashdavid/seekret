@@ -3,9 +3,9 @@ import React, { useState } from "react"
 
 import './text-field.less'
 
-const TextField = (props: { children: any; label: string; value: string; name:string }) => {
+const TextField = (props: { label: string; value: string; name:string }) => {
     const [isFocus, setFocus] = useState(false)
-    const { children, label, value } = props
+    const { label, value } = props
     const labelClass =
       isFocus || (value && value.length !== 0) ? "label label-float" : "label"  
    
