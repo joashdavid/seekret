@@ -11,10 +11,18 @@ const otpToserverApi = async (email: string | null, data: string) => {
   return response
 }
 
-const getAccessToken = async (data: unknown) => {
-    console.log(data)
+const getAccessToken = async (data: {email:string,password:string}) => {
+ 
   const response = await apiRequest('POST', 'users/login', data)
   return response
 }
 
-export { otpToserverApi, getAccessToken }
+const resendOtpApi = async(email:string) => {
+    const dataToserver = {
+        email
+    }
+    return await apiRequest("POST",'users/sendEmail',dataToserver)
+    
+}
+
+export { otpToserverApi, getAccessToken, resendOtpApi }

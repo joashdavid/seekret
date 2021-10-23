@@ -4,10 +4,13 @@ import globalStyles from '../app.module.less'
 import otpstyles from './otp.module.less'
 import CycButton from '../components/cyc-button/cyc-button'
 import { useHistory, useLocation } from 'react-router-dom'
-import { otpToserverApi, getAccessToken } from './api'
+import { otpToserverApi, getAccessToken,resendOtpApi } from './api'
 import OtpFields from './otp-fields'
 
+
 const Otp = () => {
+  const [isResendEnabled, setIsResendEnabled] = useState<boolean>(false)
+  const [time ,setTime] = useState<number>(120)
   const history = useHistory()
   const location =
     useLocation<{ email: string; mobileNumber: string; name: string; password: string }>()
@@ -36,7 +39,20 @@ const Otp = () => {
     console.log(location.state)
     history.push('/createAccount', location.state)
   }
-
+  const enableResend = () => {
+    setIsResendEnabled(true)
+  }
+  const resendOtp = async() => {
+   const response = await resendOtpApi(
+      location.state.email,
+    )
+    console.log(response)
+    setTime(120)
+    setIsResendEnabled(false)
+    if(response.success){
+      setTime(120)
+    }
+  }
   return (
     <div className={globalStyles.containers}>
       <div className={globalStyles.flex}>
@@ -73,11 +89,22 @@ const Otp = () => {
             </div>
 
             <div className={otpstyles.otpGuide}>
-              <p className={otpstyles.otpContent}>Resend Code in</p>
-              <img src="./assets/clock.svg" className={otpstyles.clock} alt="" />
-              <p className={otpstyles.time} id="countdown">
-                <Timer />
-              </p>
+              {isResendEnabled ? (
+                <p className={otpstyles.otpContent}>
+                  Didn’t receive OTP?{' '}
+                  <span className={otpstyles.resentOtp} onClick={resendOtp}>
+                    RESEND
+                  </span>
+                </p>
+              ) : (
+                <div className={otpstyles.otpGuide}>
+                  <p className={otpstyles.otpContent}>Resend Code in</p>
+                  <img src="./assets/clock.svg" className={otpstyles.clock} alt="" />
+                  <p className={otpstyles.time} id="countdown">
+                    <Timer onComplete={enableResend} time={time} />
+                  </p>
+                </div>
+              )}
             </div>
             <CycButton value="VERIFY" disabled={otp.length !== 6} onClick={otpToserver} />
           </div>
