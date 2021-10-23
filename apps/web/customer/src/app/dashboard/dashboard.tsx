@@ -1,97 +1,61 @@
-import landingPageStyles from './dashboard.module.less'
-import { useHistory } from 'react-router-dom'
-import { Layout, Menu, Breadcrumb,Button, Typography } from 'antd'
-import { UserOutlined, LogoutOutlined } from '@ant-design/icons'
-import { apiRequest } from '../../services/axios/axios'
-import { Divider, Select } from 'antd'
-import {TextFieldNoSuffix} from '../components/text-field-nosuffix'
+import { Link, useHistory } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { createOrganizationApi, getThemeApi, fetchOrganizationApi } from './api'
-import CycButton from '../components/cyc-button/cyc-button'
-import { ThemeModel } from '../../model/model'
-import { ThemeDropDown } from '../components/theme-dropdown'
-import { OrgnizationModel } from './model'
+import { Divider, Select } from 'antd'
+import { Layout, Menu, Breadcrumb, Button, Typography } from 'antd'
+import { UserOutlined, LogoutOutlined } from '@ant-design/icons'
 
+import landingPageStyles from './dashboard.module.less'
+import { apiRequest } from '../../services/axios/axios'
+import { fetchOrganizationApi } from './api'
+import CycButton from '../components/cyc-button/cyc-button'
+import { OrgnizationModel } from './model'
+import { DashboardRouter } from '../dashboard-routing'
 
 const Dashboard = () => {
-    const { SubMenu } = Menu
-    const {Option} = Select
-    const { Header, Content, Sider } = Layout
-    const history = useHistory()
-    const {Text} = Typography
-    const [orgName, setOrgName] = useState("")
-    const [shortName, setShortName] = useState("")
-    const [theme , setTheme] = useState('')
-    const [themeList ,setThemeList] = useState<ThemeModel[]>([])
-    const [orgList, setOrgList] = useState<OrgnizationModel[]>([])
-    
-    const logout = async() => {
-      const response = await apiRequest('GET','users/logout','')
-      console.log(response)
-      history.push('/')
-    }
+  const { SubMenu } = Menu
+  const { Option } = Select
+  const { Header, Content, Sider } = Layout
+  const history = useHistory()
+  const { Text } = Typography
+  const [orgList, setOrgList] = useState<OrgnizationModel[]>([])
 
-    const getOrgName = (data:string) => {
-      setOrgName(data)
-    }
-    const getShortName =(data: string) => {
-        setShortName(data)
-    }
-    const getTheme = (data:string) => {
-        setTheme(data)
-    }
-
-
-  const getThemeData = async() => {
-    const response = await getThemeApi()
-    setThemeList(response.data)
+  const logout = async () => {
+    const response = await apiRequest('GET', 'users/logout', '')
     console.log(response)
+    history.push('/')
   }
+
   const fetchOrg = async () => {
     const response = await fetchOrganizationApi()
     setOrgList(response.data)
-    console.log((response.data))
-    // clearForm()
   }
 
   useEffect(() => {
     fetchOrg()
   }, [])
-    useEffect(() => {
-        getThemeData()
-    },
-    [])
-  const createOrganization = async() => {
-    const response = await createOrganizationApi(orgName,shortName,theme)
-    console.log(response)
-    if(response.success){
-       clearForm()
-       fetchOrg()
-    }
-  }
-  const clearForm = () => {
-    setOrgName('')
-    setShortName('')
-    setTheme('')
-  }
+
   const redirectToCreateOrganization = () => {
     history.push('/dashboard')
   }
 
-
-    return(
-        <div className={landingPageStyles.containers}>
-        <Layout style={{width:"100%",height:"100vh"}}>
+  return (
+    <div className={landingPageStyles.containers}>
+      <Layout style={{ width: '100%', height: '100vh' }}>
         <Header className="header">
-        <Select
-            className={landingPageStyles.dropDown} onChange={fetchOrg}
-            style={{ width: 360}}
+          <Select
+            className={landingPageStyles.dropDown}
+            onChange={fetchOrg}
+            style={{ width: 360 }}
             bordered={false}
             dropdownRender={(menu) => (
               <div>
                 <span className={landingPageStyles.optionValue}>{menu}</span>
                 <Divider style={{ margin: '4px 0' }} />
-                <CycButton value="+ ADD COMPANY" onClick={redirectToCreateOrganization} disabled={false}/>
+                <CycButton
+                  value="+ ADD COMPANY"
+                  onClick={redirectToCreateOrganization}
+                  disabled={false}
+                />
               </div>
             )}
           >
@@ -108,57 +72,31 @@ const Dashboard = () => {
               defaultOpenKeys={['sub1']}
               style={{ height: '100%', borderRight: 0 }}
             >
-                
               <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
-                <Menu.Item key="1">option1</Menu.Item>
+                <Menu.Item key="1"><Link to="/dashboard/createOrg">Organization</Link></Menu.Item>
                 <Menu.Item key="2">option2</Menu.Item>
                 <Menu.Item key="3">option3</Menu.Item>
                 <Menu.Item key="4">option4</Menu.Item>
               </SubMenu>
               <div className={landingPageStyles.Button}>
-                <Button  icon={<LogoutOutlined/>} danger onClick={logout}>
-                  Logout 
+                <Button icon={<LogoutOutlined />} danger onClick={logout}>
+                  Logout
                 </Button>
               </div>
             </Menu>
           </Sider>
           <Layout className={landingPageStyles.layout}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
+            <Breadcrumb style={{ margin: '16px 0' }}>
               <Breadcrumb.Item>Add. Organization</Breadcrumb.Item>
             </Breadcrumb>
             <Text strong>Add Organization</Text>
-            <Content
-              className="site-layout-background"
-            >
-              <Divider/>
-              <div style={{ width:"37vh"}}>
-                <p style={{marginBottom:"1vh"}}>1.Fill the organization details</p>
-              <TextFieldNoSuffix
-                onUserInput={getOrgName}
-                label="Organization name"
-                name="orgName"
-                type="text"
-                value = {orgName}
-                />
-                <TextFieldNoSuffix
-                onUserInput={getShortName}
-                label="Short name"
-                name="shortName"
-                type="text"
-                value = {shortName}
-                />
-                <ThemeDropDown label="Choose a theme" themeList = {themeList} onChange={getTheme} value={theme}/>
-              </div>
-              
-                <CycButton value="SAVE" onClick={createOrganization} disabled={false}/>
-
-             
+            <Content className="site-layout-background">
+              <DashboardRouter/>
             </Content>
           </Layout>
         </Layout>
       </Layout>
-      </div>
-        
-        )
+    </div>
+  )
 }
 export default Dashboard

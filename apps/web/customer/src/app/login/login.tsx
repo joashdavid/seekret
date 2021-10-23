@@ -7,6 +7,7 @@ import TextField from '../components/text-field/text-field'
 import { validate } from './validation'
 import { Link, useHistory } from 'react-router-dom'
 import CycButton from '../components/cyc-button/cyc-button'
+import { GlobalRouterPath } from '../routing/constant/globalRoute'
 
 const Login = () => {
   const [email, setemail] = useState('')
@@ -26,7 +27,7 @@ const Login = () => {
       localStorage.setItem('Token', response.data)
 
       if (response.success) {
-        history.push('/dashboard')
+        history.push(GlobalRouterPath.DASHBOARD)
       }
     }
   }
@@ -95,7 +96,7 @@ const Login = () => {
           </form>
           <p className={styles.createaccount}>Don’t have an account?</p>
           <div>
-            <Link to="/createAccount">
+            <Link to={GlobalRouterPath.CREATE_ACCOUNT}>
               <span className={styles.newaccount}>
                 Create New <img src="/assets/greenarrow.svg" alt="" />{' '}
               </span>

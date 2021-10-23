@@ -6,6 +6,8 @@ import {TextFieldNoSuffix} from '../components/text-field-nosuffix'
 import { createOrganizationApi, getThemeApi } from './api'
 import { ThemeModel } from './model'
 import { ThemeDropDown } from '../components/theme-dropdown'
+import CycButton from '../components/cyc-button/cyc-button'
+import { GlobalRouterPath } from '../routing/constant/globalRoute'
 
 const CreateOrg = () => {
     const [orgName, setOrgName] = useState("")
@@ -36,7 +38,7 @@ const CreateOrg = () => {
         const response = await createOrganizationApi(orgName,shortName,theme)
         console.log(response)
         if(response.success){
-            history.push('/dashboard')
+            history.push(GlobalRouterPath.DASHBOARD)
         }
     }
     return(
@@ -79,8 +81,8 @@ const CreateOrg = () => {
                 value = {shortName}
                 />
                 <ThemeDropDown label="Choose a theme" themeList = {themeList} onChange={getTheme} value={theme}/>
-        
-                <input type="Button" className={globalStyles.formButton} onClick={createOrganization} value="CONTINUE"/>
+
+                <CycButton value="CONTINUE" onClick={createOrganization} disabled={false}/>
             </div>
             </div>
             </div>
