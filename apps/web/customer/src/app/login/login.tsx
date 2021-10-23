@@ -1,18 +1,22 @@
-import globalStyles from '../app.module.less'
-import styles from './login.module.less'
+import { Link, useHistory } from 'react-router-dom'
 import { Checkbox, Divider } from 'antd'
 import { useState, useEffect } from 'react'
+
+import globalStyles from '../app.module.less'
+import styles from './login.module.less'
 import { userLoginApi } from './api'
 import TextField from '../components/text-field/text-field'
 import { validate } from './validation'
-import { Link, useHistory } from 'react-router-dom'
 import CycButton from '../components/cyc-button/cyc-button'
 import { GlobalRouterPath } from '../routing/constant/globalRoute'
+import { storeInBrowser } from './utils'
+import { CheckboxChangeEvent } from 'antd/lib/checkbox'
 
 const Login = () => {
   const [email, setemail] = useState('')
   const [password, setpassword] = useState('')
   const [isFormValid, setFormValid] = useState(false)
+  const [isRememberMe , setIsRememberMe] = useState(false)
   const history = useHistory()
 
   const userLogin = async () => {
@@ -23,14 +27,15 @@ const Login = () => {
     if (isFormValid) {
       console.log(dataToserver)
       const response = await userLoginApi(dataToserver)
-      console.log(response)
-      localStorage.setItem('Token', response.data)
-
       if (response.success) {
+        storeInBrowser("Email",email)
+        storeInBrowser("Password",password)
+        storeInBrowser('Token',response.data)
         history.push(GlobalRouterPath.DASHBOARD)
       }
     }
   }
+  
 
   useEffect(() => {
     setFormValid(validate(email, password))
@@ -41,6 +46,9 @@ const Login = () => {
   }
   const getEmail = (data: string) => {
     setemail(data)
+  }
+  const getIsrembemerMe = (event:CheckboxChangeEvent) => {
+   setIsRememberMe(event.target.checked)
   }
 
   return (
@@ -83,7 +91,7 @@ const Login = () => {
             />
             <div className={styles.flexcont}>
               <div>
-                <Checkbox>
+                <Checkbox onChange={getIsrembemerMe} value={isRememberMe}>
                   <p className={styles.checkbox}> Remember me </p>
                 </Checkbox>
               </div>

@@ -9,23 +9,32 @@ import OtpFields from './otp-fields'
 
 const Otp = () => {
   const history = useHistory()
-  const location = useLocation()
+  const location =
+    useLocation<{ email: string; mobileNumber: string; name: string; password: string }>()
   console.log(location.state)
   const [otp, setOtp] = useState('')
   const getOtp = (otpValue: string) => {
     setOtp(otpValue)
   }
-  const email = localStorage.getItem('email')
+
   const otpToserver = async () => {
     console.log(otp)
-    const response = await otpToserverApi(email, otp)
+    const response = await otpToserverApi(location.state.email, otp)
 
     if (response.success) {
-      const response = await getAccessToken(location.state)
+      const response = await getAccessToken({
+        email: location.state.email,
+        password: location.state.password,
+      })
       console.log(response)
       localStorage.setItem('Token', response.data)
       history.push('/createOrganization')
     }
+  }
+
+  const editUserInfo = () => {
+    console.log(location.state)
+    history.push('/createAccount', location.state)
   }
 
   return (
@@ -49,8 +58,13 @@ const Otp = () => {
               Please enter the 6-digit code sent to your registered Email.
             </p>
             <p className={otpstyles.userMail}>
-              {email}
-              <input type="Button" className={otpstyles.editButton} value="EDIT" />
+              {location.state.email}
+              <input
+                type="Button"
+                className={otpstyles.editButton}
+                value="EDIT"
+                onClick={editUserInfo}
+              />
             </p>
             <div>
               <div className={otpstyles.otpWrapper}>

@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 import createAccountApi from './api'
 import CycButton from '../components/cyc-button/cyc-button'
 import validate from './validation'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
 import { GlobalRouterPath } from '../routing/constant/globalRoute'
 
@@ -19,10 +19,19 @@ const CreateAccount = () => {
   const [isAgreed, setisAgreed] = useState(true)
   const [errorIn, setErrorIn] = useState('')
   const history = useHistory()
+  const location = useLocation<{email:string,mobileNumber:string,name:string,password:string}>()
 
   useEffect(() => {
     setErrorIn(validate(name, email, mobileNumber, password, confirmPassword, isAgreed))
   }, [name, email, mobileNumber, password, confirmPassword, isAgreed])
+  useEffect(() => {
+    if(location.state){
+      setemail(location.state.email)
+      setname(location.state.name)
+      setmobileNumber(location.state.mobileNumber)
+    }
+  },
+  [])
 
   const getFullName = (data: string) => {
     setname(data)
@@ -50,9 +59,8 @@ const CreateAccount = () => {
   )
   const createAccount = async () => {
     const response = await createAccountApi(name, email, mobileNumber, password)
-    localStorage.setItem('email', email)
     if (response.success) {
-      history.push(GlobalRouterPath.OTP, { email, password })
+      history.push(GlobalRouterPath.OTP, { name, email, mobileNumber,password })
     }
   }
 

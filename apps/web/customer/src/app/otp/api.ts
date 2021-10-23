@@ -12,6 +12,7 @@ const otpToserverApi = async (email: string | null, data: string) => {
 }
 
 const getAccessToken = async (data: unknown) => {
+    console.log(data)
   const response = await apiRequest('POST', 'users/login', data)
   return response
 }

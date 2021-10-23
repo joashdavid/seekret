@@ -1,5 +1,6 @@
 import { Divider } from 'antd'
 import { useState, useEffect } from 'react'
+import { Breadcrumb, Typography } from 'antd'
 
 import { TextFieldNoSuffix } from '../components/text-field-nosuffix'
 import { createOrganizationApi, getThemeApi } from './api'
@@ -12,6 +13,7 @@ const CreateOrgDashboard = () => {
   const [shortName, setShortName] = useState('')
   const [theme, setTheme] = useState('')
   const [themeList, setThemeList] = useState<ThemeModel[]>([])
+  const { Text } = Typography
 
   const getOrgName = (data: string) => {
     setOrgName(data)
@@ -48,6 +50,10 @@ const CreateOrgDashboard = () => {
 
   return (
     <>
+    <Breadcrumb style={{ margin: '16px 0' }}>
+              <Breadcrumb.Item>Add. Organization</Breadcrumb.Item>
+            </Breadcrumb>
+            <Text strong>Add Organization</Text>
       <Divider />
       <div style={{ width: '37vh' }}>
         <p style={{ marginBottom: '1vh' }}>1.Fill the organization details</p>

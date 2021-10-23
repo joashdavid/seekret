@@ -1,7 +1,7 @@
 import { Link, useHistory } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { Divider, Select } from 'antd'
-import { Layout, Menu, Breadcrumb, Button, Typography } from 'antd'
+import { Layout, Menu, Button } from 'antd'
 import { UserOutlined, LogoutOutlined } from '@ant-design/icons'
 
 import landingPageStyles from './dashboard.module.less'
@@ -16,7 +16,7 @@ const Dashboard = () => {
   const { Option } = Select
   const { Header, Content, Sider } = Layout
   const history = useHistory()
-  const { Text } = Typography
+
   const [orgList, setOrgList] = useState<OrgnizationModel[]>([])
 
   const logout = async () => {
@@ -72,8 +72,18 @@ const Dashboard = () => {
               defaultOpenKeys={['sub1']}
               style={{ height: '100%', borderRight: 0 }}
             >
-              <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
-                <Menu.Item key="1"><Link to="/dashboard/createOrg">Organization</Link></Menu.Item>
+               <SubMenu key="sub1" icon={<UserOutlined />} title="Contact">
+                <Menu.Item key="1">
+                  <Link to="/dashboard">Create</Link>
+                </Menu.Item>
+                <Menu.Item key="2">option2</Menu.Item>
+                <Menu.Item key="3">option3</Menu.Item>
+                <Menu.Item key="4">option4</Menu.Item>
+              </SubMenu>
+              <SubMenu key="sub2" icon={<UserOutlined />} title="Organization">
+                <Menu.Item key="1">
+                  <Link to="/dashboard/createOrg">Create</Link>
+                </Menu.Item>
                 <Menu.Item key="2">option2</Menu.Item>
                 <Menu.Item key="3">option3</Menu.Item>
                 <Menu.Item key="4">option4</Menu.Item>
@@ -86,12 +96,8 @@ const Dashboard = () => {
             </Menu>
           </Sider>
           <Layout className={landingPageStyles.layout}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>Add. Organization</Breadcrumb.Item>
-            </Breadcrumb>
-            <Text strong>Add Organization</Text>
             <Content className="site-layout-background">
-              <DashboardRouter/>
+              <DashboardRouter />
             </Content>
           </Layout>
         </Layout>
