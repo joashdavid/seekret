@@ -1,7 +1,7 @@
 import FloatLabel from '../float-label/float-label'
 import styles from './theme-dropdown.module.less'
 import { Select } from 'antd'
-import { ThemeModel } from '../../org-form/model'
+import { ThemeModel } from '../../../model/model'
 import { ReactComponent as DropDown } from '../../../assets/arrow-down.svg'
 // import { ReactComponent as DropDown } from '../../ass''
 import { useState } from 'react'

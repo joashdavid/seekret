@@ -2,7 +2,6 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 
 const Timer = () => {
-    // const {initialMinute = 0,initialSeconds = 0} = props
     const [seconds, setSeconds ] =  useState(120)
     useEffect(()=>{
     const myInterval = setInterval(() => {

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 interface OrgnizationModel{
     orgId: string;
     orgName: string;

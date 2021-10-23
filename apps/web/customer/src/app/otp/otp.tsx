@@ -4,7 +4,7 @@ import globalStyles from '../app.module.less'
 import otpstyles from './otp.module.less'
 import CycButton from '../components/cyc-button/cyc-button'
 import { useHistory, useLocation } from 'react-router-dom'
-import {otpToserverApi, getAccessToken} from './api'
+import { otpToserverApi, getAccessToken } from './api'
 import OtpFields from './otp-fields'
 
 const Otp = () => {
@@ -12,24 +12,21 @@ const Otp = () => {
   const location = useLocation()
   console.log(location.state)
   const [otp, setOtp] = useState('')
-  const getOtp = (otpValue:string) => {
+  const getOtp = (otpValue: string) => {
     setOtp(otpValue)
   }
   const email = localStorage.getItem('email')
-  const otpToserver = async() => {
+  const otpToserver = async () => {
     console.log(otp)
-    const response = await otpToserverApi(email,otp)
-    
-    if(response.success){
+    const response = await otpToserverApi(email, otp)
+
+    if (response.success) {
       const response = await getAccessToken(location.state)
       console.log(response)
-      localStorage.setItem("Token",response.data)
+      localStorage.setItem('Token', response.data)
       history.push('/createOrganization')
     }
-    
   }
-    
-
 
   return (
     <div className={globalStyles.containers}>
@@ -55,12 +52,11 @@ const Otp = () => {
               {email}
               <input type="Button" className={otpstyles.editButton} value="EDIT" />
             </p>
-            <div >
-            <div className={otpstyles.otpWrapper}>
-            <OtpFields isAutoFocus length={6} onChangeOtp={(otp: string) => getOtp(otp)}/>
+            <div>
+              <div className={otpstyles.otpWrapper}>
+                <OtpFields isAutoFocus length={6} onChangeOtp={(otp: string) => getOtp(otp)} />
+              </div>
             </div>
-            </div>
-            
 
             <div className={otpstyles.otpGuide}>
               <p className={otpstyles.otpContent}>Resend Code in</p>
@@ -69,7 +65,7 @@ const Otp = () => {
                 <Timer />
               </p>
             </div>
-            <CycButton value="VERIFY" disabled={otp.length !== 6} onClick={otpToserver}/>
+            <CycButton value="VERIFY" disabled={otp.length !== 6} onClick={otpToserver} />
           </div>
         </div>
       </div>

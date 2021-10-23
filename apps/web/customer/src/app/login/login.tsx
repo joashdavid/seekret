@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import { userLoginApi } from './api'
 import TextField from '../components/text-field/text-field'
 import { validate } from './validation'
-import  { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import CycButton from '../components/cyc-button/cyc-button'
 
 const Login = () => {
@@ -19,24 +19,22 @@ const Login = () => {
       email,
       password,
     }
-    if(isFormValid){
+    if (isFormValid) {
       console.log(dataToserver)
-        const response = await userLoginApi(dataToserver)
-        console.log(response)
-        localStorage.setItem("Token",response.data)
-        
-        if (response.success) {
-           history.push('/dashboard')
-        }
+      const response = await userLoginApi(dataToserver)
+      console.log(response)
+      localStorage.setItem('Token', response.data)
+
+      if (response.success) {
+        history.push('/dashboard')
+      }
     }
-    
   }
 
   useEffect(() => {
-    setFormValid(validate(email,password))
-  },[email,password] )
+    setFormValid(validate(email, password))
+  }, [email, password])
 
-  
   const getPassword = (data: string) => {
     setpassword(data)
   }
@@ -58,14 +56,14 @@ const Login = () => {
         <p className={globalStyles.content}></p>
       </div>
 
-        <div className={globalStyles.formStructure}>
-          <div className={globalStyles.formheader}>
-            <img src="./assets/Cyclops.svg" className={globalStyles.formImage} alt="" />
-            <p className={globalStyles.formcontent}>Let’s get started!</p>
-            <p className={globalStyles.loginguide}>
-              You’ve come to the right place, login or set up your account.
-            </p>
-            <form>
+      <div className={globalStyles.formStructure}>
+        <div className={globalStyles.formheader}>
+          <img src="./assets/Cyclops.svg" className={globalStyles.formImage} alt="" />
+          <p className={globalStyles.formcontent}>Let’s get started!</p>
+          <p className={globalStyles.userGuide}>
+            You’ve come to the right place, login or set up your account.
+          </p>
+          <form>
             <TextField
               onUserInput={getEmail}
               label="Email"
@@ -93,24 +91,22 @@ const Login = () => {
                 <p className={styles.password}>Forgot Password?</p>
               </div>
             </div>
-            <CycButton value="LOGIN" disabled={false} onClick={userLogin}/>
-            </form>
-            <p className={styles.createaccount}>Don’t have an account?</p>
-            <div>
-                <Link to="/createAccount">
-                    <span className={styles.newaccount}>
-                        Create New <img src="/assets/greenarrow.svg" alt="" />{' '}
-                    </span>
-              </Link>
-            </div>
-
-            <Divider style={{ height: 0.4 }}>
-              <p className={styles.divider}>OR LOGIN WITH</p>
-            </Divider>
+            <CycButton value="LOGIN" disabled={false} onClick={userLogin} />
+          </form>
+          <p className={styles.createaccount}>Don’t have an account?</p>
+          <div>
+            <Link to="/createAccount">
+              <span className={styles.newaccount}>
+                Create New <img src="/assets/greenarrow.svg" alt="" />{' '}
+              </span>
+            </Link>
           </div>
+
+          <Divider style={{ height: 0.4 }}>
+            <p className={styles.divider}>OR LOGIN WITH</p>
+          </Divider>
         </div>
-      
-    
+      </div>
     </div>
   )
 }

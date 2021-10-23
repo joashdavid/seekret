@@ -37,7 +37,6 @@ const TextFieldNoSuffix = (props: { onUserInput: (arg0: string) => void; label: 
                      className={props.name !== "mobileNumber"?styles.textfield:styles.phoneNumber} onInput={getCurrentInput}
                     spellCheck={false}
                     />
-                
             </div>
         </FloatLabel>
     )
