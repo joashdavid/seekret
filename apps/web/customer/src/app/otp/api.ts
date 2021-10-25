@@ -21,7 +21,7 @@ const resendOtpApi = async(email:string) => {
     const dataToserver = {
         email
     }
-    return await apiRequest("POST",'users/sendEmail',dataToserver)
+    return await apiRequest("POST",'users/sendOtp',dataToserver)
     
 }
 

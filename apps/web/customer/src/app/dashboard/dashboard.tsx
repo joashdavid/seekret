@@ -80,22 +80,29 @@ const Dashboard = () => {
               defaultOpenKeys={['sub1']}
               style={{ height: '100%', borderRight: 0 }}
             >
-               <SubMenu key="sub1" icon={<UserOutlined />} title="Contact">
+               <SubMenu key="sub1" icon={<UserOutlined />} title="Create">
                 <Menu.Item key="1">
-                  <Link to="/dashboard">Create</Link>
+                  <Link to="/dashboard">Contact</Link>
                 </Menu.Item>
-                <Menu.Item key="2">option2</Menu.Item>
+                <Menu.Item key="2">
+                  <Link to="/dashboard/createOrg">Organization</Link>
+                </Menu.Item>
+                {/* <Menu.Item key="2">option2</Menu.Item>
                 <Menu.Item key="3">option3</Menu.Item>
-                <Menu.Item key="4">option4</Menu.Item>
+                <Menu.Item key="4">option4</Menu.Item> */}
               </SubMenu>
-              <SubMenu key="sub2" icon={<UserOutlined />} title="Organization">
+              <SubMenu key="sub2" icon={<UserOutlined />} title="Manage">
                 <Menu.Item key="1">
-                  <Link to="/dashboard/createOrg">Create</Link>
+                  {/* <Link to="/dashboard">Contact</Link> */}
                 </Menu.Item>
-                <Menu.Item key="2">option2</Menu.Item>
+                <Menu.Item key="2">
+                  {/* <Link to="/dashboard/createOrg">Organization</Link> */}
+                </Menu.Item>
+                {/* <Menu.Item key="2">option2</Menu.Item>
                 <Menu.Item key="3">option3</Menu.Item>
-                <Menu.Item key="4">option4</Menu.Item>
+                <Menu.Item key="4">option4</Menu.Item> */}
               </SubMenu>
+              
               <div className={landingPageStyles.Button}>
                 <Button icon={<LogoutOutlined />} danger onClick={logout}>
                   Logout

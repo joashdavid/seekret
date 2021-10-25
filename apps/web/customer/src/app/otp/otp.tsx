@@ -14,14 +14,12 @@ const Otp = () => {
   const history = useHistory()
   const location =
     useLocation<{ email: string; mobileNumber: string; name: string; password: string }>()
-  console.log(location.state)
   const [otp, setOtp] = useState('')
   const getOtp = (otpValue: string) => {
     setOtp(otpValue)
   }
 
   const otpToserver = async () => {
-    console.log(otp)
     const response = await otpToserverApi(location.state.email, otp)
 
     if (response.success) {
@@ -45,6 +43,7 @@ const Otp = () => {
       location.state.email,
     )
     console.log(response)
+    setOtp('')
     setTime(120)
     setIsResendEnabled(false)
     if(response.success){

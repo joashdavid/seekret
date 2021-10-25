@@ -6,7 +6,6 @@ import { CreateContact } from '../create-contact'
 
 const DashboardRouter = () => {
   const match = useRouteMatch()
-  console.log(match)
 
   return (
     <Switch>
