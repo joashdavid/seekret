@@ -1,10 +1,10 @@
 import { Route, Switch, useRouteMatch } from 'react-router-dom'
-// import React, { lazy } from 'react'
 
-import CreateOrgDashboard from '../organization/create'
 import { CreateContact } from '../contact/create'
-import { ManageOrg } from '../organization/manage'
 import { ManageContact } from '../contact/manage'
+import CreateOrgDashboard from '../organization/create'
+import { ManageOrg } from '../organization/manage'
+
 
 const Routing = () => {
   const match = useRouteMatch()
@@ -20,7 +20,7 @@ const Routing = () => {
         exact
         path={`${match.path}/createOrg`}
         component={CreateOrgDashboard}
-      />s
+      />
        <Route
         exact
         path={`${match.path}/manageOrg`}

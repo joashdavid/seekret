@@ -8,7 +8,7 @@ import CycButton from '../../components/cyc-button/cyc-button'
 import { ThemeModel } from '../../../model/model'
 import { ThemeDropDown } from '../../components/theme-dropdown'
 
-const CreateOrgDashboard = () => {
+const CreateOrgDashboard = (props: { onSave: () => void }) => {
   const [orgName, setOrgName] = useState('')
   const [shortName, setShortName] = useState('')
   const [theme, setTheme] = useState('')
@@ -39,7 +39,7 @@ const CreateOrgDashboard = () => {
     console.log(response)
     if (response.success) {
       clearForm()
-      //   props.onSave()
+        props.onSave()
     }
   }
   const clearForm = () => {
