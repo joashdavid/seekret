@@ -1,4 +1,4 @@
-import { apiRequest } from "../../services/axios/axios"
+import { apiRequest } from "../../../services/axios/axios"
 const createOrganizationApi = async(orgName:string, shortName:string, theme:string) => {
     const dataToserver = {
         orgName:orgName,

@@ -1,7 +1,8 @@
-import CreateAccount from '../create-account/create-account'
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
+
+import CreateAccount from '../create-account/create-account'
 import Login from '../login/login'
-import Dashboard from '../dashboard/dashboard'
+import Dashboard from '../dashboard/layout'
 import Otp from '../otp/otp'
 import { CreateOrg } from '../create-org/create-org'
 import { GlobalRouterPath } from '../routing/constant/globalRoute'

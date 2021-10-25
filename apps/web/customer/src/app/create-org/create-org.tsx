@@ -1,7 +1,8 @@
-import globalStyles from '../app.module.less'
-import orgStyles from './create-org.module.less'
 import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
+
+import globalStyles from '../app.module.less'
+import orgStyles from './create-org.module.less'
 import {TextFieldNoSuffix} from '../components/text-field-nosuffix'
 import { createOrganizationApi, getThemeApi } from './api'
 import { ThemeModel } from './model'

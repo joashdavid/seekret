@@ -2,11 +2,11 @@ import { Divider } from 'antd'
 import { useState, useEffect } from 'react'
 import { Breadcrumb, Typography } from 'antd'
 
-import { TextFieldNoSuffix } from '../components/text-field-nosuffix'
+import { TextFieldNoSuffix } from '../../components/text-field-nosuffix'
 import { createOrganizationApi, getThemeApi } from './api'
-import CycButton from '../components/cyc-button/cyc-button'
-import { ThemeModel } from '../../model/model'
-import { ThemeDropDown } from '../components/theme-dropdown'
+import CycButton from '../../components/cyc-button/cyc-button'
+import { ThemeModel } from '../../../model/model'
+import { ThemeDropDown } from '../../components/theme-dropdown'
 
 const CreateOrgDashboard = () => {
   const [orgName, setOrgName] = useState('')
@@ -39,7 +39,7 @@ const CreateOrgDashboard = () => {
     console.log(response)
     if (response.success) {
       clearForm()
-    //   props.onSave()
+      //   props.onSave()
     }
   }
   const clearForm = () => {
@@ -50,10 +50,10 @@ const CreateOrgDashboard = () => {
 
   return (
     <>
-    <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>Add. Organization</Breadcrumb.Item>
-            </Breadcrumb>
-            <Text strong>Add Organization</Text>
+      <Breadcrumb style={{ margin: '16px 0' }}>
+        <Breadcrumb.Item>Add. Organization</Breadcrumb.Item>
+      </Breadcrumb>
+      <Text strong>Add Organization</Text>
       <Divider />
       <div style={{ width: '37vh' }}>
         <p style={{ marginBottom: '1vh' }}>1.Fill the organization details</p>
@@ -83,4 +83,4 @@ const CreateOrgDashboard = () => {
     </>
   )
 }
-export default CreateOrgDashboard 
+export default CreateOrgDashboard
