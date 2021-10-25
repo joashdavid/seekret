@@ -10,7 +10,7 @@ import OtpFields from './otp-fields'
 
 const Otp = () => {
   const [isResendEnabled, setIsResendEnabled] = useState<boolean>(false)
-  const [time ,setTime] = useState<number>(10)
+  const [time ,setTime] = useState<number>(120)
   const history = useHistory()
   const location =
     useLocation<{ email: string; mobileNumber: string; name: string; password: string }>()
