@@ -31,7 +31,7 @@ const TextFieldAnt = (props: {
         bordered={false}
         // onInput={getCurrentInput}
         spellCheck={false}
-        suffix={<ReactSVG src={props.suffix} />}
+        suffix={<ReactSVG src={props.suffix}  />}
       />
       </Form.Item>
       <label className={labelClass}>{props.label}</label>
