@@ -1,9 +1,11 @@
 interface OrgModel {
-    key: number;
+    key: string;
     orgName:string;
     orgShortName:string;
-    lastModified:string;
+    modifiedAt:string;
     action:string;
+    theme:string;
+    orgId:string
 }
 
 

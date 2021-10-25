@@ -1,6 +1,7 @@
 import { Breadcrumb, Typography, Divider } from 'antd'
 import { useEffect, useState } from 'react'
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import 'antd/dist/antd.css'
 import { ColumnsType } from 'antd/es/table'
 import moment from 'moment'
@@ -13,10 +14,18 @@ import { OrgModel } from './model'
 const ManageOrg = () => {
   const [orgList, setOrgList] = useState<OrgModel[]>([])
   const { Text } = Typography
+  const history = useHistory()
   const getOrg = async () => {
     const response = await getOrgApi()
     console.log(response.data)
     setOrgList(response.data)
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const getOrgDetails = (record: any) => {
+    history.push('/dashboard/createOrg',record)
+    
+    
   }
   const columns: ColumnsType<OrgModel> = [
     {
@@ -39,16 +48,25 @@ const ManageOrg = () => {
 
     {
       title: 'Last Modified',
-      dataIndex: 'lastModified',
+      dataIndex: 'modifiedAt',
       width: 450,
       key: 'orgId',
-      sorter: (a, b) => moment(a.lastModified).unix() - moment(b.lastModified).unix(),
+      sorter: (a, b) => moment(a.modifiedAt).unix() - moment(b.modifiedAt).unix(),
     },
     {
       title: 'Action',
       dataIndex: 'Edit',
       width: 200,
       key: 'orgId',
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      render: (_:any,record: OrgModel) => {
+          return(
+        <span>
+          <a href="javascript:;" onClick={() => getOrgDetails(record)} style={{ marginRight: 8 }}>
+            Edit
+          </a>
+        </span>)
+      },
     },
   ]
 
@@ -68,7 +86,16 @@ const ManageOrg = () => {
       <Text strong>Manage Organization</Text>
       <Divider />
       <div className={tableStyles.tableHeader}>
-        <Table dataSource={orgList} columns={columns} onChange={onChange}></Table>
+        <Table
+          dataSource={orgList}
+          columns={columns}
+          onChange={onChange}
+        //   onRow={(record, recordIndex) => ({
+        //     onClick: (event) => {
+        //       getOrgDetails(event.target, record, recordIndex)
+        //     },
+        //   })}
+        ></Table>
       </div>
     </>
   )

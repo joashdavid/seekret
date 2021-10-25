@@ -1,19 +1,35 @@
 import { Divider } from 'antd'
 import { useState, useEffect } from 'react'
 import { Breadcrumb, Typography } from 'antd'
+import {useLocation,useHistory} from 'react-router-dom'
 
 import { TextFieldNoSuffix } from '../../components/text-field-nosuffix'
-import { createOrganizationApi, getThemeApi } from './api'
+import { createOrganizationApi, getThemeApi, updateOrganizationApi } from './api'
 import CycButton from '../../components/cyc-button/cyc-button'
 import { ThemeModel } from '../../../model/model'
 import { ThemeDropDown } from '../../components/theme-dropdown'
+import { OrgModel } from '../manage/model'
 
-const CreateOrgDashboard = (props: { onSave: () => void }) => {
+const CreateOrgDashboard = () => {
+  const location = useLocation<OrgModel>()
+  const history = useHistory()
   const [orgName, setOrgName] = useState('')
   const [shortName, setShortName] = useState('')
   const [theme, setTheme] = useState('')
+  const [isEdit, setIsedit] = useState(false)
+  const [orgId,setOrgId] = useState('')
   const [themeList, setThemeList] = useState<ThemeModel[]>([])
   const { Text } = Typography
+  useEffect(() => {
+    if(location.state){
+      setOrgName(location.state.orgName)
+      setShortName(location.state.orgShortName)
+      setTheme(location.state.theme)
+      setIsedit(true)
+      setOrgId(location.state.orgId)
+    }
+  },
+  [])
 
   const getOrgName = (data: string) => {
     setOrgName(data)
@@ -35,10 +51,21 @@ const CreateOrgDashboard = (props: { onSave: () => void }) => {
     getThemeData()
   }, [])
   const createOrganization = async () => {
-    const response = await createOrganizationApi(orgName, shortName, theme)
+    if(!isEdit){
+      const response = await createOrganizationApi(orgName, shortName, theme)
+      console.log(response)
+      if (response.success) {
+        clearForm()
+        history.push('/dashboard/manageOrg')
+          // props.onSave()
+      }
+      return
+    }
+    const response = await updateOrganizationApi(orgId,orgName,"jpg",shortName,theme)
     console.log(response)
     if (response.success) {
       clearForm()
+      history.push('/dashboard/manageOrg')
         // props.onSave()
     }
   }
