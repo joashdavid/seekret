@@ -11,12 +11,15 @@ import CycButton from '../components/cyc-button/cyc-button'
 import { GlobalRouterPath } from '../routing/constant/globalRoute'
 import { storeInBrowser } from './utils'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
+// import { TextFieldAnt } from '../components/text-field-ant'
+// import TextFieldD from '../components/dummy-text/text-field'
 
 const Login = () => {
+  // const [form] = Form.useForm()
   const [email, setemail] = useState('')
   const [password, setpassword] = useState('')
   const [isFormValid, setFormValid] = useState(false)
-  const [isRememberMe , setIsRememberMe] = useState(false)
+  const [isRememberMe, setIsRememberMe] = useState(false)
   const history = useHistory()
 
   const userLogin = async () => {
@@ -28,14 +31,13 @@ const Login = () => {
       console.log(dataToserver)
       const response = await userLoginApi(dataToserver)
       if (response.success) {
-        storeInBrowser("Email",email)
-        storeInBrowser("Password",password)
-        storeInBrowser('Token',response.data)
+        storeInBrowser('Email', email)
+        storeInBrowser('Password', password)
+        storeInBrowser('Token', response.data)
         history.push(GlobalRouterPath.DASHBOARD)
       }
     }
   }
-  
 
   useEffect(() => {
     setFormValid(validate(email, password))
@@ -47,10 +49,16 @@ const Login = () => {
   const getEmail = (data: string) => {
     setemail(data)
   }
-  const getIsrembemerMe = (event:CheckboxChangeEvent) => {
-   setIsRememberMe(event.target.checked)
+  const getIsrembemerMe = (event: CheckboxChangeEvent) => {
+    setIsRememberMe(event.target.checked)
   }
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// const getData = (data: any) => {
+//   console.log(data)
+//   form.resetFields()
+//   setemail('')
+//   setpassword('')
+// }
   return (
     <div className={globalStyles.flex}>
       <div className={globalStyles.wallpaper}>
@@ -72,36 +80,69 @@ const Login = () => {
           <p className={globalStyles.userGuide}>
             You’ve come to the right place, login or set up your account.
           </p>
-          <form>
-            <TextField
-              onUserInput={getEmail}
-              label="Email"
-              name="email"
-              type="text"
-              img={'./assets/email.svg'}
-              value={email}
-            />
-            <TextField
-              onUserInput={getPassword}
-              label="Password"
-              name="password"
-              type="password"
-              img={'./assets/eyeopen.svg'}
-              value={password}
-            />
+          {/* <Form form={form} name="basic" initialValues={{ remember: true }} autoComplete="off" onFinish={getData}> */}
+        
+              <TextField
+                onUserInput={getEmail}
+                label="Email"
+                name="email"
+                type="text"
+                img={'./assets/email.svg'}
+                value={email}
+              />
+               {/* <TextFieldD
+               label="Email"
+               name="email"
+               type="text"
+               img={'./assets/email.svg'}
+               value={email}
+               onUserInput={getEmail}
+               /> */}
+              {/* <TextFieldAnt
+              //  onUserInput={getEmail}
+               label="Email"
+               value={email}
+               suffix={'./assets/email.svg'}/> */}
+           
+               {/* <TextFieldAnt
+               label="Password"
+               value={password}
+               suffix={'./assets/eyeopen.svg'}/> */}
+               {/* <TextFieldD
+               label="Password"
+               name="password"
+               type="password"
+               img={'./assets/eyeopen.svg'}
+               value={password}
+               onUserInput={getPassword}
+               /> */}
+              <TextField
+                onUserInput={getPassword}
+                label="Password"
+                name="password"
+                type="password"
+                img={'./assets/eyeopen.svg'}
+                value={password}
+              />
+
             <div className={styles.flexcont}>
-              <div>
-                <Checkbox onChange={getIsrembemerMe} value={isRememberMe}>
-                  <p className={styles.checkbox}> Remember me </p>
-                </Checkbox>
-              </div>
+              {/* <Form.Item> */}
+                <div>
+                  <Checkbox onChange={getIsrembemerMe} value={isRememberMe}>
+                    <p className={styles.checkbox}> Remember me </p>
+                  </Checkbox>
+                </div>
+              {/* </Form.Item> */}
 
               <div>
                 <p className={styles.password}>Forgot Password?</p>
               </div>
             </div>
+            {/* <Button type="primary" htmlType="submit">
+              LOGIN
+            </Button> */}
             <CycButton value="LOGIN" disabled={false} onClick={userLogin} />
-          </form>
+          {/* </Form> */}
           <p className={styles.createaccount}>Don’t have an account?</p>
           <div>
             <Link to={GlobalRouterPath.CREATE_ACCOUNT}>

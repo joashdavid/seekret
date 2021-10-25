@@ -19,7 +19,7 @@
     border: 0;
   }
   .label {
-    font-size: 1.3vh;
+    font-size: 1.3vh !important;
     font-weight: normal;
     position: absolute;
     pointer-events: none;
@@ -31,6 +31,6 @@
   
   .label-float {
     top: 0.4vh;
-    font-size: 0.89vh;
+    font-size: 0.89vh !important;
   }
   

@@ -10,14 +10,7 @@ export interface OtpInputProps {
 }
 
 const OtpFields = (props: OtpInputProps) => {
-  const {
-    length,
-    isNumberInput,
-    isAutoFocus,
-    isDisabled,
-    onChangeOtp,
-    ...rest
-  } = props
+  const { length, isNumberInput, isAutoFocus, isDisabled, onChangeOtp, ...rest } = props
 
   const [activeInput, setActiveInput] = useState(0)
   const [otpValues, setOtpValues] = useState(Array<string>(length).fill(''))
@@ -28,7 +21,7 @@ const OtpFields = (props: OtpInputProps) => {
       const otpValue = otp.join('')
       onChangeOtp(otpValue)
     },
-    [onChangeOtp],
+    [onChangeOtp]
   )
 
   // Helper to return value with the right type: 'text' or 'number'
@@ -42,7 +35,7 @@ const OtpFields = (props: OtpInputProps) => {
 
       return Number(changedValue) >= 0 ? changedValue : ''
     },
-    [isNumberInput],
+    [isNumberInput]
   )
 
   // Change OTP value at focussing input
@@ -53,7 +46,7 @@ const OtpFields = (props: OtpInputProps) => {
       setOtpValues(updatedOtpValues)
       handleOtpChange(updatedOtpValues)
     },
-    [activeInput, handleOtpChange, otpValues],
+    [activeInput, handleOtpChange, otpValues]
   )
 
   // Focus `inputIndex` input
@@ -62,7 +55,7 @@ const OtpFields = (props: OtpInputProps) => {
       const selectedIndex = Math.max(Math.min(length - 1, inputIndex), 0)
       setActiveInput(selectedIndex)
     },
-    [length],
+    [length]
   )
 
   const focusPrevInput = useCallback(() => {
@@ -78,7 +71,7 @@ const OtpFields = (props: OtpInputProps) => {
     (index: number) => () => {
       focusInput(index)
     },
-    [focusInput],
+    [focusInput]
   )
 
   // Handle onChange value for each input
@@ -92,7 +85,7 @@ const OtpFields = (props: OtpInputProps) => {
       changeCodeAtFocus(val)
       focusNextInput()
     },
-    [changeCodeAtFocus, focusNextInput, getRightValue],
+    [changeCodeAtFocus, focusNextInput, getRightValue]
   )
 
   // Handle onBlur input
@@ -134,7 +127,7 @@ const OtpFields = (props: OtpInputProps) => {
         }
       }
     },
-    [activeInput, changeCodeAtFocus, focusNextInput, focusPrevInput, otpValues],
+    [activeInput, changeCodeAtFocus, focusNextInput, focusPrevInput, otpValues]
   )
 
   const handleOnPaste = useCallback(
@@ -159,9 +152,10 @@ const OtpFields = (props: OtpInputProps) => {
         })
         setOtpValues(updatedOtpValues)
         setActiveInput(Math.min(nextFocusIndex + 1, length - 1))
+        handleOtpChange(updatedOtpValues)
       }
     },
-    [activeInput, getRightValue, length, otpValues],
+    [activeInput, getRightValue, length, otpValues,handleOtpChange]
   )
 
   return (

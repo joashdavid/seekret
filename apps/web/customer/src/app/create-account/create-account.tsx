@@ -29,6 +29,9 @@ const CreateAccount = () => {
       setemail(location.state.email)
       setname(location.state.name)
       setmobileNumber(location.state.mobileNumber)
+      setpassword(location.state.password)
+      setconfirmPassword(location.state.password)
+
     }
   },
   [])

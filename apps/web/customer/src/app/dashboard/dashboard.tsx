@@ -29,6 +29,14 @@ const Dashboard = () => {
     const response = await fetchOrganizationApi()
     setOrgList(response.data)
   }
+  const [selectedOrgTheme, setSelectedTheme] = useState('')
+
+ const getOrgDetails = (data: string) => {
+  const getSelectedOrgData = orgList.filter( orgSelected => (orgSelected.orgId === data))
+  const selectedOrg = {...getSelectedOrgData}
+  setSelectedTheme("#"+selectedOrg[0].theme)
+  console.log(selectedOrgTheme)
+ }
 
   useEffect(() => {
     fetchOrg()
@@ -41,10 +49,10 @@ const Dashboard = () => {
   return (
     <div className={landingPageStyles.containers}>
       <Layout style={{ width: '100%', height: '100vh' }}>
-        <Header className="header">
+      <Header style={{backgroundColor:`${selectedOrgTheme}`}} className="header">
           <Select
             className={landingPageStyles.dropDown}
-            onChange={fetchOrg}
+            onChange={getOrgDetails}
             style={{ width: 360 }}
             bordered={false}
             dropdownRender={(menu) => (

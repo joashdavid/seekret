@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import styles from './text-field.module.less'
 import FloatLabel from '../float-label/float-label'
+// import { Form } from 'antd'
 
 
 const TextField = (props: { onUserInput: (arg0: string) => void; label: string; 
@@ -10,7 +11,8 @@ const TextField = (props: { onUserInput: (arg0: string) => void; label: string;
     const getCurrentInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         if(props.name === "mobileNumber"){
             console.log(formatPhoneNumber(event.target.value))
-            props.onUserInput((event.target.value).replace(/[a-z@#$!^%*&={}<>~|?:;_`"',.[\]\\/]/g, ''))
+            props.onUserInput(event.target.value)
+            // props.onUserInput((event.target.value).replace(/[a-z@#$!^%*&={}<>~|?:;_`"',.[\]\\/]/g, ''))
         }
         else{
             props.onUserInput(event.target.value)
@@ -37,6 +39,7 @@ const TextField = (props: { onUserInput: (arg0: string) => void; label: string;
       }
     return (
         <FloatLabel label={props.label} name={props.name}  value={props.value}>
+            {/* <Form.Item name={props.name}> */}
             <div className={props.name !== "mobileNumber"?styles.textfield:styles.phoneNumber}>
                 <input type={isViewPassword ? "text": props.type} value={props.value}
                      className={props.name !== "mobileNumber"?styles.textfield:styles.phoneNumber} onInput={getCurrentInput}
@@ -48,6 +51,7 @@ const TextField = (props: { onUserInput: (arg0: string) => void; label: string;
                 }
                 
             </div>
+            {/* </Form.Item> */}
         </FloatLabel>
     )
 }

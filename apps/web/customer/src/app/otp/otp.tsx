@@ -10,7 +10,7 @@ import OtpFields from './otp-fields'
 
 const Otp = () => {
   const [isResendEnabled, setIsResendEnabled] = useState<boolean>(false)
-  const [time ,setTime] = useState<number>(120)
+  const [time ,setTime] = useState<number>(10)
   const history = useHistory()
   const location =
     useLocation<{ email: string; mobileNumber: string; name: string; password: string }>()
@@ -29,14 +29,12 @@ const Otp = () => {
         email: location.state.email,
         password: location.state.password,
       })
-      console.log(response)
       localStorage.setItem('Token', response.data)
       history.push('/createOrganization')
     }
   }
 
   const editUserInfo = () => {
-    console.log(location.state)
     history.push('/createAccount', location.state)
   }
   const enableResend = () => {
