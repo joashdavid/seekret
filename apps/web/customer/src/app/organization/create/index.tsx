@@ -1,4 +1,4 @@
-import { Divider } from 'antd'
+import { Divider,notification } from 'antd'
 import { useState, useEffect } from 'react'
 import { Breadcrumb } from 'antd'
 import {useLocation,useHistory} from 'react-router-dom'
@@ -67,11 +67,21 @@ const CreateOrgDashboard = () => {
       history.push('/dashboard/manageOrg')
         // props.onSave()
     }
+    pushNotification("INVALID CREDENTIALS","Oops! Seems like Invalid Data!.Please enter valid information")
   }
   const clearForm = () => {
     setOrgName('')
     setShortName('')
     setTheme('')
+  }
+  const pushNotification = (message:string,description:string) => {
+    notification.open({
+      message: message,
+      description:description,
+      placement: 'bottomRight',
+      duration:3,
+      className:"notificationMessage" 
+    })
   }
 
   return (

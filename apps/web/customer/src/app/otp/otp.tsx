@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { notification } from 'antd'
 import Timer from '../components/timer/timer'
 import globalStyles from '../app.module.less'
 import otpstyles from './otp.module.less'
@@ -29,7 +30,7 @@ const Otp = () => {
       })
       localStorage.setItem('Token', response.data)
       history.push('/createOrganization')
-    }
+    }pushNotification("INCORRECT OTP","Please enter a valid OTP")
   }
 
   const editUserInfo = () => {
@@ -50,6 +51,17 @@ const Otp = () => {
       setTime(120)
     }
   }
+
+  const pushNotification = (message:string,description:string) => {
+    notification.open({
+      message: message,
+      description:description,
+      placement: 'bottomRight',
+      duration:3,
+      className:"notificationMessage" 
+    })
+  }
+
   return (
     <div className={globalStyles.containers}>
       <div className={globalStyles.flex}>
