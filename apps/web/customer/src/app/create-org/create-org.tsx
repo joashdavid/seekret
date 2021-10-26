@@ -40,6 +40,7 @@ const CreateOrg = () => {
         const response = await createOrganizationApi(orgName,shortName,theme)
         if(response.success){
             history.push(GlobalRouterPath.MANAGEORG)
+            return
         }
         else{
             return pushNotification("INVALID CREDENTIALS",'Oops! Seems like Invalid Data!.Please enter valid information')

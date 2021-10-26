@@ -30,6 +30,7 @@ const Otp = () => {
       })
       localStorage.setItem('Token', response.data)
       history.push('/createOrganization')
+      return
     }
     return pushNotification("INCORRECT OTP","Please enter a valid OTP")
   }
