@@ -61,12 +61,19 @@ const CreateAccount = () => {
     </div>
   )
   const createAccount = async () => {
-    const response = await createAccountApi(name, email, mobileNumber, password)
-    if (response.success) {
-      history.push(GlobalRouterPath.OTP, { name, email, mobileNumber,password })
-    }else{
-      return pushNotification("INVALID CREDENTIALS",'Oops! Seems like Invalid Data!.Please enter valid information')
+    if(errorIn === "none"){
+      const response = await createAccountApi(name, email, mobileNumber, password)
+      if (response.success) {
+        history.push(GlobalRouterPath.OTP, { name, email, mobileNumber,password })
+        return 
+      }else{
+        return pushNotification("INVALID CREDENTIALS",'Oops! Seems like Invalid Data!.Please enter valid information')
+    }
+    }
+    else{
+      return pushNotification("INVALID CREDENTIALS",'Oops! Seems like Invalid Data!.Please enter valid data')
   }
+    
   }
   const pushNotification = (message: string, description: string) => {
     notification.open({
@@ -162,7 +169,7 @@ const CreateAccount = () => {
                 </Checkbox>
               </div>
             </div>
-            <CycButton value="CONTINUE" disabled={errorIn !== 'valid'} onClick={createAccount} />
+            <CycButton value="CONTINUE" disabled={errorIn !== 'none'} onClick={createAccount} />
             <p className={createAccountstyles.loginPara}>Already have an account?</p>
             <div>
               <Link to={GlobalRouterPath.LOGIN}>

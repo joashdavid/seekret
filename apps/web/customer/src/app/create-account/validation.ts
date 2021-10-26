@@ -21,7 +21,7 @@ const validate = (
       passwordformat.test(confirmPassword) &&
       (password === confirmPassword)
     )
-      return 'valid'
+      return 'none'
   } else {
     return 'invalid'
   }
