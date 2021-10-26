@@ -20,7 +20,7 @@ const ManageOrg = () => {
   const history = useHistory()
   useEffect(() => {
     const getOrg = async () => {
-      const response = await getOrgApi('modifiedAt', 1, 10, 'ASC')
+      const response = await getOrgApi('modifiedAt', 1, 10, 'DESC')
       setColumn("modifiedAt")
       setOrgList(response.data)
     }
