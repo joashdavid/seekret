@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
+import { notification } from 'antd'
 
 import globalStyles from '../app.module.less'
 import orgStyles from './create-org.module.less'
@@ -37,11 +38,22 @@ const CreateOrg = () => {
 
     const createOrganization = async() => {
         const response = await createOrganizationApi(orgName,shortName,theme)
-        console.log(response)
         if(response.success){
             history.push(GlobalRouterPath.MANAGEORG)
         }
+        else{
+            pushNotification("INVALID CREDENTIALS",'Oops! Seems like Invalid Data!.Please enter valid information')
+        }
     }
+    const pushNotification = (message: string, description: string) => {
+        notification.open({
+          message: message,
+          description: description,
+          placement: 'bottomRight',
+          duration: 3,
+          className: 'notificationMessage',
+        })
+      }
     return(
         <div className={globalStyles.containers}>
         <div className={globalStyles.flex}>

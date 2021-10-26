@@ -1,5 +1,5 @@
 import { Link, useHistory } from 'react-router-dom'
-import { Checkbox, Divider,notification } from 'antd'
+import { Checkbox, Divider, notification } from 'antd'
 import { useState, useEffect } from 'react'
 
 import globalStyles from '../app.module.less'
@@ -35,9 +35,21 @@ const Login = () => {
         storeInBrowser('Password', password)
         storeInBrowser('Token', response.data)
         history.push(GlobalRouterPath.MANAGEORG)
-      }pushNotification("INVALID CREDENTILAS","Oops! Seems like Invalid Data!.Please enter valid information")
-    }pushNotification("INVALID CREDENTILAS",'Oops! Seems like Invalid Data!.Please enter valid information')
-    
+      }
+      else{
+        pushNotification(
+          'INVALID CREDENTILAS',
+          'Oops! Seems like Invalid Data!.Please enter valid information'
+        )
+      }
+    }
+    else{
+      pushNotification(
+        'INVALID CREDENTILAS',
+        'Oops! Seems like Invalid Data!.Please enter valid information'
+      )
+    }
+   
   }
 
   useEffect(() => {
@@ -54,13 +66,13 @@ const Login = () => {
     setIsRememberMe(event.target.checked)
   }
 
-  const pushNotification = (message:string,description:string) => {
+  const pushNotification = (message: string, description: string) => {
     notification.open({
       message: message,
-      description:description,
+      description: description,
       placement: 'bottomRight',
-      duration:3,
-      className:"notificationMessage" 
+      duration: 3,
+      className: 'notificationMessage',
     })
   }
 
@@ -86,16 +98,16 @@ const Login = () => {
             You’ve come to the right place, login or set up your account.
           </p>
           {/* <Form form={form} name="basic" initialValues={{ remember: true }} autoComplete="off" onFinish={getData}> */}
-        
-              <TextField
-                onUserInput={getEmail}
-                label="Email"
-                name="email"
-                type="text"
-                img={'./assets/email.svg'}
-                value={email}
-              />
-               {/* <TextFieldD
+
+          <TextField
+            onUserInput={getEmail}
+            label="Email"
+            name="email"
+            type="text"
+            img={'./assets/email.svg'}
+            value={email}
+          />
+          {/* <TextFieldD
                label="Email"
                name="email"
                type="text"
@@ -103,17 +115,17 @@ const Login = () => {
                value={email}
                onUserInput={getEmail}
                /> */}
-              {/* <TextFieldAnt
+          {/* <TextFieldAnt
               //  onUserInput={getEmail}
                label="Email"
                value={email}
                suffix={'./assets/email.svg'}/> */}
-           
-               {/* <TextFieldAnt
+
+          {/* <TextFieldAnt
                label="Password"
                value={password}
                suffix={'./assets/eyeopen.svg'}/> */}
-               {/* <TextFieldD
+          {/* <TextFieldD
                label="Password"
                name="password"
                type="password"
@@ -121,32 +133,32 @@ const Login = () => {
                value={password}
                onUserInput={getPassword}
                /> */}
-              <TextField
-                onUserInput={getPassword}
-                label="Password"
-                name="password"
-                type="password"
-                img={'./assets/eyeopen.svg'}
-                value={password}
-              />
+          <TextField
+            onUserInput={getPassword}
+            label="Password"
+            name="password"
+            type="password"
+            img={'./assets/eyeopen.svg'}
+            value={password}
+          />
 
-            <div className={styles.flexcont}>
-              {/* <Form.Item> */}
-                <div>
-                  <Checkbox onChange={getIsrembemerMe} value={isRememberMe}>
-                    <p className={styles.checkbox}> Remember me </p>
-                  </Checkbox>
-                </div>
-              {/* </Form.Item> */}
-
-              <div>
-                <p className={styles.password}>Forgot Password?</p>
-              </div>
+          <div className={styles.flexcont}>
+            {/* <Form.Item> */}
+            <div>
+              <Checkbox onChange={getIsrembemerMe} value={isRememberMe}>
+                <p className={styles.checkbox}> Remember me </p>
+              </Checkbox>
             </div>
-            {/* <Button type="primary" htmlType="submit">
+            {/* </Form.Item> */}
+
+            <div>
+              <p className={styles.password}>Forgot Password?</p>
+            </div>
+          </div>
+          {/* <Button type="primary" htmlType="submit">
               LOGIN
             </Button> */}
-            <CycButton value="LOGIN" disabled={false} onClick={userLogin} />
+          <CycButton value="LOGIN" disabled={false} onClick={userLogin} />
           {/* </Form> */}
           <p className={styles.createaccount}>Don’t have an account?</p>
           <div>

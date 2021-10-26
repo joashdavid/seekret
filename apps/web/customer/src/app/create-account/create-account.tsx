@@ -1,6 +1,6 @@
 import createAccountstyles from './create-account.module.less'
 import globalStyles from '../app.module.less'
-import { Checkbox, Divider, Popover } from 'antd'
+import { Checkbox, Divider, Popover,notification } from 'antd'
 import TextField from '../components/text-field/text-field'
 import { useState, useEffect } from 'react'
 import createAccountApi from './api'
@@ -64,7 +64,18 @@ const CreateAccount = () => {
     const response = await createAccountApi(name, email, mobileNumber, password)
     if (response.success) {
       history.push(GlobalRouterPath.OTP, { name, email, mobileNumber,password })
-    }
+    }else{
+      pushNotification("INVALID CREDENTIALS",'Oops! Seems like Invalid Data!.Please enter valid information')
+  }
+  }
+  const pushNotification = (message: string, description: string) => {
+    notification.open({
+      message: message,
+      description: description,
+      placement: 'bottomRight',
+      duration: 3,
+      className: 'notificationMessage',
+    })
   }
 
   return (
