@@ -89,10 +89,6 @@ const ManageContact = () => {
     const response = await getContactApi()
     setContactList(response.data)
   }
-  // const onChangePage = (page:number,pageSize:number|undefined) =>{
-  //   console.log(page, pageSize)
-  // }
-
   return (
     <>
       <Breadcrumb style={{ margin: '16px 0' }}>

@@ -5,8 +5,7 @@ import { ReactSVG } from 'react-svg'
 import landingPageStyles from './dashboard.module.less'
 import { OrgnizationModel } from './model'
 import { fetchOrganizationApi } from './api'
-import { store } from '../store'
-import { OrgActionType } from '../store/model'
+// import { store } from '../store'
 
 const DashBoardHeader = () => {
   const { Header } = Layout

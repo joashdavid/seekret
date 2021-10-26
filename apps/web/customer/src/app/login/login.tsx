@@ -34,7 +34,7 @@ const Login = () => {
         storeInBrowser('Email', email)
         storeInBrowser('Password', password)
         storeInBrowser('Token', response.data)
-        history.push(GlobalRouterPath.DASHBOARD)
+        history.push(GlobalRouterPath.MANAGEORG)
       }
     }
   }

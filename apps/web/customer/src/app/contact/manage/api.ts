@@ -11,7 +11,7 @@ const getContactApi = async() => {
             },
             pagination: {
                 "pgNo": 1,
-                "limit": 100  
+                "limit": 10
             },
             filters: {
                 contactType: ["individual"],

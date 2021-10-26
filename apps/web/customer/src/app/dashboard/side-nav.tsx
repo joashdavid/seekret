@@ -15,6 +15,7 @@ const SideNav = () => {
     const logout = async () => {
         const response = await apiRequest('GET', 'users/logout', '')
         console.log(response)
+        localStorage.removeItem("Token")
         history.push('/')
       }
 
