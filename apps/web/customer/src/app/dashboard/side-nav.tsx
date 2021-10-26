@@ -13,7 +13,7 @@ const SideNav = () => {
     const history = useHistory()
 
     const logout = async () => {
-        const response = await apiRequest('GET', 'users/logout', '')
+        const response = await apiRequest('GET', 'users/logout', '','')
         console.log(response)
         history.push('/')
       }

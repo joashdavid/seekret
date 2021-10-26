@@ -24,6 +24,7 @@ const DashBoardHeader = () => {
   }
   const fetchOrg = async () => {
     const response = await fetchOrganizationApi()
+    console.log(response)
     setOrgList(response.data)
     setSelectedOrg(response.data[0].orgShortName)
     setSelectedTheme(

@@ -1,18 +1,21 @@
 import { apiRequest } from "../../../services/axios/axios"
 
-const getOrgApi = async() => {
+const getOrgApi = async(column:string,pgNo:number,limit:number,order:string) => {
     const data = {
         pagination: {
-            pgNo: 2,
-            limit: 2
+            pgNo: pgNo,
+            limit: limit
         },
         searchPattern: "%",
         sort: {
-            column: "orgName",
-            order: "ASC"
+            column: column,
+            order: order
         }
     }
-    return await apiRequest("GET",'organizations/fetchOrg?pgNo=1&limit=100',data)
+    console.log(data)
+    const response =  await apiRequest("POST",'organizations/fetchOrg',data,'')
+    console.log("response",response.data)
+    return response
 }
 
 export {getOrgApi}

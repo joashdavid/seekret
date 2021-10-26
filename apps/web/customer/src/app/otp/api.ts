@@ -6,14 +6,14 @@ const otpToserverApi = async (email: string | null, data: string) => {
     otp: data,
   }
   console.log(dataToserver)
-  const response = await apiRequest('POST', 'users/verify', dataToserver)
+  const response = await apiRequest('POST', 'users/verify', dataToserver,'')
   console.log(response)
   return response
 }
 
 const getAccessToken = async (data: {email:string,password:string}) => {
  
-  const response = await apiRequest('POST', 'users/login', data)
+  const response = await apiRequest('POST', 'users/login', data,'')
   return response
 }
 
@@ -21,7 +21,7 @@ const resendOtpApi = async(email:string) => {
     const dataToserver = {
         email
     }
-    return await apiRequest("POST",'users/sendOtp',dataToserver)
+    return await apiRequest("POST",'users/sendOtp',dataToserver,'')
     
 }
 
