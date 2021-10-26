@@ -3,6 +3,7 @@ import { AppRouter } from './routing'
 
 const App = () => {
   return (
+    
     <div className={styles.app}>
       <AppRouter/>
     </div>

@@ -14,13 +14,14 @@ import { OrgModel } from './model'
 
 const ManageOrg = () => {
   const [orgList, setOrgList] = useState<OrgModel[]>([])
+  const [column,setColumn] = useState<string>('')
 
   const { Text } = Typography
   const history = useHistory()
   useEffect(() => {
     const getOrg = async () => {
       const response = await getOrgApi('modifiedAt', 1, 10, 'ASC')
-      console.log('initial', response.data)
+      setColumn("modifiedAt")
       setOrgList(response.data)
     }
     getOrg()
@@ -74,14 +75,20 @@ const ManageOrg = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onChange = async (pagination: any, filters: any, sorter: any) => {
     console.log(sorter)
+    if(sorter.columnKey){
+      setColumn(sorter.columnKey)
+    }
     const response = await getOrgApi(
-      sorter.columnKey,
+      column,
       pagination.current,
       pagination.pageSize,
       sorter.order === 'ascend' ? 'ASC' : 'DESC'
     )
     setOrgList(response.data)
   }
+  // const onChangePage = (page:number,pageSize:number|undefined) =>{
+  //   console.log(page, pageSize)
+  // }
 
   return (
     <>
@@ -101,6 +108,7 @@ const ManageOrg = () => {
           pagination={{
             position: ["topRight"],
             total:50
+            // onChange:{onChangePage}
           }}
         ></Table>
       </div>

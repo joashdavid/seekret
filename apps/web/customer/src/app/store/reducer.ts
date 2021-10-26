@@ -1,10 +1,18 @@
-import { ADD_ORG } from "./actionType"
-
-
-const reducer = (state:[],action: { type: string }) => {
-    if(action.type === ADD_ORG){
-      console.log("Added")
-    }
+/* eslint-disable @typescript-eslint/default-param-last */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { ADD_ORG } from './actionType'
+import { OrgActionType } from './model'
+const initialState= {}
+const reducers = (state = initialState, action: any) => {
+  switch (action.type) {
+    case OrgActionType.SWITCH_ORG:
+      return {
+        ...state,
+        orgId: 'NEW',
+      }
+      default:
+      return state
+  }
 }
 
-export {reducer}
+export { reducers }
