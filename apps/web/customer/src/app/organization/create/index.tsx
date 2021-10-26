@@ -57,6 +57,7 @@ const CreateOrgDashboard = () => {
         clearForm()
         history.push('/dashboard/manageOrg')
           // props.onSave()
+          return
       }
       else{
         return pushNotification("INVALID CREDENTIALS","Oops! Seems like Invalid Data!.Please enter valid information")
@@ -70,6 +71,7 @@ const CreateOrgDashboard = () => {
       clearForm()
       history.push('/dashboard/manageOrg')
         // props.onSave()
+        return
     }
     else{
       return pushNotification("INVALID CREDENTIALS","Oops! Seems like Invalid Data!.Please enter valid information")
