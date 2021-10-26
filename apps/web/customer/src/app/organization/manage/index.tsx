@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Breadcrumb, Typography, Divider } from 'antd'
+import { Breadcrumb, Typography, Divider, Button } from 'antd'
 import { useEffect, useState } from 'react'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
@@ -19,13 +19,12 @@ const ManageOrg = () => {
   const history = useHistory()
   useEffect(() => {
     const getOrg = async () => {
-      const response = await getOrgApi('Name', 1, 10, 'ASC')
+      const response = await getOrgApi('modifiedAt', 1, 10, 'ASC')
       console.log('initial', response.data)
       setOrgList(response.data)
     }
     getOrg()
   }, [])
-  
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getOrgDetails = (record: any) => {
@@ -64,11 +63,9 @@ const ManageOrg = () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       render: (_, record: OrgModel) => {
         return (
-          <span>
-            <a href="javascript:;" onClick={() => getOrgDetails(record)} style={{ marginRight: 8 }}>
-              Edit
-            </a>
-          </span>
+          <Button type="primary" onClick={() => getOrgDetails(record)} style={{ marginRight: 8 }}>
+            Edit
+          </Button>
         )
       },
     },
@@ -78,7 +75,7 @@ const ManageOrg = () => {
   const onChange = async (pagination: any, filters: any, sorter: any) => {
     console.log(sorter)
     const response = await getOrgApi(
-      sorter.columnKey === 'orgName' ? 'Name' : 'Short Name',
+      sorter.columnKey,
       pagination.current,
       pagination.pageSize,
       sorter.order === 'ascend' ? 'ASC' : 'DESC'
@@ -86,7 +83,6 @@ const ManageOrg = () => {
     setOrgList(response.data)
   }
 
- 
   return (
     <>
       <Breadcrumb style={{ margin: '16px 0' }}>
@@ -99,6 +95,13 @@ const ManageOrg = () => {
           dataSource={orgList}
           columns={columns}
           onChange={onChange}
+          // dataSourceIndexOffset={10}
+          showSorterTooltip={false}
+          // position={["topRight"]}
+          pagination={{
+            position: ["topRight"],
+            total:50
+          }}
         ></Table>
       </div>
     </>

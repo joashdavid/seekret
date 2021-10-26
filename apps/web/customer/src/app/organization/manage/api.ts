@@ -13,7 +13,7 @@ const getOrgApi = async(column:string,pgNo:number,limit:number,order:string) => 
         }
     }
     console.log(data)
-    const response =  await apiRequest("POST",'organizations/fetchOrg',data,'')
+    const response =  await apiRequest("POST",'organizations/fetchOrg',data)
     console.log("response",response.data)
     return response
 }

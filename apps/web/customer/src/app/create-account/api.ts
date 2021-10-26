@@ -11,7 +11,7 @@ const createAccountApi = async(name:string,email:string,mobileNumber:string,pass
         password,
     }
     console.log(dataToServer)
-    const response = await apiRequest("POST",'users/create',dataToServer,'')
+    const response = await apiRequest("POST",'users/create',dataToServer)
     return response
 }
 

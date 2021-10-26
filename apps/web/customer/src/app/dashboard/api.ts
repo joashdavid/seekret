@@ -7,12 +7,12 @@ const createOrganizationApi = async(orgName:string, shortName:string, theme:stri
         theme
     }
     console.log(dataToserver)
-    const response = await apiRequest("POST",'organizations/create',dataToserver,'')
+    const response = await apiRequest("POST",'organizations/create',dataToserver)
     return response
 }
 
 const getThemeApi = async() => {
-    return await apiRequest("GET","organizations/fetchThemes",'','')
+    return await apiRequest("GET","organizations/fetchThemes",'')
 }
 const fetchOrganizationApi = async() => {
     const data = {
@@ -22,15 +22,14 @@ const fetchOrganizationApi = async() => {
         },
         searchPattern: "%",
         sort: {
-            column: "Name",
+            column: "orgName",
             order: "ASC"
         }
     }
     return  await apiRequest(
         'POST',
         'organizations/fetchOrg',
-        data,
-        ''
+        data
       )
 }
 
