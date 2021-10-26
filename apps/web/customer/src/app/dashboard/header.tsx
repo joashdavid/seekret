@@ -23,7 +23,7 @@ const DashBoardHeader = () => {
           #${selectedOrg[0].theme} 0%,  #${selectedOrg[0].theme} 100%) 0% 0% no-repeat padding-box`
     )
     setSelectedOrg(selectedOrg[0].orgShortName)
-    store.dispatch({ action: OrgActionType.SWITCH_ORG, payload: selectedOrg })
+    // store.dispatch({ action: OrgActionType.SWITCH_ORG, payload: selectedOrg })
   }
 
   const fetchOrg = async () => {
@@ -59,12 +59,15 @@ const DashBoardHeader = () => {
           return (
             <Option value={org.orgId} className={landingPageStyles.options}>
               <div className={landingPageStyles.optionWrapper}>
+
+             
                 <div
                   className={landingPageStyles.optionsLogo}
                   style={{ backgroundColor: `#${org.theme}` }}
                 />
-                <span> {org.orgShortName}</span>
-              </div>
+                <span>    {org.orgShortName}</span>
+            
+                </div>
             </Option>
           )
         })}

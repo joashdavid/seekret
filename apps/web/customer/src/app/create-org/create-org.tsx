@@ -39,7 +39,7 @@ const CreateOrg = () => {
         const response = await createOrganizationApi(orgName,shortName,theme)
         console.log(response)
         if(response.success){
-            history.push(GlobalRouterPath.DASHBOARD)
+            history.push(GlobalRouterPath.MANAGEORG)
         }
     }
     return(
