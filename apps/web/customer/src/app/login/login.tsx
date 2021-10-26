@@ -37,14 +37,14 @@ const Login = () => {
         history.push(GlobalRouterPath.MANAGEORG)
       }
       else{
-        pushNotification(
+        return pushNotification(
           'INVALID CREDENTILAS',
           'Oops! Seems like Invalid Data!.Please enter valid information'
         )
       }
     }
     else{
-      pushNotification(
+      return pushNotification(
         'INVALID CREDENTILAS',
         'Oops! Seems like Invalid Data!.Please enter valid information'
       )

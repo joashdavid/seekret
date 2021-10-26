@@ -58,8 +58,12 @@ const CreateOrgDashboard = () => {
         history.push('/dashboard/manageOrg')
           // props.onSave()
       }
-      return
+      else{
+        return pushNotification("INVALID CREDENTIALS","Oops! Seems like Invalid Data!.Please enter valid information")
+      }
+      
     }
+    
     const response = await updateOrganizationApi(orgId,orgName,"jpg",shortName,theme)
     console.log(response)
     if (response.success) {
@@ -67,7 +71,10 @@ const CreateOrgDashboard = () => {
       history.push('/dashboard/manageOrg')
         // props.onSave()
     }
-    pushNotification("INVALID CREDENTIALS","Oops! Seems like Invalid Data!.Please enter valid information")
+    else{
+      return pushNotification("INVALID CREDENTIALS","Oops! Seems like Invalid Data!.Please enter valid information")
+    }
+    
   }
   const clearForm = () => {
     setOrgName('')

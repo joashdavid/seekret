@@ -42,7 +42,7 @@ const CreateOrg = () => {
             history.push(GlobalRouterPath.MANAGEORG)
         }
         else{
-            pushNotification("INVALID CREDENTIALS",'Oops! Seems like Invalid Data!.Please enter valid information')
+            return pushNotification("INVALID CREDENTIALS",'Oops! Seems like Invalid Data!.Please enter valid information')
         }
     }
     const pushNotification = (message: string, description: string) => {
