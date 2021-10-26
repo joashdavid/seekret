@@ -1,7 +1,10 @@
 import { apiRequest } from "../../../services/axios/axios"
+import { store } from "../../store"
+// import { useSelector } from "react-redux"
 
 const getContactApi = async() => {
-    console.log("Fetch")
+    // const orgId = useSelector(state)
+    // const orgId  = store.getState()
     const dataToserver = {
         orgId: localStorage.getItem("orgId"),
         options: {
@@ -21,6 +24,7 @@ const getContactApi = async() => {
             }
         }
     }
+    console.log(dataToserver)
     return await apiRequest("POST",'contacts/manage/fetch',dataToserver)
 
 }

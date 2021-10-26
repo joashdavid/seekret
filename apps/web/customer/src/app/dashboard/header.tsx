@@ -5,8 +5,8 @@ import { ReactSVG } from 'react-svg'
 import landingPageStyles from './dashboard.module.less'
 import { OrgnizationModel } from './model'
 import { fetchOrganizationApi } from './api'
-// import {Organization} from '../store/action'
-// import { store } from '../store'
+import * as actions from '../store/action'
+import { store } from '../store'
 
 const DashBoardHeader = () => {
   const { Header } = Layout
@@ -23,8 +23,9 @@ const DashBoardHeader = () => {
           #${selectedOrg[0].theme} 0%,  #${selectedOrg[0].theme} 100%) 0% 0% no-repeat padding-box`
     )
     setSelectedOrg(selectedOrg[0].orgShortName)
-    localStorage.setItem("orgId",selectedOrg[0].orgId)
-    // store.dispatch({ action: Organization})
+    localStorage.setItem('orgId', selectedOrg[0].orgId)
+
+    // store.dispatch({type:'SWITCH_ORG' ,payload:selectedOrg[0].orgId})
   }
 
   const fetchOrg = async () => {
@@ -32,14 +33,12 @@ const DashBoardHeader = () => {
     console.log(response)
     setOrgList(response.data)
     setSelectedOrg(response.data[0].orgShortName)
-    localStorage.setItem("orgId",response.data[0].orgId)
+    localStorage.setItem('orgId', response.data[0].orgId)
     setSelectedTheme(
       `transparent linear-gradient(90deg,
          #${response.data[0].theme} 0%, #${response.data[0].theme} 
          100%) 0% 0% no-repeat padding-box`
     )
-    console.log(selectedOrgTheme)
-    // transparent linear-gradient(90deg, #315B81 0%, #003463 100%) 0% 0% no-repeat padding-box
   }
 
   useEffect(() => {
@@ -61,15 +60,12 @@ const DashBoardHeader = () => {
           return (
             <Option value={org.orgId} className={landingPageStyles.options}>
               <div className={landingPageStyles.optionWrapper}>
-
-             
                 <div
                   className={landingPageStyles.optionsLogo}
                   style={{ backgroundColor: `#${org.theme}` }}
                 />
-                <span>    {org.orgShortName}</span>
-            
-                </div>
+                <span> {org.orgShortName}</span>
+              </div>
             </Option>
           )
         })}

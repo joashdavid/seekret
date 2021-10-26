@@ -2,14 +2,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ADD_ORG } from './actionType'
 // import { OrgActionType } from './model'
-const initialState= {}
+const initialState= {orgId:''}
 const reducers = (state = initialState, action: any) => {
+  console.log(action)
   switch (action.type) {
     case "SWITCH_ORG":
-      console.log(action.payload)
       return {
-        ...state,
-        orgId: 'NEW',
+        orgId: action.payload
       }
       default:
       return state
