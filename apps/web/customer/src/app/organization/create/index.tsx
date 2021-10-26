@@ -1,6 +1,6 @@
 import { Divider } from 'antd'
 import { useState, useEffect } from 'react'
-import { Breadcrumb, Typography } from 'antd'
+import { Breadcrumb } from 'antd'
 import {useLocation,useHistory} from 'react-router-dom'
 
 import { TextFieldNoSuffix } from '../../components/text-field-nosuffix'
@@ -19,7 +19,6 @@ const CreateOrgDashboard = () => {
   const [isEdit, setIsedit] = useState(false)
   const [orgId,setOrgId] = useState('')
   const [themeList, setThemeList] = useState<ThemeModel[]>([])
-  const { Text } = Typography
   useEffect(() => {
     if(location.state){
       setOrgName(location.state.orgName)
@@ -80,7 +79,6 @@ const CreateOrgDashboard = () => {
       <Breadcrumb style={{ margin: '16px 0' }}>
         <Breadcrumb.Item>Add. Organization</Breadcrumb.Item>
       </Breadcrumb>
-      <Text strong>Add Organization</Text>
       <Divider />
       <div style={{ width: '37vh' }}>
         <p style={{ marginBottom: '1vh' }}>1.Fill the organization details</p>

@@ -6,6 +6,7 @@ const initialState= {}
 const reducers = (state = initialState, action: any) => {
   switch (action.type) {
     case OrgActionType.SWITCH_ORG:
+      console.log(action.payload)
       return {
         ...state,
         orgId: 'NEW',

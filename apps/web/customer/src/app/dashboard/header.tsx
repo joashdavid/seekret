@@ -5,6 +5,8 @@ import { ReactSVG } from 'react-svg'
 import landingPageStyles from './dashboard.module.less'
 import { OrgnizationModel } from './model'
 import { fetchOrganizationApi } from './api'
+import { store } from '../store'
+import { OrgActionType } from '../store/model'
 
 const DashBoardHeader = () => {
   const { Header } = Layout
@@ -21,7 +23,9 @@ const DashBoardHeader = () => {
           #${selectedOrg[0].theme} 0%,  #${selectedOrg[0].theme} 100%) 0% 0% no-repeat padding-box`
     )
     setSelectedOrg(selectedOrg[0].orgShortName)
+    store.dispatch({ action: OrgActionType.SWITCH_ORG, payload: selectedOrg })
   }
+
   const fetchOrg = async () => {
     const response = await fetchOrganizationApi()
     console.log(response)
@@ -39,6 +43,7 @@ const DashBoardHeader = () => {
   useEffect(() => {
     fetchOrg()
   }, [])
+
   return (
     <Header style={{ background: `${selectedOrgTheme}` }} className="header">
       <Select
@@ -53,10 +58,13 @@ const DashBoardHeader = () => {
         {orgList.map((org) => {
           return (
             <Option value={org.orgId} className={landingPageStyles.options}>
-              <span>
-                <img className={landingPageStyles.optionsLogo} src={org.logo} alt="" />
-                {org.orgShortName}{' '}
-              </span>
+              <div className={landingPageStyles.optionWrapper}>
+                <div
+                  className={landingPageStyles.optionsLogo}
+                  style={{ backgroundColor: `#${org.theme}` }}
+                />
+                <span> {org.orgShortName}</span>
+              </div>
             </Option>
           )
         })}

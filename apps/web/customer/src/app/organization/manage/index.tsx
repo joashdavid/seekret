@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-import { Breadcrumb, Typography, Divider, Button } from 'antd'
+
+import { Breadcrumb, Divider, Button } from 'antd'
 import { useEffect, useState } from 'react'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
@@ -16,7 +16,6 @@ const ManageOrg = () => {
   const [orgList, setOrgList] = useState<OrgModel[]>([])
   const [column,setColumn] = useState<string>('')
 
-  const { Text } = Typography
   const history = useHistory()
   useEffect(() => {
     const getOrg = async () => {
@@ -61,7 +60,8 @@ const ManageOrg = () => {
       dataIndex: 'Edit',
       width: 200,
       key: 'Edit',
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       render: (_, record: OrgModel) => {
         return (
           <Button type="primary" onClick={() => getOrgDetails(record)} style={{ marginRight: 8 }}>
@@ -95,7 +95,6 @@ const ManageOrg = () => {
       <Breadcrumb style={{ margin: '16px 0' }}>
         <Breadcrumb.Item>Manage. Organization</Breadcrumb.Item>
       </Breadcrumb>
-      <Text strong>Manage Organization</Text>
       <Divider />
       <div className={tableStyles.tableHeader}>
         <Table

@@ -22,8 +22,8 @@ const SideNav = () => {
           <Sider width={200} className="site-layout-background">
             <Menu
               mode="inline"
-              defaultSelectedKeys={['1']}
-              defaultOpenKeys={['sub1']}
+              defaultSelectedKeys={['manageOrganization']}
+              defaultOpenKeys={['sub2']}
               style={{ height: '100%', borderRight: 0 }}
             >
               <SubMenu key="sub1" icon={<UserOutlined />} title="Create">
