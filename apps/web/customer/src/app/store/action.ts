@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { OrgActionType } from "./model"
-const addOrganization = (description:any) => {
+const Organization = (description:any) => {
+    console.log(description,)
     return {
-        type:OrgActionType.SWITCH_ORG,
+        type:"SWITCH_ORG",
         payload:{
             description
         }
     }
 }
 
-export {addOrganization}
+export {Organization}

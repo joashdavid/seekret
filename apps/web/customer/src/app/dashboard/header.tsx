@@ -5,6 +5,7 @@ import { ReactSVG } from 'react-svg'
 import landingPageStyles from './dashboard.module.less'
 import { OrgnizationModel } from './model'
 import { fetchOrganizationApi } from './api'
+// import {Organization} from '../store/action'
 // import { store } from '../store'
 
 const DashBoardHeader = () => {
@@ -22,7 +23,8 @@ const DashBoardHeader = () => {
           #${selectedOrg[0].theme} 0%,  #${selectedOrg[0].theme} 100%) 0% 0% no-repeat padding-box`
     )
     setSelectedOrg(selectedOrg[0].orgShortName)
-    // store.dispatch({ action: OrgActionType.SWITCH_ORG, payload: selectedOrg })
+    localStorage.setItem("orgId",selectedOrg[0].orgId)
+    // store.dispatch({ action: Organization})
   }
 
   const fetchOrg = async () => {
@@ -30,6 +32,7 @@ const DashBoardHeader = () => {
     console.log(response)
     setOrgList(response.data)
     setSelectedOrg(response.data[0].orgShortName)
+    localStorage.setItem("orgId",response.data[0].orgId)
     setSelectedTheme(
       `transparent linear-gradient(90deg,
          #${response.data[0].theme} 0%, #${response.data[0].theme} 

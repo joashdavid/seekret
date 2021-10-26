@@ -3,7 +3,7 @@ import { apiRequest } from "../../../services/axios/axios"
 const getContactApi = async() => {
     console.log("Fetch")
     const dataToserver = {
-        orgId: "1dfe8f13-5497-4db9-8ab2-f17e041cd269",
+        orgId: localStorage.getItem("orgId"),
         options: {
             sort: {
                 column: "modifiedAt",
