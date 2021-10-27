@@ -16,9 +16,9 @@
     font-weight: 600;
     font-size:1.3vh;
   }
-  .float-label textarea{
+  /* .float-label textarea{
     height:10vh;
-  }
+  } */
   .float-label input:focus{
     border: 0;
   }

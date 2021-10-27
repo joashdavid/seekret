@@ -3,25 +3,92 @@ import { useState } from 'react'
 import { Breadcrumb, Divider, Row, Col } from 'antd'
 
 import contactFormStyles from './create.module.less'
-import { TextFieldNoSuffix } from '../../components/text-field-nosuffix'
-import {TextArea} from '../../components/text-area'
+import { TextFieldNoSuffix } from '../../../components/text-field-nosuffix'
+import { TextArea } from '../../../components/text-area'
+import CycButton from '../../../components/cyc-button/cyc-button'
+import { createContactApi } from '../individual/api'
+// import { store } from '../../../store'
 
 const CreateContact = () => {
   const [fullName, setfullName] = useState('')
   const [phoneNumber, setphoneNumber] = useState('')
   const [email, setEmail] = useState('')
+  const [address, setAddress] = useState('')
+  const [country, setCountry] = useState('')
+  const [state, setState] = useState('')
+  const [pincode, setPincode] = useState('')
+  const [city, setCity] = useState('')
+  const [bank, setBank] = useState('')
+  const [accountNumber, setAcnumber] = useState('')
+  const [ifsc, setIfsc] = useState('')
+  const [swift, setSwift] = useState('')
+  const [bankAddress, setBankaddress] = useState('')
+  const [roles, setRoles] = useState('')
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // const [currentOrg, setCurrentOrg] = useState<any>()
+  // store.subscribe(() => {
+  //   setCurrentOrg(store.getState())
+  // })
   const getFullname = (data: string) => {
     setfullName(data)
   }
-
   const getphoneNumber = (data: string) => {
     setphoneNumber(data)
   }
-
   const getEmail = (data: string) => {
     setEmail(data)
   }
-
+  const getAddress = (data: string) => {
+    setAddress(data)
+  }
+  const getCountry = (data: string) => {
+    setCountry(data)
+  }
+  const getState = (data: string) => {
+    setState(data)
+  }
+  const getPincode = (data: string) => {
+    setPincode(data)
+  }
+  const getCity = (data: string) => {
+    setCity(data)
+  }
+  const getBank = (data: string) => {
+    setBank(data)
+  }
+  const getAccountNumber = (data: string) => {
+    setAcnumber(data)
+  }
+  const getIfsc = (data: string) => {
+    setIfsc(data)
+  }
+  const getSwift = (data: string) => {
+    setSwift(data)
+  }
+  const getBankaddress = (data: string) => {
+    setBankaddress(data)
+  }
+  const getRoles = (data: string) => {
+    setRoles(data)
+  }
+  const getDetails = async () => {
+    const response = await createContactApi(
+      fullName,
+      phoneNumber,
+      email,
+      address,
+      country,
+      state,
+      pincode,
+      city,
+      bank,
+      accountNumber,
+      ifsc,
+      swift,
+      bankAddress,
+    )
+    console.log(response)
+  }
   return (
     <>
       <Breadcrumb style={{ margin: '16px 0' }}>
@@ -120,57 +187,57 @@ const CreateContact = () => {
             </Col>
           </Row>
 
-          <Row>
+          <Row gutter={[16, 16]}>
             <Col span={18}>
               <TextArea
-                onUserInput={getEmail}
+                onUserInput={getAddress}
                 label="Address"
-                name="email"
+                name="address"
                 type="text"
-                value={email}
+                value={address}
               />
             </Col>
           </Row>
           <Row>
             <Col span={8}>
               <TextFieldNoSuffix
-                onUserInput={getEmail}
+                onUserInput={getCountry}
                 label="Country"
-                name="email"
+                name="country"
                 type="text"
-                value={email}
+                value={country}
               />
             </Col>
             <Col span={2} />
 
             <Col span={8}>
               <TextFieldNoSuffix
-                onUserInput={getEmail}
+                onUserInput={getState}
                 label="State"
-                name="email"
+                name="state"
                 type="text"
-                value={email}
+                value={state}
               />
             </Col>
           </Row>
           <Row>
             <Col span={8}>
               <TextFieldNoSuffix
-                onUserInput={getEmail}
+                onUserInput={getPincode}
                 label="Pincode"
-                name="email"
+                name="pincode"
                 type="text"
-                value={email}
+                value={pincode}
               />
             </Col>
             <Col span={2} />
             <Col span={8}>
               <TextFieldNoSuffix
-                onUserInput={getEmail}
+                onUserInput={getCity}
                 label="City"
-                name="email"
+                name="city"
                 type="text"
-                value={email}
+                value={city}
               />
             </Col>
           </Row>
@@ -180,72 +247,75 @@ const CreateContact = () => {
           <Row>
             <Col span={8}>
               <TextFieldNoSuffix
-                onUserInput={getEmail}
+                onUserInput={getBank}
                 label="Bank"
-                name="email"
+                name="bank"
                 type="text"
-                value={email}
-              />{' '}
+                value={bank}
+              />
             </Col>
-            <Col span={2}/>
+            <Col span={2} />
             <Col span={8}>
               <TextFieldNoSuffix
-                onUserInput={getEmail}
+                onUserInput={getAccountNumber}
                 label="Account number"
-                name="email"
+                name="account"
                 type="text"
-                value={email}
-              />{' '}
+                value={accountNumber}
+              />
             </Col>
           </Row>
           <Row>
             <Col span={8}>
               <TextFieldNoSuffix
-                onUserInput={getEmail}
+                onUserInput={getIfsc}
                 label="IFSC code"
                 name="email"
                 type="text"
-                value={email}
-              />{' '}
+                value={ifsc}
+              />
             </Col>
-            <Col  span={2}/>
+            <Col span={2} />
             <Col span={8}>
               <TextFieldNoSuffix
-                onUserInput={getEmail}
+                onUserInput={getSwift}
                 label="Swift"
-                name="email"
+                name="swift"
                 type="text"
-                value={email}
-              />{' '}
+                value={swift}
+              />
             </Col>
           </Row>
           <Row>
             <Col span={18}>
-              <TextFieldNoSuffix
-                onUserInput={getEmail}
+              <TextArea
+                onUserInput={getBankaddress}
                 label="Bank Address"
-                name="email"
+                name="bankAddress"
                 type="text"
-                value={email}
-              />{' '}
+                value={bankAddress}
+              />
             </Col>
           </Row>
           <Row>
-            <Col span={24}>Assign Role Header </Col>
+            <Col span={24}>
+              <span className={contactFormStyles.formContent}>3.Assign Role</span>{' '}
+            </Col>
 
             <Col span={18}>
               <TextFieldNoSuffix
-                onUserInput={getEmail}
+                onUserInput={getRoles}
                 label="Roles"
-                name="email"
+                name="roles"
                 type="text"
-                value={email}
-              />{' '}
+                value={roles}
+              />
             </Col>
           </Row>
         </Col>
       </Row>
       <Divider />
+      <CycButton value="SAVE AND CONTINUE" disabled={false} onClick={getDetails} />
       <Row></Row>
     </>
   )
