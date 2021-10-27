@@ -1,0 +1,40 @@
+.float-label {
+    position: relative;
+    background:#F7F8FD;
+    border: 0;
+    border-radius: 0.93vh;
+    margin-bottom: 1.33vh;
+    width: 100%;
+  }
+  .float-label input,.float-label textarea{
+    padding:1vh 4vh 0 1.2vh;
+    height: 4.35vh;
+    border-radius: 0.93vh;
+    background:#F7F8FD;
+    border: 0;
+    color: #2B3134;
+    font-weight: 600;
+    font-size:1.3vh;
+  }
+  /* .float-label textarea{
+    height:10vh;
+  } */
+  .float-label input:focus{
+    border: 0;
+  }
+  .label {
+    font-size: 1.3vh !important;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 1.2vh;
+    top: 1.2vh;
+    transition: 0.2s ease all;
+    color: #6F91A8;
+  }
+  
+  .label-float {
+    top: 0.4vh;
+    font-size: 0.89vh !important;
+  }
+  
