@@ -1,12 +1,13 @@
 import { apiRequest } from "../../../services/axios/axios"
-import { store } from "../../store"
+// import { store } from "../../store"
 // import { useSelector } from "react-redux"
 
-const getContactApi = async() => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getContactApi = async(data:any) => {
     // const orgId = useSelector(state)
     // const orgId  = store.getState()
     const dataToserver = {
-        orgId: localStorage.getItem("orgId"),
+        orgId: data.orgId,
         options: {
             sort: {
                 column: "modifiedAt",

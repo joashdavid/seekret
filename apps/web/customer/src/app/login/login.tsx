@@ -31,8 +31,7 @@ const Login = () => {
       console.log(dataToserver)
       const response = await userLoginApi(dataToserver)
       if (response.success) {
-        storeInBrowser('Email', email)
-        storeInBrowser('Password', password)
+        console.log(response)
         storeInBrowser('Token', response.data)
         history.push(GlobalRouterPath.MANAGEORG)
       }

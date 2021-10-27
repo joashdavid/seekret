@@ -99,7 +99,7 @@ const CreateOrgDashboard = () => {
         <Breadcrumb.Item>Add. Organization</Breadcrumb.Item>
       </Breadcrumb>
       <Divider />
-      <div style={{ width: '37vh' }}>
+      <div style={{ width: '38vh' }}>
         <p style={{ marginBottom: '1vh' }}>1.Fill the organization details</p>
         <TextFieldNoSuffix
           onUserInput={getOrgName}

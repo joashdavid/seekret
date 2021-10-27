@@ -39,6 +39,7 @@ const CreateOrg = () => {
     const createOrganization = async() => {
         const response = await createOrganizationApi(orgName,shortName,theme)
         if(response.success){
+            localStorage.setItem("Token",response.data.token)
             history.push(GlobalRouterPath.MANAGEORG)
             return
         }
@@ -51,7 +52,7 @@ const CreateOrg = () => {
           message: message,
           description: description,
           placement: 'bottomRight',
-          duration: 3,
+          duration: 2,
           className: 'notificationMessage',
         })
       }
