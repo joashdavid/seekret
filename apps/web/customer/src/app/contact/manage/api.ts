@@ -3,15 +3,15 @@ import { apiRequest } from "../../../services/axios/axios"
 // import { useSelector } from "react-redux"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getContactApi = async(data:any) => {
+const getContactApi = async() => {
     // const orgId = useSelector(state)
     // const orgId  = store.getState()
     const dataToserver = {
-        orgId: data.orgId,
+        orgId: localStorage.getItem('orgId'),
         options: {
             sort: {
                 column: "modifiedAt",
-                order: "ASC"
+                order: "DESC"
             },
             pagination: {
                 "pgNo": 1,
@@ -26,6 +26,7 @@ const getContactApi = async(data:any) => {
         }
     }
     console.log(dataToserver)
+    console.log("local storage",localStorage.getItem("orgId"))
     return await apiRequest("POST",'contacts/manage/fetch',dataToserver)
 
 }

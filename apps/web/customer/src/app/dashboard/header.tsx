@@ -30,10 +30,11 @@ const DashBoardHeader = () => {
 
   const fetchOrg = async () => {
     const response = await fetchOrganizationApi()
-    console.log(response)
+    console.log('header',response)
     setOrgList(response.data)
     setSelectedOrg(response.data[0].orgShortName)
     localStorage.setItem('orgId', response.data[0].orgId)
+    console.log('header local',localStorage.getItem('orgId'))
     setSelectedTheme(
       `transparent linear-gradient(90deg,
          #${response.data[0].theme} 0%, #${response.data[0].theme} 

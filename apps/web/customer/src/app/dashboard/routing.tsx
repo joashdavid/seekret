@@ -1,6 +1,8 @@
 import { Route, Switch, useRouteMatch } from 'react-router-dom'
+import { CreateContact } from '../contact/create'
 
-import { CreateContact } from '../contact/create/individual'
+// import { CreateIndividualContact } from '../contact/create/individual/index'
+// import { CreateCompanyContact } from '../contact/create/company'
 import { ManageContact } from '../contact/manage'
 import CreateOrgDashboard from '../organization/create'
 import { ManageOrg } from '../organization/manage'

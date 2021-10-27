@@ -4,7 +4,7 @@ import React from 'react'
 import 'antd/dist/antd.css'
 import { ColumnsType } from 'antd/es/table'
 import { ContactModel } from '../model'
-import { store } from '../../store'
+// import { store } from '../../store'
 // import moment from 'moment'
 
 import tableStyles from './manage-contact.module.less'
@@ -15,18 +15,28 @@ const ManageContact = () => {
   const [contactList, setContactList] = useState<[]>([])
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [currentOrg, setCurrentOrg] = useState<any>()
-  store.subscribe(() => {
-   setCurrentOrg(store.getState())
-  })
+  // store.subscribe(() => {
+  //  setCurrentOrg(store.getState())
+  // })
 
-  useEffect(() => {
-    getContact()
-  }, [currentOrg])
+    const getContact = async () => {
+      const response = await getContactApi()
+      setCurrentOrg(localStorage.getItem('orgId'))
+      if(response.success){
+        setContactList(response.data)
+      }
+      console.log("response",response)
+    }
 
-  const getContact = async () => {
-    const response = await getContactApi(store.getState())
-    setContactList(response.data)
-  }
+    useEffect(() => {
+      getContact()
+    }, [currentOrg])
+  
+
+  console.log("inside manage",currentOrg)
+  
+
+  
   const columns: ColumnsType<ContactModel> = [
     {
       title: 'Name',
