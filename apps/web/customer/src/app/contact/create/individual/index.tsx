@@ -1,6 +1,7 @@
 /* eslint-disable max-lines */
 import { useState } from 'react'
 import { Breadcrumb, Divider, Row, Col } from 'antd'
+import { useHistory } from 'react-router-dom'
 
 import contactFormStyles from './create.module.less'
 import { TextFieldNoSuffix } from '../../../components/text-field-nosuffix'
@@ -24,11 +25,8 @@ const CreateContact = () => {
   const [swift, setSwift] = useState('')
   const [bankAddress, setBankaddress] = useState('')
   const [roles, setRoles] = useState('')
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // const [currentOrg, setCurrentOrg] = useState<any>()
-  // store.subscribe(() => {
-  //   setCurrentOrg(store.getState())
-  // })
+
+  const history = useHistory()
   const getFullname = (data: string) => {
     setfullName(data)
   }
@@ -87,7 +85,28 @@ const CreateContact = () => {
       swift,
       bankAddress,
     )
-    console.log(response)
+    if(response.success){
+      history.push('/dashboard/manageContact')
+      clearForm()
+    }
+    
+  }
+  const clearForm = () => {
+    setfullName("")
+    setphoneNumber("")
+    setEmail("")
+    setAddress("")
+    setCountry("")
+    setState("")
+    setPincode("")
+    setCity("")
+    setBank("")
+    setAcnumber("")
+    setIfsc("")
+    setSwift("")
+    setBankaddress("")
+    setRoles("")
+    
   }
   return (
     <>
