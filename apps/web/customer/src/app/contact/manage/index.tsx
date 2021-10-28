@@ -9,7 +9,7 @@ import { ContactModel } from '../model'
 
 import tableStyles from './manage-contact.module.less'
 import { Table } from 'antd'
-import { getContactApi } from './api'
+import { getContactApi, sendInviteApi } from './api'
 
 const ManageContact = () => {
   const [contactList, setContactList] = useState<[]>([])
@@ -32,8 +32,12 @@ const ManageContact = () => {
       getContact()
     }, [currentOrg])
   
-
-  console.log("inside manage",currentOrg)
+    const sendInvite = async(contact:ContactModel) => {
+      const response = await sendInviteApi(contact)
+      if(response.success){
+        console.log(response)
+      }
+    }
   
 
   
@@ -82,8 +86,8 @@ const ManageContact = () => {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       render: (_, record: ContactModel) => {
         return (
-          <Button type="primary" onClick={() => console.log(record)} style={{ marginRight: 8 }}>
-            Edit
+          <Button type="primary" onClick={()=>sendInvite(record)} style={{ marginRight: 8 }}>
+            Invite
           </Button>
         )
       },

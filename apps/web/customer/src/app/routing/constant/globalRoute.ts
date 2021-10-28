@@ -5,7 +5,8 @@ enum GlobalRouterPath {
     OTP = '/otp',
     LOGIN = '/',
     DASHBOARD = '/dashboard',
-    MANAGEORG = '/dashboard/manageorg'
+    MANAGEORG = '/dashboard/manageorg',
+    INVITE = '/invite'
   }
 
 export {GlobalRouterPath}

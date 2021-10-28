@@ -1,4 +1,5 @@
 import { apiRequest } from "../../../services/axios/axios"
+import { ContactModel } from "../model"
 // import { store } from "../../store"
 // import { useSelector } from "react-redux"
 
@@ -31,4 +32,13 @@ const getContactApi = async() => {
 
 }
 
-export {getContactApi}
+const sendInviteApi = async(contact:ContactModel) => {
+    const dataToserver = {
+        orgId:contact.orgId,
+        contactId:contact.contactId
+    }
+    console.log(dataToserver)
+        return await apiRequest("POST",'contacts/invite',dataToserver)
+}
+
+export {getContactApi, sendInviteApi}

@@ -1,4 +1,4 @@
-interface ContactModel {
+interface ContactTableModel {
     key: number;
     name:string;
     contactType:string;
@@ -9,4 +9,16 @@ interface ContactModel {
     action:string;
 }
 
-export {ContactModel}
+interface ContactModel {
+    contactId: string;
+contactName: string;
+contactType: string;
+modifiedAt: string;
+orgId: string;
+phoneNo: string;
+roles: string;
+status: string;
+}
+
+
+export {ContactTableModel, ContactModel}
