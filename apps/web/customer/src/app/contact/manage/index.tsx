@@ -18,19 +18,17 @@ const ManageContact = () => {
   // store.subscribe(() => {
   //  setCurrentOrg(store.getState())
   // })
-
     const getContact = async () => {
       const response = await getContactApi()
-      setCurrentOrg(localStorage.getItem('orgId'))
+      
       if(response.success){
         setContactList(response.data)
       }
       console.log("response",response)
     }
-
     useEffect(() => {
       getContact()
-    }, [currentOrg])
+    })
 
     useEffect(() => {
       getContact()
