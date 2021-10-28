@@ -24,7 +24,7 @@ const createCompanyContactApi = async(
       contactPic: 'jpg',
       email,
       phoneNo,
-      roles: [1, 2, 3],
+      // roles: [1, 2, 3],
     }
     if (address) {
       companydataToserver.address = address
