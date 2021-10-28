@@ -1,31 +1,43 @@
 /* eslint-disable max-lines */
-import { useState } from "react"
-import { Divider, Row, Col } from "antd"
-import { useHistory } from "react-router-dom"
+import { useEffect, useState } from 'react'
+import { Divider, Row, Col } from 'antd'
+import { useHistory } from 'react-router-dom'
 
-import contactFormStyles from "./create.module.less"
-import { TextFieldNoSuffix } from "../../../components/text-field-nosuffix"
-import CycButton from "../../../components/cyc-button/cyc-button"
-import { createContactApi } from "../individual/api"
+import contactFormStyles from './create.module.less'
+import { TextFieldNoSuffix } from '../../../components/text-field-nosuffix'
+import CycButton from '../../../components/cyc-button/cyc-button'
+import { createContactApi } from '../individual/api'
+import { DropDown } from '../../../components/dropdown'
+import { getCountryListApi, getStateListApi } from '../../api'
 // import { store } from '../../../store'
 
 const CreateIndividualContact = () => {
-  const [fullName, setfullName] = useState("")
-  const [phoneNumber, setphoneNumber] = useState("")
-  const [email, setEmail] = useState("")
-  const [address, setAddress] = useState("")
-  const [country, setCountry] = useState("")
-  const [state, setState] = useState("")
-  const [pincode, setPincode] = useState("")
-  const [city, setCity] = useState("")
-  const [bank, setBank] = useState("")
-  const [accountNumber, setAcnumber] = useState("")
-  const [ifsc, setIfsc] = useState("")
-  const [swift, setSwift] = useState("")
-  const [bankAddress, setBankaddress] = useState("")
-  const [roles, setRoles] = useState("")
+  const [fullName, setfullName] = useState('')
+  const [phoneNumber, setphoneNumber] = useState('')
+  const [email, setEmail] = useState('')
+  const [address, setAddress] = useState('')
+  const [country, setCountry] = useState('')
+  const [state, setState] = useState('')
+  const [pincode, setPincode] = useState('')
+  const [city, setCity] = useState('')
+  const [bank, setBank] = useState('')
+  const [accountNumber, setAcnumber] = useState('')
+  const [ifsc, setIfsc] = useState('')
+  const [swift, setSwift] = useState('')
+  const [bankAddress, setBankaddress] = useState('')
+  const [roles, setRoles] = useState('')
+  const [countryList, setCountryList] = useState([])
+  const [stateList, setStateList] = useState([])
 
   const history = useHistory()
+  useEffect(() => {
+    const getCountryList = async () => {
+      const response = await getCountryListApi()
+      setCountryList(response.data)
+    }
+    getCountryList()
+  }, [])
+
   const getFullname = (data: string) => {
     setfullName(data)
   }
@@ -38,8 +50,11 @@ const CreateIndividualContact = () => {
   const getAddress = (data: string) => {
     setAddress(data)
   }
-  const getCountry = (data: string) => {
+  const getCountry = async (data: string) => {
     setCountry(data)
+    const response = await getStateListApi(data)
+    console.log(response.data)
+    setStateList(response.data)
   }
   const getState = (data: string) => {
     setState(data)
@@ -85,25 +100,25 @@ const CreateIndividualContact = () => {
       bankAddress
     )
     if (response.success) {
-      history.push("/dashboard/manageContact")
+      history.push('/dashboard/manageContact')
       clearForm()
     }
   }
   const clearForm = () => {
-    setfullName("")
-    setphoneNumber("")
-    setEmail("")
-    setAddress("")
-    setCountry("")
-    setState("")
-    setPincode("")
-    setCity("")
-    setBank("")
-    setAcnumber("")
-    setIfsc("")
-    setSwift("")
-    setBankaddress("")
-    setRoles("")
+    setfullName('')
+    setphoneNumber('')
+    setEmail('')
+    setAddress('')
+    setCountry('')
+    setState('')
+    setPincode('')
+    setCity('')
+    setBank('')
+    setAcnumber('')
+    setIfsc('')
+    setSwift('')
+    setBankaddress('')
+    setRoles('')
   }
   return (
     <>
@@ -153,7 +168,7 @@ const CreateIndividualContact = () => {
               </Col>
             </Col>
           </Row>
-          <Row >
+          <Row>
             <Col span={18}>
               <TextFieldNoSuffix
                 onUserInput={getAddress}
@@ -165,24 +180,19 @@ const CreateIndividualContact = () => {
             </Col>
           </Row>
           <Row>
-            <Col span={9} >
-              <TextFieldNoSuffix
+            <Col span={9}>
+              {/* <TextFieldNoSuffix
                 onUserInput={getCountry}
                 label="Country"
                 name="country"
                 type="text"
                 value={country}
-              />
+              /> */}
+              <DropDown list={countryList} value={country} label="Country" onChange={getCountry} />
             </Col>
             <Col span={2} />
             <Col span={9} className={contactFormStyles.bankAccountDetails}>
-              <TextFieldNoSuffix
-                onUserInput={getState}
-                label="State"
-                name="state"
-                type="text"
-                value={state}
-              />
+              <DropDown list={stateList} value={state} label="State" onChange={getState} />
             </Col>
           </Row>
           <Row>
@@ -207,7 +217,7 @@ const CreateIndividualContact = () => {
             </Col>
           </Row>
         </Col>
-       
+
         <Col span={9}>
           <span className={contactFormStyles.rightFormContent}>2. Fill bank account details</span>
           <Row className={contactFormStyles.bankDetails}>
@@ -220,7 +230,7 @@ const CreateIndividualContact = () => {
                 value={bank}
               />{' '}
             </Col>
-            <Col span={2}/>
+            <Col span={2} />
             <Col span={8} className={contactFormStyles.bankAccountDetails}>
               <TextFieldNoSuffix
                 onUserInput={getAccountNumber}
@@ -241,7 +251,7 @@ const CreateIndividualContact = () => {
                 value={ifsc}
               />{' '}
             </Col>
-            <Col  span={2}/>
+            <Col span={2} />
             <Col span={8} className={contactFormStyles.bankAccountDetails}>
               <TextFieldNoSuffix
                 onUserInput={getSwift}
@@ -264,8 +274,9 @@ const CreateIndividualContact = () => {
             </Col>
           </Row>
           <Row>
-            <Col span={24}><span className={contactFormStyles.rightFormContent}>
-              3. Assign Role </span> </Col>
+            <Col span={24}>
+              <span className={contactFormStyles.rightFormContent}>3. Assign Role </span>{' '}
+            </Col>
             <Col span={20} className={contactFormStyles.bankDetails}>
               <TextFieldNoSuffix
                 onUserInput={getRoles}
@@ -277,9 +288,7 @@ const CreateIndividualContact = () => {
             </Col>
           </Row>
         </Col>
-        
       </Row>
-
 
       <Divider />
       <CycButton value="SAVE AND CONTINUE" disabled={false} onClick={getDetails} />
