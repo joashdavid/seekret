@@ -1,11 +1,13 @@
 /* eslint-disable max-lines */
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { Divider, Row, Col } from 'antd'
 import contactFormStyles from './create.module.less'
 import { TextFieldNoSuffix } from '../../../components/text-field-nosuffix'
 import { createCompanyContactApi } from './api'
 import CycButton from '../../../components/cyc-button/cyc-button'
 import { useHistory } from "react-router-dom"
+import { DropDown } from '../../../components/dropdown'
+import { getCountryListApi,getStateListApi} from '../../api'
 
 const CreateCompanyContact = () => {
     const history = useHistory()
@@ -14,6 +16,7 @@ const CreateCompanyContact = () => {
   const [email, setEmail] = useState('')
   const [address, setAddress] = useState('')
   const [country, setCountry] = useState('')
+  const [countryList, setCountryList] = useState([])
   const [state, setState] = useState('')
   const [pincode, setPincode] = useState('')
   const [city, setCity] = useState('')
@@ -25,7 +28,15 @@ const CreateCompanyContact = () => {
   const [taxNumber, setTaxNumber] = useState('')
   const [panNumber, setPanNumber] = useState('')
   const [roles, setRoles] = useState('')
- 
+  const [stateList, setStateList] = useState([])
+  
+  useEffect(() => {
+    const getCountryList = async () => {
+      const response = await getCountryListApi()
+      setCountryList(response.data)
+    }
+    getCountryList()
+  }, [])
 
   const getCompanyName = (data: string) => {
     setCompanyName(data)
@@ -39,8 +50,11 @@ const CreateCompanyContact = () => {
   const getAddress = (data: string) => {
     setAddress(data)
   }
-  const getCountry = (data: string) => {
+  const getCountry = async (data: string) => {
     setCountry(data)
+    const response = await getStateListApi(data)
+    console.log(response.data)
+    setStateList(response.data)
   }
   const getState = (data: string) => {
     setState(data)
@@ -150,24 +164,19 @@ const CreateCompanyContact = () => {
             </Col>
           </Row>
           <Row>
-            <Col span={9}>
-              <TextFieldNoSuffix
+          <Col span={9}>
+              {/* <TextFieldNoSuffix
                 onUserInput={getCountry}
                 label="Country"
                 name="country"
                 type="text"
                 value={country}
-              />
+              /> */}
+              <DropDown list={countryList} value={country} label="Country" onChange={getCountry} />
             </Col>
             <Col span={1} />
-            <Col span={9}>
-              <TextFieldNoSuffix
-                onUserInput={getState}
-                label="State"
-                name="state"
-                type="text"
-                value={state}
-              />
+            <Col span={9} className={contactFormStyles.bankAccountDetails}>
+              <DropDown list={stateList} value={state} label="State" onChange={getState} />
             </Col>
           </Row>
           <Row>
