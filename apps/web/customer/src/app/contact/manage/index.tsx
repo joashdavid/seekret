@@ -31,6 +31,10 @@ const ManageContact = () => {
     useEffect(() => {
       getContact()
     }, [currentOrg])
+
+    useEffect(() => {
+      getContact()
+    }, [currentOrg])
   
     const sendInvite = async(contact:ContactModel) => {
       const response = await sendInviteApi(contact)
