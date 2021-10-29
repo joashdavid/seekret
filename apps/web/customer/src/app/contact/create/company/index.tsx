@@ -32,9 +32,7 @@ const CreateCompanyContact = () => {
   const [panNumber, setPanNumber] = useState('')
   const [roles, setRoles] = useState('')
   const [stateList, setStateList] = useState([])
-  // eslint-disable-next-line prefer-const
 
-  
   useEffect(() => {
     const getCountryList = async () => {
       const response = await getCountryListApi()
@@ -171,7 +169,9 @@ const CreateCompanyContact = () => {
             </Col>
           </Row>
           <Row>
+
             <Col span={9}>
+
               {/* <TextFieldNoSuffix
                 onUserInput={getCountry}
                 label="Country"
@@ -182,7 +182,9 @@ const CreateCompanyContact = () => {
               <DropDown list={countryList} value={country} label="Country" onChange={getCountry} />
             </Col>
             <Col span={1} />
+
             <Col span={9}>
+
               <DropDown list={stateList} value={state} label="State" onChange={getState} />
             </Col>
           </Row>
