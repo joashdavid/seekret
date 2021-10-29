@@ -2,6 +2,7 @@ const banksWithImage = [
   {
     imgUrl: 'https://pbs.twimg.com/profile_images/1105444963142098945/el9N1DVr_400x400.png',
     bank: 'Axis Bank',
+ 
   },
   {
     imgUrl:

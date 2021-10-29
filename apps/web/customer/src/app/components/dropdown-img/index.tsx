@@ -32,7 +32,7 @@ const BankDropdown = (props: {
           return (
             <Option value={data.bank} className={styles.options}>
               <div className={styles.optionWrapper}>
-                  <span><Avatar src={data.imgUrl} alt="" className={styles.flag} /></span>
+                  <span><Avatar src={data.imgUrl} alt="" className={styles.bank} /></span>
                 <span className={styles.selected}>{data.bank}</span>
               </div>
             </Option>

@@ -25,13 +25,10 @@ const updateOrganizationApi = async (
   const dataToserver = {
     orgId: id,
     updatedOrg: {
-      orgName: orgName,
-      logo: logo,
-      theme,
-      orgShortName:shortName
+      theme:theme,
     },
   }
-  console.log(dataToserver)
+  console.log("dataToserver",dataToserver)
   return await apiRequest('PUT', 'organizations/update', dataToserver)
 }
 

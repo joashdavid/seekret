@@ -63,7 +63,7 @@ const createContactApi = async (
   return response
 }
 
-const createCompanyContactApi = async(
+const createCompanyContactApi = async (
   contactName: string,
   phoneNo: string,
   email: string,
@@ -78,9 +78,9 @@ const createCompanyContactApi = async(
   swift: string,
   bankAddress: string
 ) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const companydataToserver : any= {
-    orgId:localStorage.getItem('orgId'),
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const companydataToserver: any = {
+    orgId: localStorage.getItem('orgId'),
     contactType: 'company',
     status: 'saved',
     contactName,
@@ -119,13 +119,76 @@ const createCompanyContactApi = async(
   if (swift) {
     companydataToserver.swift = swift
   }
-    
-    console.log(companydataToserver)
-    const response = await apiRequest('POST','contacts/create',companydataToserver)
-    console.log("zxczxc",response)
-    return response
+
+  console.log(companydataToserver)
+  const response = await apiRequest('POST', 'contacts/create', companydataToserver)
+  return response
 }
 
-export { createContactApi, createCompanyContactApi }
+const updateContactApi = async(
+  contactName: string,
+  phoneNo: string,
+  email: string,
+  address: string,
+  country: string,
+  state: string,
+  postcode: string,
+  city: string,
+  bankName: string,
+  bankAccount: string,
+  ifsc: string,
+  swift: string,
+  bankAddress: string,
+  contactId: string
+) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const dataToserver: any = {
+    orgId: localStorage.getItem('orgId'),
+    contactId,
+    updatedContact:{
+      status: 'saved',
+      contactName,
+      contactPic: 'jpg',
+      email,
+      phoneNo,
+      roles: [1, 2, 3],
+    }
+  
+  }
+  if (address) {
+    dataToserver.updatedContact.address = address
+  }
+  if (country) {
+    dataToserver.updatedContact.country = country
+  }
+  if (state) {
+    dataToserver.updatedContact.state = state
+  }
+  if (postcode) {
+    dataToserver.updatedContact.postcode = postcode
+  }
+  if (city) {
+    dataToserver.updatedContact.city = city
+  }
+  if (bankName) {
+    dataToserver.updatedContact.bankName = bankName
+  }
+  if (bankAddress) {
+    dataToserver.updatedContact.bankAddress = bankAddress
+  }
+  if (bankAccount) {
+    dataToserver.updatedContact.bankAccount = bankAccount
+  }
+  if (ifsc) {
+    dataToserver.updatedContact.ifsc = ifsc
+  }
+  if (swift) {
+    dataToserver.updatedContact.swift = swift
+  }
+  console.log(dataToserver)
+  const response = await apiRequest('PUT', 'contacts/update', dataToserver)
+  console.log(response)
+  return response
+}
 
-
+export { createContactApi, createCompanyContactApi,updateContactApi }

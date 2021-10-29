@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom"
 import { DropDown } from '../../../components/dropdown'
 import { getCountryListApi,getStateListApi} from '../../api'
 import { BankDropdown } from '../../../components/dropdown-img/index'
-import { TextArea } from '../../../components/text-area' 
+import { TextArea } from '../../../components/text-area/index'
 
 
 const CreateCompanyContact = () => {
@@ -32,7 +32,9 @@ const CreateCompanyContact = () => {
   const [panNumber, setPanNumber] = useState('')
   const [roles, setRoles] = useState('')
   const [stateList, setStateList] = useState([])
+  // eslint-disable-next-line prefer-const
 
+  
   useEffect(() => {
     const getCountryList = async () => {
       const response = await getCountryListApi()
@@ -117,7 +119,7 @@ const CreateCompanyContact = () => {
   }
   return (
     <>
-       <Row style={{marginTop:"1vh"}}> 
+       <Row style={{marginTop:"1vh"}}>
         <Col span={9}>
           <span className={contactFormStyles.formContent}>
             1. Fill in Company Details
@@ -169,9 +171,7 @@ const CreateCompanyContact = () => {
             </Col>
           </Row>
           <Row>
-
-            <Col span={9}>
-
+          <Col span={9}>
               {/* <TextFieldNoSuffix
                 onUserInput={getCountry}
                 label="Country"
@@ -182,9 +182,7 @@ const CreateCompanyContact = () => {
               <DropDown list={countryList} value={country} label="Country" onChange={getCountry} />
             </Col>
             <Col span={1} />
-
             <Col span={9}>
-
               <DropDown list={stateList} value={state} label="State" onChange={getState} />
             </Col>
           </Row>

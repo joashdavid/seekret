@@ -1,12 +1,19 @@
 import { Breadcrumb, Divider, Row, Col, Radio } from "antd"
-import { useState } from "react"
+import { useState,useEffect } from "react"
+import { useLocation } from 'react-router-dom'
+
 import { CreateCompanyContact } from "./company"
 import contactFormStyles from './company/create.module.less'
 import { CreateIndividualContact } from "./individual"
+import { Routing } from "../routing"
+import { ContactModel } from "../../../model/model"
 
 const CreateContact = () => {
     const [isIndividualChecked, setIndividualChecked] = useState(false)
     const [isCompanyChecked, setCompanyChecked] = useState(false)
+    const [individualData, setIndividualData] = useState<ContactModel|undefined>()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const location = useLocation<any>()
 
     const displayIndividual = () => {
         setIndividualChecked(true)
@@ -16,6 +23,16 @@ const CreateContact = () => {
         setCompanyChecked(true)
         setIndividualChecked(false)
     }
+    useEffect(() => {
+      if(location.state){
+        if(location.state.isIndividualChecked){
+          displayIndividual()
+          setIndividualData(location.state.data)
+        }
+        console.log(location.state)
+      }
+      }
+      , [])
   return (
     <>
       <Breadcrumb style={{ margin: '16px 0' }}>
@@ -68,7 +85,8 @@ const CreateContact = () => {
         </Col>
       </Row>
       <Divider style={{ margin: '10px 0 0 0' }} />
-      {isIndividualChecked && <CreateIndividualContact />}
+      <Routing/>
+      {isIndividualChecked && <CreateIndividualContact  data={individualData}/>}
       {isCompanyChecked && <CreateCompanyContact />}
       
     </>

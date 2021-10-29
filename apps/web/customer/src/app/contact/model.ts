@@ -1,4 +1,6 @@
 interface ContactTableModel {
+  orgId: string;
+  contactId: string;
   key: number
   name: string
   contactType: string
