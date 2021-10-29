@@ -1,22 +1,23 @@
 import { apiRequest } from "../../../services/axios/axios"
 import { ContactModel } from "../model"
-// import { store } from "../../store"
-// import { useSelector } from "react-redux"
+
+import { useSelector } from "react-redux"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getContactApi = async() => {
+const getContactApi = async(orgId:any,column:string,pgNo:number,limit:number,order:string) => {
     // const orgId = useSelector(state)
     // const orgId  = store.getState()
+    console.log()
     const dataToserver = {
-        orgId: localStorage.getItem('orgId'),
+        orgId: orgId.orgId,
         options: {
             sort: {
-                column: "modifiedAt",
-                order: "DESC"
+                column: column,
+                order: order
             },
             pagination: {
-                "pgNo": 1,
-                "limit": 10
+                "pgNo": pgNo,
+                "limit": limit
             },
             filters: {
                 contactType: ["individual"],
@@ -28,7 +29,9 @@ const getContactApi = async() => {
     }
     console.log(dataToserver)
     console.log("local storage",localStorage.getItem("orgId"))
-    return await apiRequest("POST",'contacts/manage/fetch',dataToserver)
+    const response = await apiRequest("POST",'contacts/manage/fetch',dataToserver)
+    console.log("response api", response)
+    return response
 
 }
 

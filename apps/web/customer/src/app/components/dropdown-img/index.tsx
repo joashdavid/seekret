@@ -1,15 +1,14 @@
-import FloatLabel from '../float-label/float-label'
-import styles from './dropdown.module.less'
-import { Select } from 'antd'
+import styles from './bank-dropdown.module.less'
+import { Avatar, Select } from 'antd'
 import { ReactComponent as DropDownArrow } from '../../../assets/arrow-down.svg'
-// import { ReactComponent as DropDown } from '../../ass''
+import { banksWithImage } from './banks'
 import { useState } from 'react'
+import FloatLabel from '../float-label/float-label'
 
-const DropDown = (props: {
+const BankDropdown = (props: {
   onChange: (arg0: string) => void
   value: string
-  list: string[]
-  label: string
+  label :string
 }) => {
   const [isOptionDidChange, setIsOptionDidChange] = useState(false)
   const { Option } = Select
@@ -28,22 +27,20 @@ const DropDown = (props: {
         onChange={getTheme}
         suffixIcon={<DropDownArrow />}
         onDropdownVisibleChange={toogleSuffixIcon}
-        showSearch= {true}
-        
       >
-        {props.list.map((data) => {
+        {banksWithImage.map((data) => {
           return (
-            <Option value={data}>
+            <Option value={data.bank} className={styles.options}>
               <div className={styles.optionWrapper}>
-                {/* <Badge color={`${'#' + theme.hexcode}`} className={styles.themeBadge} /> */}
-                <span className={styles.selected}>{data}</span>
+                  <span><Avatar src={data.imgUrl} alt="" className={styles.flag} /></span>
+                <span className={styles.selected}>{data.bank}</span>
               </div>
             </Option>
           )
         })}
       </Select>
-    </FloatLabel>
+      </FloatLabel>
   )
 }
 
-export { DropDown }
+export { BankDropdown }

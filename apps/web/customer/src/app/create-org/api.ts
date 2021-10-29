@@ -4,10 +4,11 @@ const createOrganizationApi = async(orgName:string, shortName:string, theme:stri
     const dataToserver = {
         orgName:orgName,
         orgShortName:shortName,
-        theme
+        theme:theme
     }
     console.log(dataToserver)
     const response = await apiRequest("POST",'organizations/create',dataToserver)
+    console.log(response)
     return response
 }
 

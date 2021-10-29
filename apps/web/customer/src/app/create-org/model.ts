@@ -1,6 +1,7 @@
 interface ThemeModel{
     color: string;
-    hexcode:string;
+    hexcodeStart:string;
+    hexcodeEnd:string;
 }
 
 export {ThemeModel}

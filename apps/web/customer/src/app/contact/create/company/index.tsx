@@ -1,19 +1,25 @@
 /* eslint-disable max-lines */
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { Divider, Row, Col } from 'antd'
 import contactFormStyles from './create.module.less'
 import { TextFieldNoSuffix } from '../../../components/text-field-nosuffix'
 import { createCompanyContactApi } from './api'
 import CycButton from '../../../components/cyc-button/cyc-button'
 import { useHistory } from "react-router-dom"
+import { DropDown } from '../../../components/dropdown'
+import { getCountryListApi,getStateListApi} from '../../api'
+import { BankDropdown } from '../../../components/dropdown-img/index'
+import { TextArea } from '../../../components/text-area' 
+
 
 const CreateCompanyContact = () => {
-    const history = useHistory()
+  const history = useHistory()
   const [companyName, setCompanyName] = useState('')
   const [phoneNumber, setphoneNumber] = useState('')
   const [email, setEmail] = useState('')
   const [address, setAddress] = useState('')
   const [country, setCountry] = useState('')
+  const [countryList, setCountryList] = useState([])
   const [state, setState] = useState('')
   const [pincode, setPincode] = useState('')
   const [city, setCity] = useState('')
@@ -25,7 +31,18 @@ const CreateCompanyContact = () => {
   const [taxNumber, setTaxNumber] = useState('')
   const [panNumber, setPanNumber] = useState('')
   const [roles, setRoles] = useState('')
- 
+  const [stateList, setStateList] = useState([])
+  // eslint-disable-next-line prefer-const
+
+  
+  useEffect(() => {
+    const getCountryList = async () => {
+      const response = await getCountryListApi()
+      setCountryList(response.data)
+    }
+    getCountryList()
+  }, [])
+
 
   const getCompanyName = (data: string) => {
     setCompanyName(data)
@@ -39,8 +56,11 @@ const CreateCompanyContact = () => {
   const getAddress = (data: string) => {
     setAddress(data)
   }
-  const getCountry = (data: string) => {
+  const getCountry = async (data: string) => {
     setCountry(data)
+    const response = await getStateListApi(data)
+    console.log(response.data)
+    setStateList(response.data)
   }
   const getState = (data: string) => {
     setState(data)
@@ -75,6 +95,7 @@ const CreateCompanyContact = () => {
   const getRoles = (data: string) => {
     setRoles(data)
   }
+  console.log("statelist",stateList)
   const getCompanyDetails = async () => {
     const response = await createCompanyContactApi(
       companyName,
@@ -98,12 +119,12 @@ const CreateCompanyContact = () => {
   }
   return (
     <>
-       <Row>
+       <Row style={{marginTop:"1vh"}}> 
         <Col span={9}>
           <span className={contactFormStyles.formContent}>
             1. Fill in Company Details
           </span>
-          <Row>
+          <Row style={{marginTop:"1vh"}}>
             <Col span={19}>
               <TextFieldNoSuffix
                 onUserInput={getCompanyName}
@@ -140,7 +161,7 @@ const CreateCompanyContact = () => {
          
           <Row>
             <Col span={19}>
-              <TextFieldNoSuffix
+              <TextArea
                 onUserInput={getAddress}
                 label="Address"
                 name="address"
@@ -151,23 +172,18 @@ const CreateCompanyContact = () => {
           </Row>
           <Row>
             <Col span={9}>
-              <TextFieldNoSuffix
+              {/* <TextFieldNoSuffix
                 onUserInput={getCountry}
                 label="Country"
                 name="country"
                 type="text"
                 value={country}
-              />
+              /> */}
+              <DropDown list={countryList} value={country} label="Country" onChange={getCountry} />
             </Col>
             <Col span={1} />
             <Col span={9}>
-              <TextFieldNoSuffix
-                onUserInput={getState}
-                label="State"
-                name="state"
-                type="text"
-                value={state}
-              />
+              <DropDown list={stateList} value={state} label="State" onChange={getState} />
             </Col>
           </Row>
           <Row>
@@ -194,15 +210,9 @@ const CreateCompanyContact = () => {
         </Col>
         <Col span={9}>
           <span className={contactFormStyles.rightFormContent}>2. Fill bank account details</span>
-          <Row>
+          <Row style={{marginTop:"1vh"}}>
             <Col span={9} className={contactFormStyles.bankDetails}>
-              <TextFieldNoSuffix
-                onUserInput={getBank}
-                label="Bank"
-                name="bank"
-                type="text"
-                value={bank}
-              />{' '}
+              <BankDropdown onChange={getBank} label="Bank" value={bank}/>
             </Col>
             <Col span={1}/>
             <Col span={9}>
@@ -238,7 +248,7 @@ const CreateCompanyContact = () => {
           </Row>
           <Row>
             <Col span={19} className={contactFormStyles.bankDetails}>
-              <TextFieldNoSuffix
+              <TextArea
                 onUserInput={getBankaddress}
                 label="Bank Address"
                 name="bankAddress"
@@ -271,7 +281,7 @@ const CreateCompanyContact = () => {
           <Row>
             <Col span={24}><span className={contactFormStyles.rightFormContent}>
               3. Assign Role </span> </Col> 
-            <Col span={19} className={contactFormStyles.bankDetails}>
+            <Col span={19} className={contactFormStyles.bankDetails} style={{marginTop:"1vh"}}>
               <TextFieldNoSuffix
                 onUserInput={getRoles}
                 

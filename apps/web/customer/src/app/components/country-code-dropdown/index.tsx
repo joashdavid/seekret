@@ -1,15 +1,13 @@
-import FloatLabel from '../float-label/float-label'
-import styles from './dropdown.module.less'
+
+import styles from './country-code-dropdown.module.less'
 import { Select } from 'antd'
 import { ReactComponent as DropDownArrow } from '../../../assets/arrow-down.svg'
-// import { ReactComponent as DropDown } from '../../ass''
+import { countries } from './country'
 import { useState } from 'react'
 
-const DropDown = (props: {
+const CountryCode = (props: {
   onChange: (arg0: string) => void
   value: string
-  list: string[]
-  label: string
 }) => {
   const [isOptionDidChange, setIsOptionDidChange] = useState(false)
   const { Option } = Select
@@ -20,7 +18,6 @@ const DropDown = (props: {
     setIsOptionDidChange(!isOptionDidChange)
   }
   return (
-    <FloatLabel label={props.label} name="themeDropdown" value={props.value}>
       <Select
         className={styles.dropDown}
         bordered={false}
@@ -28,22 +25,20 @@ const DropDown = (props: {
         onChange={getTheme}
         suffixIcon={<DropDownArrow />}
         onDropdownVisibleChange={toogleSuffixIcon}
-        showSearch= {true}
-        
+
       >
-        {props.list.map((data) => {
+        {countries.map((data) => {
           return (
-            <Option value={data}>
+            <Option value={data.countryCode} className={styles.options}>
               <div className={styles.optionWrapper}>
-                {/* <Badge color={`${'#' + theme.hexcode}`} className={styles.themeBadge} /> */}
-                <span className={styles.selected}>{data}</span>
+                  <span><img src={data.flag} alt="" className={styles.flag} /></span>
+                <span className={styles.selected}>{data.countryCode}</span>
               </div>
             </Option>
           )
         })}
       </Select>
-    </FloatLabel>
   )
 }
 
-export { DropDown }
+export { CountryCode }

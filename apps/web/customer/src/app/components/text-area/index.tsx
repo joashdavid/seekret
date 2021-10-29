@@ -1,5 +1,5 @@
 import styles from './text-area.module.less'
-import FloatLabel from '../float-label/float-label'
+import FloatLabelTextarea from '../float-label-textarea/float-label-textarea'
 
 
 const TextArea= (props: { onUserInput: (arg0: string) => void; label: string; 
@@ -32,14 +32,15 @@ const TextArea= (props: { onUserInput: (arg0: string) => void; label: string;
     //     )}-${phoneNumber.slice(6, 10)}`
     //   }
     return (
-        <FloatLabel label={props.label} name={props.name}  value={props.value}>
-            <div className={props.name !== "mobileNumber"?styles.textfield:styles.phoneNumber}>
+        <FloatLabelTextarea label={props.label} name={props.name}  
+        value={props.value} onUserInput={props.value}>
+            <div>
                 <textarea
-                     className={styles.textfield} onChange={getCurrentInput}
+                     className={styles.textarea} onChange={getCurrentInput}
                     spellCheck={false}
                     />
             </div>
-        </FloatLabel>
+        </FloatLabelTextarea>
     )
 }
 

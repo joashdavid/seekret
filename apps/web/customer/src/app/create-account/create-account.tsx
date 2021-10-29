@@ -9,10 +9,12 @@ import validate from './validation'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
 import { GlobalRouterPath } from '../routing/constant/globalRoute'
+import { CountryCode } from '../components/country-code-dropdown'
 
 const CreateAccount = () => {
   const [name, setname] = useState('')
   const [email, setemail] = useState('')
+  const [countryCode, setcCountryCode] = useState('')
   const [mobileNumber, setmobileNumber] = useState('')
   const [password, setpassword] = useState('')
   const [confirmPassword, setconfirmPassword] = useState('')
@@ -42,6 +44,9 @@ const CreateAccount = () => {
   const getEmail = (data: string) => {
     setemail(data)
   }
+  const getCode = (data: string) => {
+    setcCountryCode(data)
+  }
   const getMobileNumber = (data: string) => {
     setmobileNumber(data)
   }
@@ -62,7 +67,7 @@ const CreateAccount = () => {
   )
   const createAccount = async () => {
     if(errorIn === "none"){
-      const response = await createAccountApi(name, email, mobileNumber, password)
+      const response = await createAccountApi(name, email,countryCode, mobileNumber, password)
       if (response.success) {
         history.push(GlobalRouterPath.OTP, { name, email, mobileNumber,password })
         return 
@@ -121,13 +126,7 @@ const CreateAccount = () => {
             />
             <div className={createAccountstyles.phoneNumberWrapper}>
               <div className={createAccountstyles.phoneCode}>
-                <img src="./assets/india.png" className={createAccountstyles.flag} alt=""></img>
-                <p>+91</p>
-                <img
-                  src="./assets/drop-down-down-black.svg"
-                  className={createAccountstyles.dropdown}
-                  alt=""
-                ></img>
+                <CountryCode onChange={getCode} value={countryCode} />
               </div>
               <TextField
                 onUserInput={getMobileNumber}

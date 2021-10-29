@@ -6,7 +6,9 @@ const getCountryListApi = async () => {
 
 const getStateListApi = async(country:string) => {
     console.log(country)
-    return await apiRequest("GET",`countries-states-cities/fetchStates?country_name=${country}`,'')
+    const response = await apiRequest("GET",`countries-states-cities/fetchStates?country=${country}`,'')
+    console.log("states",response)
+    return response
 
 }
 

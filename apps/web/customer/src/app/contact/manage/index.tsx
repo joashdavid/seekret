@@ -6,33 +6,34 @@ import { ColumnsType } from 'antd/es/table'
 import { ContactModel } from '../model'
 // import { store } from '../../store'
 // import moment from 'moment'
+import { useSelector } from 'react-redux'
 
 import tableStyles from './manage-contact.module.less'
 import { Table } from 'antd'
 import { getContactApi, sendInviteApi } from './api'
 
 const ManageContact = () => {
+  const currentOrg = useSelector(state => state)
   const [contactList, setContactList] = useState<[]>([])
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [currentOrg, setCurrentOrg] = useState<any>()
+  const [column,setColumn] = useState<string>('')
   // store.subscribe(() => {
   //  setCurrentOrg(store.getState())
   // })
     const getContact = async () => {
-      const response = await getContactApi()
-      
+      const response = await getContactApi(currentOrg,'modifiedAt', 1, 10, 'DESC')
+      setColumn("modifiedAt")
       if(response.success){
         setContactList(response.data)
       }
       console.log("response",response)
     }
-    useEffect(() => {
-      getContact()
-    })
+ 
 
     useEffect(() => {
       getContact()
     }, [currentOrg])
+ 
   
     const sendInvite = async(contact:ContactModel) => {
       const response = await sendInviteApi(contact)
@@ -68,17 +69,18 @@ const ManageContact = () => {
       key: 'roles',
     },
     {
-      title: 'Last Modified',
-      dataIndex: 'modifiedAt',
-      width: 200,
-      key: 'modifiedAt',
-    },
-    {
       title: 'Phone Number',
       dataIndex: 'phoneNo',
       width: 200,
       key: 'modifiedAt',
     },
+    {
+      title: 'Last Modified',
+      dataIndex: 'modifiedAt',
+      width: 200,
+      key: 'modifiedAt',
+    },
+
     {
       title: 'Action',
       dataIndex: 'Edit',
@@ -97,13 +99,16 @@ const ManageContact = () => {
   ]
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // const onChange = async (pagination: any, filters: any, sorter: any) => {
-  //   if (sorter.columnKey) {
-  //     setColumn(sorter.columnKey)
-  //   }
-  //   const response = await getContactApi(store.getState())
-  //   setContactList(response.data)
-  // }
+  const onChange = async (pagination: any, filters: any, sorter: any) => {
+    if (sorter.columnKey) {
+      setColumn(sorter.columnKey)
+    }
+    const response = await getContactApi(currentOrg,column,
+      pagination.current,
+      pagination.pageSize,
+      sorter.order === 'ascend' ? 'ASC' : 'DESC')
+    setContactList(response.data)
+  }
   return (
     <>
       <Breadcrumb style={{ margin: '16px 0' }}>
@@ -114,7 +119,7 @@ const ManageContact = () => {
         <Table
           dataSource={contactList}
           columns={columns}
-          // onChange={onChange}
+          onChange={onChange}
           // dataSourceIndexOffset={10}
           showSorterTooltip={false}
           // position={["topRight"]}

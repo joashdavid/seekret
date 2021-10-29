@@ -19,8 +19,8 @@ const DashBoardHeader = () => {
     const getSelectedOrgData = orgList.filter((orgSelected) => orgSelected.orgId === data)
     const selectedOrg = { ...getSelectedOrgData }
     setSelectedTheme(
-      `transparent linear-gradient(90deg, 
-          #${selectedOrg[0].theme} 0%,  #${selectedOrg[0].theme} 100%) 0% 0% no-repeat padding-box`
+      // eslint-disable-next-line max-len
+      `transparent linear-gradient(90deg, #${selectedOrg[0].hexcodeEnd} 0%,  #${selectedOrg[0].hexcodeStart} 100%) 0% 0% no-repeat padding-box`
     )
     setSelectedOrg(selectedOrg[0].orgShortName)
     localStorage.setItem('orgId', selectedOrg[0].orgId)
@@ -36,9 +36,10 @@ const DashBoardHeader = () => {
     localStorage.setItem('orgId', response.data[0].orgId)
     setSelectedTheme(
       `transparent linear-gradient(90deg,
-         #${response.data[0].theme} 0%, #${response.data[0].theme} 
+         #${response.data[0].hexcodeEnd} 0%, #${response.data[0].hexcodeStart} 
          100%) 0% 0% no-repeat padding-box`
     )
+    console.log("header",response.data)
     store.dispatch({ type: 'SWITCH_ORG', payload: response.data[0].orgId })
   }
 
@@ -74,7 +75,8 @@ const DashBoardHeader = () => {
               <div className={landingPageStyles.optionWrapper}>
                 <div
                   className={landingPageStyles.optionsLogo}
-                  style={{ backgroundColor: `#${org.theme}` }}
+                  // eslint-disable-next-line max-len
+                  style={{ background: `transparent linear-gradient(90deg, #${org.hexcodeEnd} 0%,  #${org.hexcodeStart} 100%) 0% 0% no-repeat padding-box`}}
                 />
                 <span> {org.orgShortName}</span>
               </div>

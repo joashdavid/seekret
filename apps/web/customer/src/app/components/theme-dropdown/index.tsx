@@ -32,12 +32,13 @@ const ThemeDropDown = (props: {
       >
         {props.themeList.map((theme) => {
           return (
-            <Option value={theme.hexcode}>
+            <Option value={theme.color}>
               <div className={styles.optionWrapper}>
                 {/* <Badge color={`${'#' + theme.hexcode}`} className={styles.themeBadge} /> */}
                 <div
                   className={styles.themeBadge}
-                  style={{ backgroundColor: `${'#' + theme.hexcode}` }}
+                  // eslint-disable-next-line max-len
+                  style={{ background: `transparent linear-gradient(90deg, #${theme.hexcodeEnd} 0%,  #${theme.hexcodeStart} 100%) 0% 0% no-repeat padding-box`}}
                 ></div>
                 <span className={styles.selected}>{theme.color}</span>
               </div>

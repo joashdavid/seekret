@@ -20,7 +20,7 @@ const CreateOrg = () => {
     const getThemeData = async() => {
         const response = await getThemeApi()
         setThemeList(response.data)
-        console.log(response)
+        console.log("theme dropdown",response.data)
     }
     useEffect(() => {
         getThemeData()

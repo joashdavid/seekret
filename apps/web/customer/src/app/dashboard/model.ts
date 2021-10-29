@@ -2,7 +2,8 @@ interface OrgnizationModel{
     orgId: string;
     orgName: string;
     orgShortName: string;
-    theme: string;
+    hexcodeStart: string;
+    hexcodeEnd: string;
     logo: string;
 }
 

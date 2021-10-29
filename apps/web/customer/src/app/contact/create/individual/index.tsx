@@ -6,9 +6,12 @@ import { useHistory } from 'react-router-dom'
 import contactFormStyles from './create.module.less'
 import { TextFieldNoSuffix } from '../../../components/text-field-nosuffix'
 import CycButton from '../../../components/cyc-button/cyc-button'
+import { TextArea } from '../../../components/text-area' 
+
 import { createContactApi } from '../individual/api'
 import { DropDown } from '../../../components/dropdown'
 import { getCountryListApi, getStateListApi } from '../../api'
+import { BankDropdown } from '../../../components/dropdown-img/index'
 // import { store } from '../../../store'
 
 const CreateIndividualContact = () => {
@@ -122,12 +125,13 @@ const CreateIndividualContact = () => {
   }
   return (
     <>
+       
       <Row>
-        <Col span={9}>
+        <Col span={9} >
           <span className={contactFormStyles.formContent}>
             1. Fill in the personal details of the individual
           </span>
-          <Row>
+          <Row style={{marginTop:"1vh"}}>
             <Col span={6}>
               <div className={contactFormStyles.dpUpload}>
                 <img
@@ -137,8 +141,10 @@ const CreateIndividualContact = () => {
                 />
                 <p className={contactFormStyles.uploadContent}>Upload Photo</p>
               </div>
-            </Col>
-            <Col span={12}>
+            </Col> 
+           
+            <Col span={12} style={{marginLeft:"1.5vh"}}>
+              
               <Col span={24}>
                 <TextFieldNoSuffix
                   onUserInput={getFullname}
@@ -167,10 +173,11 @@ const CreateIndividualContact = () => {
                 />
               </Col>
             </Col>
+           
           </Row>
-          <Row>
-            <Col span={18}>
-              <TextFieldNoSuffix
+          <Row >
+            <Col span={19}>
+              <TextArea
                 onUserInput={getAddress}
                 label="Address"
                 name="address"
@@ -190,8 +197,8 @@ const CreateIndividualContact = () => {
               /> */}
               <DropDown list={countryList} value={country} label="Country" onChange={getCountry} />
             </Col>
-            <Col span={2} />
-            <Col span={9} className={contactFormStyles.bankAccountDetails}>
+            <Col span={1} />
+            <Col span={9}>
               <DropDown list={stateList} value={state} label="State" onChange={getState} />
             </Col>
           </Row>
@@ -205,8 +212,8 @@ const CreateIndividualContact = () => {
                 value={pincode}
               />
             </Col>
-            <Col span={2} />
-            <Col span={9} className={contactFormStyles.bankAccountDetails}>
+            <Col span={1} />
+            <Col span={9}>
               <TextFieldNoSuffix
                 onUserInput={getCity}
                 label="City"
@@ -217,21 +224,15 @@ const CreateIndividualContact = () => {
             </Col>
           </Row>
         </Col>
-
+       
         <Col span={9}>
           <span className={contactFormStyles.rightFormContent}>2. Fill bank account details</span>
           <Row className={contactFormStyles.bankDetails}>
-            <Col span={8}>
-              <TextFieldNoSuffix
-                onUserInput={getBank}
-                label="Bank"
-                name="bank"
-                type="text"
-                value={bank}
-              />{' '}
+          <Col span={8} style={{marginTop:"1vh"}}>
+              <BankDropdown onChange={getBank} label="Bank" value={bank}/>
             </Col>
-            <Col span={2} />
-            <Col span={8} className={contactFormStyles.bankAccountDetails}>
+            <Col span={1}/>
+            <Col span={8} style={{marginTop:"1vh"}}>
               <TextFieldNoSuffix
                 onUserInput={getAccountNumber}
                 label="Account number"
@@ -251,8 +252,8 @@ const CreateIndividualContact = () => {
                 value={ifsc}
               />{' '}
             </Col>
-            <Col span={2} />
-            <Col span={8} className={contactFormStyles.bankAccountDetails}>
+            <Col  span={1}/>
+            <Col span={8}>
               <TextFieldNoSuffix
                 onUserInput={getSwift}
                 label="Swift"
@@ -264,7 +265,7 @@ const CreateIndividualContact = () => {
           </Row>
           <Row className={contactFormStyles.bankDetails}>
             <Col span={17}>
-              <TextFieldNoSuffix
+              <TextArea
                 onUserInput={getBankaddress}
                 label="Bank Address"
                 name="bankAddress"
@@ -274,22 +275,21 @@ const CreateIndividualContact = () => {
             </Col>
           </Row>
           <Row>
-            <Col span={24}>
-              <span className={contactFormStyles.rightFormContent}>3. Assign Role </span>{' '}
-            </Col>
-            <Col span={20} className={contactFormStyles.bankDetails}>
+            <Col span={24}><span className={contactFormStyles.rightFormContent}>
+              3. Assign Role </span> </Col>
+            <Col span={20} style={{marginTop:"1vh"}} className={contactFormStyles.bankDetails}>
               <TextFieldNoSuffix
-                onUserInput={getRoles}
-                label="Roles"
-                name="role"
+                onUserInput={getSwift}
+                label="Assign Role"
+                name="swift"
                 type="text"
-                value={roles}
-              />{' '}
+                value={swift}
+              />
             </Col>
           </Row>
         </Col>
+        
       </Row>
-
       <Divider />
       <CycButton value="SAVE AND CONTINUE" disabled={false} onClick={getDetails} />
       <Row></Row>

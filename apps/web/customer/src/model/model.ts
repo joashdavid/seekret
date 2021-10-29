@@ -12,7 +12,8 @@ type UserLoginModel = {
 }
 interface ThemeModel{
   color: string;
-  hexcode:string;
+  hexcodeStart:string;
+  hexcodeEnd:string;
 }
 
 
