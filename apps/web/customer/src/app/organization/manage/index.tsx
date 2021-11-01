@@ -37,6 +37,28 @@ const ManageOrg = () => {
   }
   const columns: ColumnsType<OrgModel> = [
     {
+      title: 'Default',
+      dataIndex: 'default',
+      width: 100,
+      key: 'default',
+
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      render: (_, record: OrgModel) => {
+        return (
+          <Input
+            bordered={false}
+            type="radio"
+            // checked={record.isDefault === 1}
+            value={record.orgId}
+            name="default"
+            onChange={() => {
+              setDefaultOrg(record)
+            }}
+          />
+        )
+      },
+    },
+    {
       title: 'Organization Name',
       dataIndex: 'orgName',
       width: 450,
@@ -66,28 +88,7 @@ const ManageOrg = () => {
       width: 250,
       key: 'owner',
     },
-    {
-      title: 'Default',
-      dataIndex: 'default',
-      width: 100,
-      key: 'default',
 
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      render: (_, record: OrgModel) => {
-        return (
-          <Input
-            bordered={false}
-            type="radio"
-            // checked={record.isDefault === 1}
-            value={record.orgId}
-            name="default"
-            onChange={() => {
-              setDefaultOrg(record)
-            }}
-          />
-        )
-      },
-    },
     {
       title: 'Action',
       dataIndex: 'Edit',
