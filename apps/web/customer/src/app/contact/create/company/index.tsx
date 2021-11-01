@@ -1,18 +1,19 @@
 /* eslint-disable max-lines */
-import { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Divider, Row, Col } from 'antd'
+
+import { ContactModel } from '../../../../model/model'
 import contactFormStyles from './create.module.less'
 import { TextFieldNoSuffix } from '../../../components/text-field-nosuffix'
-import { createCompanyContactApi } from './api'
+import { createCompanyContactApi, updateCompanyApi } from './api'
 import CycButton from '../../../components/cyc-button/cyc-button'
-import { useHistory } from "react-router-dom"
+import { useHistory } from 'react-router-dom'
 import { DropDown } from '../../../components/dropdown'
-import { getCountryListApi,getStateListApi} from '../../api'
+import { getCountryListApi, getStateListApi } from '../../api'
 import { BankDropdown } from '../../../components/dropdown-img/index'
 import { TextArea } from '../../../components/text-area/index'
 
-
-const CreateCompanyContact = () => {
+const CreateCompanyContact = (props: { data: ContactModel | undefined })=> {
   const history = useHistory()
   const [companyName, setCompanyName] = useState('')
   const [phoneNumber, setphoneNumber] = useState('')
@@ -32,15 +33,34 @@ const CreateCompanyContact = () => {
   const [panNumber, setPanNumber] = useState('')
   const [roles, setRoles] = useState('')
   const [stateList, setStateList] = useState([])
+  const [contactId, setContactId] = useState('')
+  const [isEdit, setIsedit] = useState(false)
   // eslint-disable-next-line prefer-const
 
-  
   useEffect(() => {
     const getCountryList = async () => {
       const response = await getCountryListApi()
       setCountryList(response.data)
     }
     getCountryList()
+  }, [])
+  useEffect(() => {
+    if (props.data) {
+      setCompanyName(props.data.contactName)
+      setEmail(props.data.email)
+      setphoneNumber(props.data.phoneNo)
+      setAddress(props.data.address)
+      setCountry(props.data.country)
+      setState(props.data.state)
+      setPincode(props.data.postcode)
+      setCity(props.data.city)
+      setBank(props.data.bankName)
+      setbankAccount(props.data.bankAccount)
+      setIfsc(props.data.ifsc)
+      setSwift(props.data.swift)
+      setContactId(props.data.contactId)
+      setIsedit(true)
+    }
   }, [])
 
 
@@ -95,36 +115,57 @@ const CreateCompanyContact = () => {
   const getRoles = (data: string) => {
     setRoles(data)
   }
-  console.log("statelist",stateList)
+  console.log('statelist', stateList)
   const getCompanyDetails = async () => {
-    const response = await createCompanyContactApi(
-      companyName,
-      phoneNumber,
-      email,
-      address,
-      country,
-      state,
-      pincode,
-      city,
-      bank,
-      bankAccount,
-      ifsc,
-      swift,
-      bankAddress
-    )
-    if(response.success){
-        history.push("/dashboard/manageContact")
+    if (!isEdit) {
+      const response = await createCompanyContactApi(
+        companyName,
+        phoneNumber,
+        email,
+        address,
+        country,
+        state,
+        pincode,
+        city,
+        bank,
+        bankAccount,
+        ifsc,
+        swift,
+        bankAddress
+      )
+      if (response.success) {
+        history.push('/dashboard/manageContact')
+        return
+      }
+    } else {
+      const response = await updateCompanyApi(
+        companyName,
+        phoneNumber,
+        email,
+        address,
+        country,
+        state,
+        pincode,
+        city,
+        bank,
+        bankAccount,
+        ifsc,
+        swift,
+        bankAddress,
+        contactId
+      )
+      if (response.success) {
+        history.push('/dashboard/manageContact')
+        return
+      }
     }
-    console.log(response.data)
   }
   return (
     <>
-       <Row style={{marginTop:"1vh"}}>
+      <Row style={{ marginTop: '1vh' }}>
         <Col span={9}>
-          <span className={contactFormStyles.formContent}>
-            1. Fill in Company Details
-          </span>
-          <Row style={{marginTop:"1vh"}}>
+          <span className={contactFormStyles.formContent}>1. Fill in Company Details</span>
+          <Row style={{ marginTop: '1vh' }}>
             <Col span={19}>
               <TextFieldNoSuffix
                 onUserInput={getCompanyName}
@@ -156,9 +197,7 @@ const CreateCompanyContact = () => {
               />
             </Col>
           </Row>
-          
-       
-         
+
           <Row>
             <Col span={19}>
               <TextArea
@@ -171,7 +210,7 @@ const CreateCompanyContact = () => {
             </Col>
           </Row>
           <Row>
-          <Col span={9}>
+            <Col span={9}>
               {/* <TextFieldNoSuffix
                 onUserInput={getCountry}
                 label="Country"
@@ -210,11 +249,11 @@ const CreateCompanyContact = () => {
         </Col>
         <Col span={9}>
           <span className={contactFormStyles.rightFormContent}>2. Fill bank account details</span>
-          <Row style={{marginTop:"1vh"}}>
+          <Row style={{ marginTop: '1vh' }}>
             <Col span={9} className={contactFormStyles.bankDetails}>
-              <BankDropdown onChange={getBank} label="Bank" value={bank}/>
+              <BankDropdown onChange={getBank} label="Bank" value={bank} />
             </Col>
-            <Col span={1}/>
+            <Col span={1} />
             <Col span={9}>
               <TextFieldNoSuffix
                 onUserInput={getbankAccount}
@@ -235,7 +274,7 @@ const CreateCompanyContact = () => {
                 value={ifsc}
               />{' '}
             </Col>
-            <Col  span={1}/>
+            <Col span={1} />
             <Col span={9}>
               <TextFieldNoSuffix
                 onUserInput={getSwift}
@@ -267,7 +306,7 @@ const CreateCompanyContact = () => {
                 value={taxNumber}
               />{' '}
             </Col>
-            <Col  span={1}/>
+            <Col span={1} />
             <Col span={9}>
               <TextFieldNoSuffix
                 onUserInput={getPanNumber}
@@ -279,12 +318,12 @@ const CreateCompanyContact = () => {
             </Col>
           </Row>
           <Row>
-            <Col span={24}><span className={contactFormStyles.rightFormContent}>
-              3. Assign Role </span> </Col> 
-            <Col span={19} className={contactFormStyles.bankDetails} style={{marginTop:"1vh"}}>
+            <Col span={24}>
+              <span className={contactFormStyles.rightFormContent}>3. Assign Role </span>{' '}
+            </Col>
+            <Col span={19} className={contactFormStyles.bankDetails} style={{ marginTop: '1vh' }}>
               <TextFieldNoSuffix
                 onUserInput={getRoles}
-                
                 label="Roles"
                 name="role"
                 type="text"

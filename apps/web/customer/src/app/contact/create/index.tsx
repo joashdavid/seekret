@@ -12,6 +12,7 @@ const CreateContact = () => {
     const [isIndividualChecked, setIndividualChecked] = useState(false)
     const [isCompanyChecked, setCompanyChecked] = useState(false)
     const [individualData, setIndividualData] = useState<ContactModel|undefined>()
+    const [companyData, setCompanyData] = useState<ContactModel|undefined>()
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const location = useLocation<any>()
 
@@ -28,6 +29,11 @@ const CreateContact = () => {
         if(location.state.isIndividualChecked){
           displayIndividual()
           setIndividualData(location.state.data)
+        }
+        else if(location.state.isCompanyChecked)
+        {
+          displayCompany()
+          setCompanyData(location.state.data)
         }
         console.log(location.state)
       }
@@ -87,7 +93,7 @@ const CreateContact = () => {
       <Divider style={{ margin: '10px 0 0 0' }} />
       <Routing/>
       {isIndividualChecked && <CreateIndividualContact  data={individualData}/>}
-      {isCompanyChecked && <CreateCompanyContact />}
+      {isCompanyChecked && <CreateCompanyContact data={companyData}/>}
       
     </>
   )

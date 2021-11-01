@@ -63,4 +63,69 @@ const createCompanyContactApi = async(
       return response
   }
 
-  export {  createCompanyContactApi }
+  const updateCompanyApi = async(
+    contactName: string,
+    phoneNo: string,
+    email: string,
+    address: string,
+    country: string,
+    state: string,
+    postcode: string,
+    city: string,
+    bankName: string,
+    bankAccount: string,
+    ifsc: string,
+    swift: string,
+    bankAddress: string,
+    contactId: string
+  ) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const dataToserver: any = {
+      orgId: localStorage.getItem('orgId'),
+      contactId,
+      updatedContact:{
+        status: 'saved',
+        contactName,
+        contactPic: 'jpg',
+        email,
+        phoneNo,
+        roles: [4, 5],
+      }
+    
+    }
+    if (address) {
+      dataToserver.updatedContact.address = address
+    }
+    if (country) {
+      dataToserver.updatedContact.country = country
+    }
+    if (state) {
+      dataToserver.updatedContact.state = state
+    }
+    if (postcode) {
+      dataToserver.updatedContact.postcode = postcode
+    }
+    if (city) {
+      dataToserver.updatedContact.city = city
+    }
+    if (bankName) {
+      dataToserver.updatedContact.bankName = bankName
+    }
+    if (bankAddress) {
+      dataToserver.updatedContact.bankAddress = bankAddress
+    }
+    if (bankAccount) {
+      dataToserver.updatedContact.bankAccount = bankAccount
+    }
+    if (ifsc) {
+      dataToserver.updatedContact.ifsc = ifsc
+    }
+    if (swift) {
+      dataToserver.updatedContact.swift = swift
+    }
+    console.log(dataToserver)
+    const response = await apiRequest('PUT', 'contacts/update', dataToserver)
+    return response
+  }
+
+  export {  createCompanyContactApi, updateCompanyApi }

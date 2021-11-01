@@ -28,6 +28,7 @@ const ManageOrg = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getOrgDetails = (record: any) => {
+    console.log(record)
     history.push('/dashboard/createOrg', record)
   }
   const columns: ColumnsType<OrgModel> = [

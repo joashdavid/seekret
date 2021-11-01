@@ -50,14 +50,20 @@ const ManageContact = () => {
   const editContact = async (contact:ContactTableModel) => {
     const currentContact = await getCurrentContactDetails(contact)
     if(currentContact.success){
-        redirectToForm(currentContact.data)
+      if(currentContact.data.contactType === "individual")
+        redirectToIndividualForm(currentContact.data)
+      else 
+        redirectTocompanyForm(currentContact.data)
     }
   }
 
-  const redirectToForm = (data:ContactModel) => {
+  const redirectToIndividualForm = (data:ContactModel) => {
     history.push('/dashboard',{data,isIndividualChecked:true})
   }
 
+  const redirectTocompanyForm = (data:ContactModel) => {
+    history.push('/dashboard',{data,isCompanyChecked:true})
+  }
 
   const columns: ColumnsType<ContactTableModel> = [
     {
@@ -160,13 +166,10 @@ const ManageContact = () => {
           dataSource={contactList}
           columns={columns}
           onChange={onChange}
-          // dataSourceIndexOffset={10}
           showSorterTooltip={false}
-          // position={["topRight"]}
           pagination={{
             position: ['topRight'],
             total: 50,
-            // onChange:{onChangePage}
           }}
         ></Table>
       </div>
