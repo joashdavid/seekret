@@ -1,8 +1,10 @@
+/* eslint-disable max-lines */
 import { Breadcrumb, Divider, Button } from 'antd'
 import { useEffect, useState } from 'react'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import 'antd/dist/antd.css'
+import { Popconfirm } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import { useHistory } from 'react-router'
 // import { store } from '../../store'
@@ -12,13 +14,13 @@ import { ContactTableModel } from '../model'
 import { ContactModel } from '../../../model/model'
 import tableStyles from './manage-contact.module.less'
 import { Table } from 'antd'
-import { getContactApi, sendInviteApi, deleteContactApi, getCurrentContactDetails } from './api'
+import { getContactApi, sendInviteApi, deleteContactApi, getCurrentContactDetails, revokeContactApi } from './api'
 
 const ManageContact = () => {
   const currentOrg = useSelector((state) => state)
   const [contactList, setContactList] = useState<[]>([])
   const [column, setColumn] = useState<string>('')
-  const [invitedId , setInvitedId] = useState<string[]>([])
+  const [invitedId, setInvitedId] = useState<string[]>([])
   const history = useHistory()
 
   const getContact = async () => {
@@ -27,7 +29,6 @@ const ManageContact = () => {
     if (response.success) {
       setContactList(response.data)
     }
-    console.log('response', response)
   }
 
   useEffect(() => {
@@ -35,11 +36,18 @@ const ManageContact = () => {
   }, [currentOrg])
 
   const sendInvite = async (contact: ContactTableModel) => {
-    const response = await sendInviteApi(contact)
     const selectedId = [...invitedId, contact.contactId]
     setInvitedId(selectedId)
+    const response = await sendInviteApi(contact)
     if (response.success) {
       console.log(response)
+    }
+  }
+
+  const revokeContact = async(contact: ContactTableModel) => {
+    const response = await revokeContactApi(contact.contactId,contact.orgId)
+    if(response.success){
+      getContact()
     }
   }
 
@@ -66,6 +74,7 @@ const ManageContact = () => {
   const redirectTocompanyForm = (data: ContactModel) => {
     history.push('/dashboard', { data, isCompanyChecked: true })
   }
+  const text = 'Are you sure to revoke the access?'
 
   const columns: ColumnsType<ContactTableModel> = [
     {
@@ -112,34 +121,47 @@ const ManageContact = () => {
       render: (_, record: ContactTableModel) => {
         return (
           <div>
-            {record.userStatus === 'Active/Owner' && <Button
-              type="text"
-              style={{ marginRight: 8, color: '#6F91A8' }}
-            >
-              {"Owner"}
-            </Button>} 
-            {record.userStatus === 'Invite'?<Button
-              type="text"
-              onClick={() => sendInvite(record)}
-              style={{ marginRight: 8, color: '#6F91A8' }}
-            >
-              {invitedId.includes(record.contactId)? "Reinvite":"Invite"}
-            </Button>:""}
-            {record.userStatus === 'Reinvite'&&<Button
-              type="text"
-              onClick={() => sendInvite(record)}
-              style={{ marginRight: 8, color: '#6F91A8' }}
-            >
-              {"Reinvite"}
-            </Button>}
-            {record.userStatus === 'User'&&<Button
-              type="text"
-              onClick={() => sendInvite(record)}
-              style={{ marginRight: 8, color: '#6F91A8' }}
-            >
-              {"User"}
-            </Button>}
-            
+            {record.userStatus === 'Active/Owner' && (
+              <Button type="text" style={{ marginRight: 8, color: '#6F91A8' }}>
+                {'Owner'}
+              </Button>
+            )}
+            {record.userStatus === 'Invite' ? (
+              <Button
+                type="text"
+                onClick={() => sendInvite(record)}
+                style={{ marginRight: 8, color: '#6F91A8' }}
+              >
+                {invitedId.includes(record.contactId) ? 'Reinvite' : 'Invite'}
+              </Button>
+            ) : (
+              ''
+            )}
+            {record.userStatus === 'Reinvite' && (
+              <Button
+                type="text"
+                onClick={() => sendInvite(record)}
+                style={{ marginRight: 8, color: '#6F91A8' }}
+              >
+                {'Reinvite'}
+              </Button>
+            )}
+            {record.userStatus === 'Active' && (
+              <Popconfirm
+                placement="topLeft"
+                title={text}
+                onConfirm={() => revokeContact(record)}
+                okText="Yes"
+                cancelText="No"
+              >
+                <Button
+                  type="text"
+                  style={{ marginRight: 8, color: '#6F91A8' }}
+                >
+                  {'User'}
+                </Button>
+              </Popconfirm>
+            )}
           </div>
         )
       },
@@ -160,14 +182,18 @@ const ManageContact = () => {
             >
               Edit
             </Button>
-            <Button
-              type="text"
-              onClick={() => deleteContact(record)}
-              style={{ marginRight: 8 }}
-              danger
-            >
-              Delete
-            </Button>
+            {record.userStatus === 'Active/Owner' ? (
+              ' '
+            ) : (
+              <Button
+                type="text"
+                onClick={() => deleteContact(record)}
+                style={{ marginRight: 8 }}
+                danger
+              >
+                Delete
+              </Button>
+            )}
           </div>
         )
       },

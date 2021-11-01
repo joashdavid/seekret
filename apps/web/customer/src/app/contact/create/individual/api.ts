@@ -57,7 +57,7 @@ const createContactApi = async (
   if (swift) {
     dataToserver.swift = swift
   }
-  if(roles){
+  if(roles.length>0){
     dataToserver.roles = roles
   }
 

@@ -64,4 +64,14 @@ const getCurrentContactDetails = async (contact: ContactTableModel) => {
   return await apiRequest('POST', 'contacts/fetchDetails', dataToserver)
 }
 
-export { getContactApi, sendInviteApi, deleteContactApi, getCurrentContactDetails }
+const revokeContactApi = async (contactId: string, orgId: string) => {
+  return await apiRequest('PUT', 'contacts/revokeAccess', { contactId, orgId })
+}
+
+export {
+  getContactApi,
+  sendInviteApi,
+  deleteContactApi,
+  getCurrentContactDetails,
+  revokeContactApi,
+}
