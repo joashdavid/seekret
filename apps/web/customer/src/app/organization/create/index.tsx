@@ -19,6 +19,7 @@ const CreateOrgDashboard = () => {
   const [isEdit, setIsedit] = useState(false)
   const [orgId, setOrgId] = useState('')
   const [themeList, setThemeList] = useState<ThemeModel[]>([])
+  
   useEffect(() => {
     if (location.state) {
       setOrgName(location.state.orgName)
@@ -53,6 +54,8 @@ const CreateOrgDashboard = () => {
       const response = await createOrganizationApi(orgName, shortName, theme)
       console.log(response)
       if (response.success) {
+        console.log(response)
+        localStorage.setItem("Token", response.token)
         clearForm()
         history.push('/dashboard/manageOrg')
         // props.onSave()
@@ -66,7 +69,6 @@ const CreateOrgDashboard = () => {
     }
 
     const response = await updateOrganizationApi(orgId, orgName, 'jpg', shortName, theme)
-    console.log(response)
     if (response.success) {
       clearForm()
       history.push('/dashboard/manageOrg')

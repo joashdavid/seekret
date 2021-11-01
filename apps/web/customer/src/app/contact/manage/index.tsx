@@ -74,7 +74,7 @@ const ManageContact = () => {
   const redirectTocompanyForm = (data: ContactModel) => {
     history.push('/dashboard', { data, isCompanyChecked: true })
   }
-  const text = 'Are you sure to revoke the access?'
+
 
   const columns: ColumnsType<ContactTableModel> = [
     {
@@ -149,10 +149,11 @@ const ManageContact = () => {
             {record.userStatus === 'Active' && (
               <Popconfirm
                 placement="topLeft"
-                title={text}
+                title={"Are you sure to revoke the access?"}
                 onConfirm={() => revokeContact(record)}
                 okText="Yes"
                 cancelText="No"
+               className={tableStyles.popover}
               >
                 <Button
                   type="text"

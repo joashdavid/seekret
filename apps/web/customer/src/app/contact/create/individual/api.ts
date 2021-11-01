@@ -25,7 +25,6 @@ const createContactApi = async (
     contactPic: 'jpg',
     email,
     phoneNo,
-    roles,
   }
   if (address) {
     dataToserver.address = address
@@ -57,7 +56,7 @@ const createContactApi = async (
   if (swift) {
     dataToserver.swift = swift
   }
-  if(roles.length>0){
+  if(roles.length > 0){
     dataToserver.roles = roles
   }
 
