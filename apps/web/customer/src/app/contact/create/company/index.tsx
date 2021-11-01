@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import { useState, useEffect } from 'react'
-import { Divider, Row, Col } from 'antd'
+import { Divider, Row, Col, notification } from 'antd'
 
 import { ContactModel } from '../../../../model/model'
 import contactFormStyles from './create.module.less'
@@ -12,6 +12,7 @@ import { DropDown } from '../../../components/dropdown'
 import { getCountryListApi, getStateListApi } from '../../api'
 import { BankDropdown } from '../../../components/dropdown-img/index'
 import { TextArea } from '../../../components/text-area/index'
+import { validate } from '../validation'
 
 const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
   const history = useHistory()
@@ -35,6 +36,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
   const [stateList, setStateList] = useState([])
   const [contactId, setContactId] = useState('')
   const [isEdit, setIsedit] = useState(false)
+  const [errorIn, setErrorIn] = useState('')
   // eslint-disable-next-line prefer-const
 
   useEffect(() => {
@@ -44,6 +46,9 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
     }
     getCountryList()
   }, [])
+  useEffect(() => {
+    setErrorIn(validate(companyName, email,phoneNumber ))
+  }, [companyName, email, phoneNumber])
   useEffect(() => {
     if (props.data) {
       setCompanyName(props.data.contactName)
@@ -114,50 +119,64 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
   const getRoles = (data: string) => {
     setRoles(data)
   }
-  console.log('statelist', stateList)
   const getCompanyDetails = async () => {
-    if (!isEdit) {
-      const response = await createCompanyContactApi(
-        companyName,
-        phoneNumber,
-        email,
-        address,
-        country,
-        state,
-        pincode,
-        city,
-        bank,
-        bankAccount,
-        ifsc,
-        swift,
-        bankAddress
-      )
-      if (response.success) {
-        history.push('/dashboard/manageContact')
-        return
-      }
-    } else {
-      const response = await updateCompanyApi(
-        companyName,
-        phoneNumber,
-        email,
-        address,
-        country,
-        state,
-        pincode,
-        city,
-        bank,
-        bankAccount,
-        ifsc,
-        swift,
-        bankAddress,
-        contactId
-      )
-      if (response.success) {
-        history.push('/dashboard/manageContact')
-        return
+    if(errorIn !== 'invalid'){
+      if (!isEdit) {
+        const response = await createCompanyContactApi(
+          companyName,
+          phoneNumber,
+          email,
+          address,
+          country,
+          state,
+          pincode,
+          city,
+          bank,
+          bankAccount,
+          ifsc,
+          swift,
+          bankAddress
+        )
+        if (response.success) {
+          history.push('/dashboard/manageContact')
+          return
+        }
+      } else {
+        const response = await updateCompanyApi(
+          companyName,
+          phoneNumber,
+          email,
+          address,
+          country,
+          state,
+          pincode,
+          city,
+          bank,
+          bankAccount,
+          ifsc,
+          swift,
+          bankAddress,
+          contactId
+        )
+        if (response.success) {
+          history.push('/dashboard/manageContact')
+          return
+        }
       }
     }
+    else{
+      return pushNotification("INVALID CREDENTIALS",'Oops! Seems like Invalid Data!.Please enter valid information')
+    }
+    
+  }
+ const pushNotification = (message: string, description: string) => {
+    notification.open({
+      message: message,
+      description: description,
+      placement: 'bottomRight',
+      duration: 3,
+      className: 'notificationMessage',
+    })
   }
   return (
     <>
@@ -181,7 +200,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
                 onUserInput={getphoneNumber}
                 label="Mobile Number"
                 name="phoneNumber"
-                type="text"
+                type="number"
                 value={phoneNumber}
               />
             </Col>

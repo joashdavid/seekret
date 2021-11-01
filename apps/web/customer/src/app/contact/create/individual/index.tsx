@@ -12,7 +12,7 @@ import { DropDown } from '../../../components/dropdown'
 import { getCountryListApi, getStateListApi } from '../../api'
 import { BankDropdown } from '../../../components/dropdown-img/index'
 import { TextArea } from '../../../components/text-area'
-import { validate } from './validation'
+import { validate } from '../validation'
 // import { store } from '../../../store'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -81,7 +81,6 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
   const getCountry = async (data: string) => {
     setCountry(data)
     const response = await getStateListApi(data)
-    console.log(response.data)
     setStateList(response.data)
   }
   const getState = (data: string) => {
