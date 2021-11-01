@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import { useEffect, useState } from 'react'
-import { Divider, Row, Col } from 'antd'
+import { Divider, Row, Col,notification } from 'antd'
 import { useHistory } from 'react-router-dom'
 
 import contactFormStyles from './create.module.less'
@@ -12,6 +12,7 @@ import { DropDown } from '../../../components/dropdown'
 import { getCountryListApi, getStateListApi } from '../../api'
 import { BankDropdown } from '../../../components/dropdown-img/index'
 import { TextArea } from '../../../components/text-area'
+import { validate } from './validation'
 // import { store } from '../../../store'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -34,6 +35,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
   const [stateList, setStateList] = useState([])
   const [contactId, setContactId] = useState('')
   const [isEdit, setIsedit] = useState(false)
+  const [errorIn, setErrorIn] = useState('')
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
   useEffect(() => {
@@ -110,51 +112,69 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
     setRoles(data)
   }
   const getDetails = async () => {
-    if (!isEdit) {
-      const response = await createContactApi(
-        fullName,
-        phoneNumber,
-        email,
-        address,
-        country,
-        state,
-        pincode,
-        city,
-        bank,
-        accountNumber,
-        ifsc,
-        swift,
-        bankAddress
-      )
-      if (response.success) {
-        history.push('/dashboard/manageContact')
-        clearForm()
-        return
+    if(errorIn !== 'invalid'){
+      if (!isEdit) {
+        const response = await createContactApi(
+          fullName,
+          phoneNumber,
+          email,
+          address,
+          country,
+          state,
+          pincode,
+          city,
+          bank,
+          accountNumber,
+          ifsc,
+          swift,
+          bankAddress
+        )
+        if (response.success) {
+          history.push('/dashboard/manageContact')
+          clearForm()
+          return
+        }
+      } else {
+        const response = await updateContactApi(
+          fullName,
+          phoneNumber,
+          email,
+          address,
+          country,
+          state,
+          pincode,
+          city,
+          bank,
+          accountNumber,
+          ifsc,
+          swift,
+          bankAddress,
+          contactId
+        )
+        if (response.success) {
+          history.push('/dashboard/manageContact')
+          clearForm()
+          return
+        }
       }
-    } else {
-      const response = await updateContactApi(
-        fullName,
-        phoneNumber,
-        email,
-        address,
-        country,
-        state,
-        pincode,
-        city,
-        bank,
-        accountNumber,
-        ifsc,
-        swift,
-        bankAddress,
-        contactId
-      )
-      if (response.success) {
-        history.push('/dashboard/manageContact')
-        clearForm()
-        return
-      }
+    }else{
+      return pushNotification("INVALID CREDENTIALS",'Oops! Seems like Invalid Data!.Please enter valid information')
     }
+    
   }
+
+  const pushNotification = (message: string, description: string) => {
+    notification.open({
+      message: message,
+      description: description,
+      placement: 'bottomRight',
+      duration: 3,
+      className: 'notificationMessage',
+    })
+  }
+  useEffect(() => {
+    setErrorIn(validate(fullName, email,phoneNumber ))
+  }, [fullName, email, phoneNumber])
   const clearForm = () => {
     setfullName('')
     setphoneNumber('')

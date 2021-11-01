@@ -59,7 +59,6 @@ const createCompanyContactApi = async(
       
       console.log(companydataToserver)
       const response = await apiRequest('POST','contacts/create',companydataToserver)
-      console.log("zxczxc",response.success)
       return response
   }
 

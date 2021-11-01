@@ -24,7 +24,6 @@ const DashBoardHeader = () => {
     )
     setSelectedOrg(selectedOrg[0].orgShortName)
     localStorage.setItem('orgId', selectedOrg[0].orgId)
-    // fetchUpdatedOrgList()
 
     store.dispatch({ type: 'SWITCH_ORG', payload: selectedOrg[0].orgId })
   }

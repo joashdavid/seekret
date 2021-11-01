@@ -13,7 +13,7 @@ import { getCountryListApi, getStateListApi } from '../../api'
 import { BankDropdown } from '../../../components/dropdown-img/index'
 import { TextArea } from '../../../components/text-area/index'
 
-const CreateCompanyContact = (props: { data: ContactModel | undefined })=> {
+const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
   const history = useHistory()
   const [companyName, setCompanyName] = useState('')
   const [phoneNumber, setphoneNumber] = useState('')
@@ -62,7 +62,6 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined })=> {
       setIsedit(true)
     }
   }, [])
-
 
   const getCompanyName = (data: string) => {
     setCompanyName(data)
@@ -211,13 +210,6 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined })=> {
           </Row>
           <Row>
             <Col span={9}>
-              {/* <TextFieldNoSuffix
-                onUserInput={getCountry}
-                label="Country"
-                name="country"
-                type="text"
-                value={country}
-              /> */}
               <DropDown list={countryList} value={country} label="Country" onChange={getCountry} />
             </Col>
             <Col span={1} />
@@ -328,7 +320,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined })=> {
                 name="role"
                 type="text"
                 value={roles}
-              />{' '}
+              />
             </Col>
           </Row>
         </Col>
