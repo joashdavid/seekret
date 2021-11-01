@@ -9,7 +9,7 @@ import { useHistory } from 'react-router'
 // import moment from 'moment'
 
 import { ContactTableModel } from '../model'
-import {ContactModel} from '../../../model/model'
+import { ContactModel } from '../../../model/model'
 import tableStyles from './manage-contact.module.less'
 import { Table } from 'antd'
 import { getContactApi, sendInviteApi, deleteContactApi, getCurrentContactDetails } from './api'
@@ -18,6 +18,7 @@ const ManageContact = () => {
   const currentOrg = useSelector((state) => state)
   const [contactList, setContactList] = useState<[]>([])
   const [column, setColumn] = useState<string>('')
+  const [invitedId , setInvitedId] = useState<string[]>([])
   const history = useHistory()
 
   const getContact = async () => {
@@ -35,34 +36,35 @@ const ManageContact = () => {
 
   const sendInvite = async (contact: ContactTableModel) => {
     const response = await sendInviteApi(contact)
+    const selectedId = [...invitedId, contact.contactId]
+    setInvitedId(selectedId)
     if (response.success) {
       console.log(response)
     }
   }
 
-  const deleteContact = async(contact:ContactTableModel) => {
+  const deleteContact = async (contact: ContactTableModel) => {
     const response = await deleteContactApi(contact)
-    if(response.success){
+    if (response.success) {
       getContact()
     }
   }
 
-  const editContact = async (contact:ContactTableModel) => {
+  const editContact = async (contact: ContactTableModel) => {
     const currentContact = await getCurrentContactDetails(contact)
-    if(currentContact.success){
-      if(currentContact.data.contactType === "individual")
+    if (currentContact.success) {
+      if (currentContact.data.contactType === 'individual')
         redirectToIndividualForm(currentContact.data)
-      else 
-        redirectTocompanyForm(currentContact.data)
+      else redirectTocompanyForm(currentContact.data)
     }
   }
 
-  const redirectToIndividualForm = (data:ContactModel) => {
-    history.push('/dashboard',{data,isIndividualChecked:true})
+  const redirectToIndividualForm = (data: ContactModel) => {
+    history.push('/dashboard', { data, isIndividualChecked: true })
   }
 
-  const redirectTocompanyForm = (data:ContactModel) => {
-    history.push('/dashboard',{data,isCompanyChecked:true})
+  const redirectTocompanyForm = (data: ContactModel) => {
+    history.push('/dashboard', { data, isCompanyChecked: true })
   }
 
   const columns: ColumnsType<ContactTableModel> = [
@@ -101,13 +103,11 @@ const ManageContact = () => {
       width: 200,
       key: 'modifiedAt',
     },
-
     {
-      title: 'Action',
-      dataIndex: 'Edit',
-      width: 300,
-      key: 'Edit',
-
+      title: 'Status',
+      dataIndex: 'status',
+      width: 170,
+      key: 'status',
       // eslint-disable-next-line @typescript-eslint/naming-convention
       render: (_, record: ContactTableModel) => {
         return (
@@ -117,9 +117,21 @@ const ManageContact = () => {
               onClick={() => sendInvite(record)}
               style={{ marginRight: 8, color: '#6F91A8' }}
             >
-              Invite
+              {invitedId.includes(record.contactId)? "Reinvite":"Invite"}
             </Button>
-
+          </div>
+        )
+      },
+    },
+    {
+      title: 'Action',
+      dataIndex: 'action',
+      width: 300,
+      key: 'action',
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      render: (_, record: ContactTableModel) => {
+        return (
+          <div>
             <Button
               type="text"
               onClick={() => editContact(record)}

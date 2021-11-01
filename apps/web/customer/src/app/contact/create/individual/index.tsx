@@ -13,9 +13,9 @@ import { getCountryListApi, getStateListApi } from '../../api'
 import { BankDropdown } from '../../../components/dropdown-img/index'
 import { TextArea } from '../../../components/text-area'
 import { validate } from '../validation'
+import { RoleDropdown } from '../../../components/role-dropdown'
 // import { store } from '../../../store'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
   const [fullName, setfullName] = useState('')
   const [phoneNumber, setphoneNumber] = useState('')
@@ -36,7 +36,6 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
   const [contactId, setContactId] = useState('')
   const [isEdit, setIsedit] = useState(false)
   const [errorIn, setErrorIn] = useState('')
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
   useEffect(() => {
     if (props.data) {
@@ -58,6 +57,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
   }, [])
 
   const history = useHistory()
+
   useEffect(() => {
     const getCountryList = async () => {
       const response = await getCountryListApi()
@@ -171,9 +171,11 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
       className: 'notificationMessage',
     })
   }
+
   useEffect(() => {
     setErrorIn(validate(fullName, email,phoneNumber ))
   }, [fullName, email, phoneNumber])
+
   const clearForm = () => {
     setfullName('')
     setphoneNumber('')
@@ -251,13 +253,6 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
           </Row>
           <Row>
             <Col span={9}>
-              {/* <TextFieldNoSuffix
-                onUserInput={getCountry}
-                label="Country"
-                name="country"
-                type="text"
-                value={country}
-              /> */}
               <DropDown list={countryList} value={country} label="Country" onChange={getCountry} />
             </Col>
             <Col span={1} />
@@ -302,7 +297,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
                 name="acnumber"
                 type="text"
                 value={accountNumber}
-              />{' '}
+              />
             </Col>
           </Row>
           <Row className={contactFormStyles.bankDetails}>
@@ -313,7 +308,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
                 name="ifsc"
                 type="text"
                 value={ifsc}
-              />{' '}
+              />
             </Col>
             <Col span={1} />
             <Col span={8}>
@@ -323,7 +318,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
                 name="swift"
                 type="text"
                 value={swift}
-              />{' '}
+              />
             </Col>
           </Row>
           <Row className={contactFormStyles.bankDetails}>
@@ -334,12 +329,12 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
                 name="bankAddress"
                 type="text"
                 value={bankAddress}
-              />{' '}
+              />
             </Col>
           </Row>
           <Row>
             <Col span={24}>
-              <span className={contactFormStyles.rightFormContent}>3. Assign Role </span>{' '}
+              <span className={contactFormStyles.rightFormContent}>3. Assign Role </span>
             </Col>
             <Col span={20} className={contactFormStyles.bankDetails}>
               <TextFieldNoSuffix
@@ -348,7 +343,8 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
                 name="role"
                 type="text"
                 value={roles}
-              />{' '}
+              />
+              <RoleDropdown/>
             </Col>
           </Row>
         </Col>

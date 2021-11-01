@@ -1,4 +1,3 @@
-
 import { apiRequest } from '../../../services/axios/axios'
 const createOrganizationApi = async (orgName: string, shortName: string, theme: string) => {
   const dataToserver = {
@@ -14,7 +13,7 @@ const createOrganizationApi = async (orgName: string, shortName: string, theme: 
 const getThemeApi = async () => {
   return await apiRequest('GET', 'organizations/fetchThemes', '')
 }
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 const updateOrganizationApi = async (
   id: string,
   orgName: string,
@@ -25,10 +24,13 @@ const updateOrganizationApi = async (
   const dataToserver = {
     orgId: id,
     updatedOrg: {
-      theme:theme,
+      orgName: orgName,
+      orgShortName: shortName,
+      theme,
+      logo,
     },
   }
-  console.log("dataToserver",dataToserver)
+  console.log('dataToserver', dataToserver)
   return await apiRequest('PUT', 'organizations/update', dataToserver)
 }
 

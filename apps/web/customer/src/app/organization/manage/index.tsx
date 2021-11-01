@@ -1,5 +1,5 @@
 
-import { Breadcrumb, Divider, Button } from 'antd'
+import { Breadcrumb, Divider, Button, Input } from 'antd'
 import { useEffect, useState } from 'react'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
@@ -57,6 +57,25 @@ const ManageOrg = () => {
       key: 'modifiedAt',
     },
     {
+      title: 'Owner',
+      dataIndex: 'owner',
+      width: 250,
+      key: 'owner',
+    },
+    {
+      title: 'Default',
+      dataIndex: 'default',
+      width: 100,
+      key: 'default',
+
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      render: (_, record: OrgModel) => {
+        return (
+          <Input bordered={false} type="radio" value={record.orgId} name="default" onChange={()=>{console.log(record)}}/>
+        )
+      },
+    },
+    {
       title: 'Action',
       dataIndex: 'Edit',
       width: 200,
@@ -71,6 +90,7 @@ const ManageOrg = () => {
         )
       },
     },
+    
   ]
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

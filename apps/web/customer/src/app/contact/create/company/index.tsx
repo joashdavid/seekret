@@ -83,7 +83,6 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
   const getCountry = async (data: string) => {
     setCountry(data)
     const response = await getStateListApi(data)
-    console.log(response.data)
     setStateList(response.data)
   }
   const getState = (data: string) => {
