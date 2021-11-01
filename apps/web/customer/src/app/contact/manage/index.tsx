@@ -112,13 +112,34 @@ const ManageContact = () => {
       render: (_, record: ContactTableModel) => {
         return (
           <div>
-            <Button
+            {record.userStatus === 'Active/Owner' && <Button
+              type="text"
+              style={{ marginRight: 8, color: '#6F91A8' }}
+            >
+              {"Owner"}
+            </Button>} 
+            {record.userStatus === 'Invite'?<Button
               type="text"
               onClick={() => sendInvite(record)}
               style={{ marginRight: 8, color: '#6F91A8' }}
             >
               {invitedId.includes(record.contactId)? "Reinvite":"Invite"}
-            </Button>
+            </Button>:""}
+            {record.userStatus === 'Reinvite'&&<Button
+              type="text"
+              onClick={() => sendInvite(record)}
+              style={{ marginRight: 8, color: '#6F91A8' }}
+            >
+              {"Reinvite"}
+            </Button>}
+            {record.userStatus === 'User'&&<Button
+              type="text"
+              onClick={() => sendInvite(record)}
+              style={{ marginRight: 8, color: '#6F91A8' }}
+            >
+              {"User"}
+            </Button>}
+            
           </div>
         )
       },

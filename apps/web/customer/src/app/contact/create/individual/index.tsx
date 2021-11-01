@@ -30,7 +30,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
   const [ifsc, setIfsc] = useState('')
   const [swift, setSwift] = useState('')
   const [bankAddress, setBankaddress] = useState('')
-  const [roles, setRoles] = useState('')
+  const [roles, setRoles] = useState<string[]>([])
   const [countryList, setCountryList] = useState([])
   const [stateList, setStateList] = useState([])
   const [contactId, setContactId] = useState('')
@@ -107,12 +107,13 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
   const getBankaddress = (data: string) => {
     setBankaddress(data)
   }
-  const getRoles = (data: string) => {
+  const getRoles = (data: string[]) => {
     setRoles(data)
   }
   const getDetails = async () => {
     if(errorIn !== 'invalid'){
       if (!isEdit) {
+        console.log(roles)
         const response = await createContactApi(
           fullName,
           phoneNumber,
@@ -126,7 +127,8 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
           accountNumber,
           ifsc,
           swift,
-          bankAddress
+          bankAddress,
+          roles
         )
         if (response.success) {
           history.push('/dashboard/manageContact')
@@ -190,7 +192,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
     setIfsc('')
     setSwift('')
     setBankaddress('')
-    setRoles('')
+    setRoles([])
   }
   return (
     <>
@@ -337,14 +339,14 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
               <span className={contactFormStyles.rightFormContent}>3. Assign Role </span>
             </Col>
             <Col span={20} className={contactFormStyles.bankDetails}>
-              <TextFieldNoSuffix
+              {/* <TextFieldNoSuffix
                 onUserInput={getRoles}
                 label="Roles"
                 name="role"
                 type="text"
                 value={roles}
-              />
-              <RoleDropdown/>
+              /> */}
+              <RoleDropdown type='individual' label={"Roles"} value={roles} onChange={getRoles}/>
             </Col>
           </Row>
         </Col>

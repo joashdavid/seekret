@@ -13,7 +13,8 @@ const createContactApi = async (
   bankAccount: string,
   ifsc: string,
   swift: string,
-  bankAddress: string
+  bankAddress: string,
+  roles: string[]
 ) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dataToserver: any = {
@@ -24,7 +25,7 @@ const createContactApi = async (
     contactPic: 'jpg',
     email,
     phoneNo,
-    roles: [1, 2, 3],
+    roles,
   }
   if (address) {
     dataToserver.address = address
@@ -55,6 +56,9 @@ const createContactApi = async (
   }
   if (swift) {
     dataToserver.swift = swift
+  }
+  if(roles){
+    dataToserver.roles = roles
   }
 
   console.log(dataToserver)
@@ -125,7 +129,7 @@ const createCompanyContactApi = async (
   return response
 }
 
-const updateContactApi = async(
+const updateContactApi = async (
   contactName: string,
   phoneNo: string,
   email: string,
@@ -145,15 +149,14 @@ const updateContactApi = async(
   const dataToserver: any = {
     orgId: localStorage.getItem('orgId'),
     contactId,
-    updatedContact:{
+    updatedContact: {
       status: 'saved',
       contactName,
       contactPic: 'jpg',
       email,
       phoneNo,
       roles: [1, 2, 3],
-    }
-  
+    },
   }
   if (address) {
     dataToserver.updatedContact.address = address
@@ -191,4 +194,4 @@ const updateContactApi = async(
   return response
 }
 
-export { createContactApi, createCompanyContactApi,updateContactApi }
+export { createContactApi, createCompanyContactApi, updateContactApi }

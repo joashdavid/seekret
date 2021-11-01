@@ -13,7 +13,8 @@ const createCompanyContactApi = async(
     bankAccount: string,
     ifsc: string,
     swift: string,
-    bankAddress: string
+    bankAddress: string,
+    roles: string[]
   ) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const companydataToserver : any= {
@@ -55,6 +56,9 @@ const createCompanyContactApi = async(
     }
     if (swift) {
       companydataToserver.swift = swift
+    }
+    if(roles.length>0){
+      companydataToserver.roles = roles
     }
       
       console.log(companydataToserver)

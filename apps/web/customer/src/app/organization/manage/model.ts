@@ -7,6 +7,7 @@ interface OrgModel {
     theme:string;
     orgId:string;
     colorName:string;
+    isDefault:number;
 }
 
 

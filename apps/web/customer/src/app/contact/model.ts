@@ -9,6 +9,7 @@ interface ContactTableModel {
   lastModified: string
   status: string
   action: string
+  userStatus:string
 }
 
 interface ContactModel {

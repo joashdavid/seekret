@@ -13,6 +13,7 @@ import { getCountryListApi, getStateListApi } from '../../api'
 import { BankDropdown } from '../../../components/dropdown-img/index'
 import { TextArea } from '../../../components/text-area/index'
 import { validate } from '../validation'
+import { RoleDropdown } from '../../../components/role-dropdown'
 
 const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
   const history = useHistory()
@@ -32,7 +33,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
   const [bankAddress, setBankaddress] = useState('')
   const [taxNumber, setTaxNumber] = useState('')
   const [panNumber, setPanNumber] = useState('')
-  const [roles, setRoles] = useState('')
+  const [roles, setRoles] = useState<string[]>([])
   const [stateList, setStateList] = useState([])
   const [contactId, setContactId] = useState('')
   const [isEdit, setIsedit] = useState(false)
@@ -115,7 +116,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
   const getPanNumber = (data: string) => {
     setPanNumber(data)
   }
-  const getRoles = (data: string) => {
+  const getRoles = (data: string[]) => {
     setRoles(data)
   }
   const getCompanyDetails = async () => {
@@ -134,7 +135,8 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
           bankAccount,
           ifsc,
           swift,
-          bankAddress
+          bankAddress,
+          roles
         )
         if (response.success) {
           history.push('/dashboard/manageContact')
@@ -332,13 +334,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
               <span className={contactFormStyles.rightFormContent}>3. Assign Role </span>{' '}
             </Col>
             <Col span={19} className={contactFormStyles.bankDetails} style={{ marginTop: '1vh' }}>
-              <TextFieldNoSuffix
-                onUserInput={getRoles}
-                label="Roles"
-                name="role"
-                type="text"
-                value={roles}
-              />
+            <RoleDropdown type='company' label={"Roles"} value={roles} onChange={getRoles}/>
             </Col>
           </Row>
         </Col>

@@ -1,4 +1,3 @@
-
 import { Breadcrumb, Divider, Button, Input } from 'antd'
 import { useEffect, useState } from 'react'
 import React from 'react'
@@ -14,13 +13,13 @@ import { OrgModel } from './model'
 
 const ManageOrg = () => {
   const [orgList, setOrgList] = useState<OrgModel[]>([])
-  const [column,setColumn] = useState<string>('')
+  const [column, setColumn] = useState<string>('')
 
   const history = useHistory()
   useEffect(() => {
     const getOrg = async () => {
       const response = await getOrgApi('modifiedAt', 1, 10, 'DESC')
-      setColumn("modifiedAt")
+      setColumn('modifiedAt')
       setOrgList(response.data)
     }
     getOrg()
@@ -32,7 +31,7 @@ const ManageOrg = () => {
     history.push('/dashboard/createOrg', record)
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const setDefaultOrg =async(record: any) => {
+  const setDefaultOrg = async (record: any) => {
     const response = await setDefaultOrgApi(record.orgId)
     console.log(response)
   }
@@ -76,7 +75,16 @@ const ManageOrg = () => {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       render: (_, record: OrgModel) => {
         return (
-          <Input bordered={false} type="radio" value={record.orgId} name="default" onChange={()=>{setDefaultOrg(record)}}/>
+          <Input
+            bordered={false}
+            type="radio"
+            // checked={record.isDefault === 1}
+            value={record.orgId}
+            name="default"
+            onChange={() => {
+              setDefaultOrg(record)
+            }}
+          />
         )
       },
     },
@@ -95,13 +103,12 @@ const ManageOrg = () => {
         )
       },
     },
-    
   ]
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onChange = async (pagination: any, filters: any, sorter: any) => {
     console.log(sorter)
-    if(sorter.columnKey){
+    if (sorter.columnKey) {
       setColumn(sorter.columnKey)
     }
     const response = await getOrgApi(
@@ -131,8 +138,8 @@ const ManageOrg = () => {
           showSorterTooltip={false}
           // position={["topRight"]}
           pagination={{
-            position: ["topRight"],
-            total:50
+            position: ['topRight'],
+            total: 50,
             // onChange:{onChangePage}
           }}
         ></Table>
