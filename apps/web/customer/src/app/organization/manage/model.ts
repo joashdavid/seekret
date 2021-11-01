@@ -5,7 +5,8 @@ interface OrgModel {
     modifiedAt:string;
     action:string;
     theme:string;
-    orgId:string
+    orgId:string;
+    colorName:string;
 }
 
 

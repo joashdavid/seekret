@@ -9,7 +9,7 @@ import { ColumnsType } from 'antd/es/table'
 
 import tableStyles from './manage-org.module.less'
 import { Table } from 'antd'
-import { getOrgApi } from './api'
+import { getOrgApi, setDefaultOrgApi } from './api'
 import { OrgModel } from './model'
 
 const ManageOrg = () => {
@@ -30,6 +30,11 @@ const ManageOrg = () => {
   const getOrgDetails = (record: any) => {
     console.log(record)
     history.push('/dashboard/createOrg', record)
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const setDefaultOrg =async(record: any) => {
+    const response = await setDefaultOrgApi(record.orgId)
+    console.log(response)
   }
   const columns: ColumnsType<OrgModel> = [
     {
@@ -71,7 +76,7 @@ const ManageOrg = () => {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       render: (_, record: OrgModel) => {
         return (
-          <Input bordered={false} type="radio" value={record.orgId} name="default" onChange={()=>{console.log(record)}}/>
+          <Input bordered={false} type="radio" value={record.orgId} name="default" onChange={()=>{setDefaultOrg(record)}}/>
         )
       },
     },

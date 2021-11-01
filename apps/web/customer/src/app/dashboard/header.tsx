@@ -1,11 +1,11 @@
 import { Layout, Select } from 'antd'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, SetStateAction } from 'react'
 import { ReactSVG } from 'react-svg'
 
 import landingPageStyles from './dashboard.module.less'
 import { OrgnizationModel } from './model'
 import { fetchOrganizationApi } from './api'
-// import * as actions from '../store/action'
+
 import { store } from '../store'
 
 const DashBoardHeader = () => {
@@ -31,21 +31,32 @@ const DashBoardHeader = () => {
   const fetchOrg = async () => {
     const response = await fetchOrganizationApi()
     setOrgList(response.data)
-    setSelectedOrg(response.data[0].orgShortName)
-    localStorage.setItem('orgId', response.data[0].orgId)
-    setSelectedTheme(
-      `transparent linear-gradient(90deg,
-         #${response.data[0].hexcodeEnd} 0%, #${response.data[0].hexcodeStart} 
-         100%) 0% 0% no-repeat padding-box`
+    response.data.forEach(
+      (org: {
+        isDefault: number
+        orgShortName: SetStateAction<string>
+        orgId: string
+        hexcodeEnd: string
+        hexcodeStart: string
+      }) => {
+        if (org.isDefault) {
+          setSelectedOrg(org.orgShortName)
+          localStorage.setItem('orgId', org.orgId)
+          setSelectedTheme(
+            `transparent linear-gradient(90deg,
+             #${org.hexcodeEnd} 0%, #${org.hexcodeStart} 
+             100%) 0% 0% no-repeat padding-box`
+          )
+          console.log('header', response.data)
+          store.dispatch({ type: 'SWITCH_ORG', payload: org.orgId })
+        }
+      }
     )
-    console.log("header",response.data)
-    store.dispatch({ type: 'SWITCH_ORG', payload: response.data[0].orgId })
   }
 
   const fetchUpdatedOrgList = async () => {
     const response = await fetchOrganizationApi()
     setOrgList(response.data)
-    console.log("updated")
   }
 
   useEffect(() => {
@@ -63,19 +74,17 @@ const DashBoardHeader = () => {
         value={selectedOrg}
         suffixIcon={<ReactSVG src={'../../../assets/arrow-down.svg'} />}
         onDropdownVisibleChange={fetchUpdatedOrgList}
-      
       >
         {orgList.map((org) => {
           return (
-            <Option
-              value={org.orgId}
-              className={landingPageStyles.options}
-            >
+            <Option value={org.orgId} className={landingPageStyles.options}>
               <div className={landingPageStyles.optionWrapper}>
                 <div
                   className={landingPageStyles.optionsLogo}
-                  // eslint-disable-next-line max-len
-                  style={{ background: `transparent linear-gradient(90deg, #${org.hexcodeEnd} 0%,  #${org.hexcodeStart} 100%) 0% 0% no-repeat padding-box`}}
+                  style={{
+                    // eslint-disable-next-line max-len
+                    background: `transparent linear-gradient(90deg, #${org.hexcodeEnd} 0%,  #${org.hexcodeStart} 100%) 0% 0% no-repeat padding-box`,
+                  }}
                 />
                 <span> {org.orgShortName}</span>
               </div>

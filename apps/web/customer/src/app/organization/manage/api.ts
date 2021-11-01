@@ -18,4 +18,10 @@ const getOrgApi = async(column:string,pgNo:number,limit:number,order:string) => 
     return response
 }
 
-export {getOrgApi}
+const setDefaultOrgApi = async(orgId:string) => {
+    console.log(orgId)
+    const response = await apiRequest("PUT", 'organizations/setDefault',{orgId})
+    return response
+}
+
+export {getOrgApi, setDefaultOrgApi}

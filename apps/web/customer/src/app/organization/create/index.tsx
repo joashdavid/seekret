@@ -1,7 +1,7 @@
-import { Divider,notification } from 'antd'
+import { Divider, notification } from 'antd'
 import { useState, useEffect } from 'react'
 import { Breadcrumb } from 'antd'
-import {useLocation,useHistory} from 'react-router-dom'
+import { useLocation, useHistory } from 'react-router-dom'
 
 import { TextFieldNoSuffix } from '../../components/text-field-nosuffix'
 import { createOrganizationApi, getThemeApi, updateOrganizationApi } from './api'
@@ -17,18 +17,17 @@ const CreateOrgDashboard = () => {
   const [shortName, setShortName] = useState('')
   const [theme, setTheme] = useState('')
   const [isEdit, setIsedit] = useState(false)
-  const [orgId,setOrgId] = useState('')
+  const [orgId, setOrgId] = useState('')
   const [themeList, setThemeList] = useState<ThemeModel[]>([])
   useEffect(() => {
-    if(location.state){
+    if (location.state) {
       setOrgName(location.state.orgName)
       setShortName(location.state.orgShortName)
-      setTheme(location.state.theme)
+      setTheme(location.state.colorName)
       setIsedit(true)
       setOrgId(location.state.orgId)
     }
-  },
-  [])
+  }, [])
 
   const getOrgName = (data: string) => {
     setOrgName(data)
@@ -50,46 +49,47 @@ const CreateOrgDashboard = () => {
     getThemeData()
   }, [])
   const createOrganization = async () => {
-    if(!isEdit){
+    if (!isEdit) {
       const response = await createOrganizationApi(orgName, shortName, theme)
       console.log(response)
       if (response.success) {
         clearForm()
         history.push('/dashboard/manageOrg')
-          // props.onSave()
-          return
+        // props.onSave()
+        return
+      } else {
+        return pushNotification(
+          'INVALID CREDENTIALS',
+          'Oops! Seems like Invalid Data!.Please enter valid information'
+        )
       }
-      else{
-        return pushNotification("INVALID CREDENTIALS","Oops! Seems like Invalid Data!.Please enter valid information")
-      }
-      
     }
-    
-    const response = await updateOrganizationApi(orgId,orgName,"jpg",shortName,theme)
+
+    const response = await updateOrganizationApi(orgId, orgName, 'jpg', shortName, theme)
     console.log(response)
     if (response.success) {
       clearForm()
       history.push('/dashboard/manageOrg')
-        // props.onSave()
-        return
+      return
+    } else {
+      return pushNotification(
+        'INVALID CREDENTIALS',
+        'Oops! Seems like Invalid Data!.Please enter valid information'
+      )
     }
-    else{
-      return pushNotification("INVALID CREDENTIALS","Oops! Seems like Invalid Data!.Please enter valid information")
-    }
-    
   }
   const clearForm = () => {
     setOrgName('')
     setShortName('')
     setTheme('')
   }
-  const pushNotification = (message:string,description:string) => {
+  const pushNotification = (message: string, description: string) => {
     notification.open({
       message: message,
-      description:description,
+      description: description,
       placement: 'bottomRight',
-      duration:3,
-      className:"notificationMessage" 
+      duration: 3,
+      className: 'notificationMessage',
     })
   }
 
