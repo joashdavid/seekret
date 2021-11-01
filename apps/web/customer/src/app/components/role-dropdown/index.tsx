@@ -1,8 +1,9 @@
 import { Select } from 'antd'
 import styles from './role-dropdown.module.less'
-import FloatLabel from '../float-label/float-label'
+// import FloatLabel from '../float-label/float-label'
 import { useState,useEffect } from 'react'
 import { Key } from 'rc-select/lib/interface/generator'
+import RoleFloatLabel from './role-floatlabel'
 
 const Individualroles = [
   {
@@ -39,6 +40,7 @@ const RoleDropdown = (props: {
   const { Option } = Select
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [roles, setRoles] = useState<any>([])
+  const [isValueChecked, setValueChecked] = useState(false)
   useEffect(() =>{
     if (props.type === 'individual') {
         setRoles(Individualroles)
@@ -51,11 +53,12 @@ const RoleDropdown = (props: {
  
 
   function handleChange(value: string[]) {
+    setValueChecked(true)
     props.onChange(value)
   }
 
   return (
-    <FloatLabel label={props.label} name="themeDropdown" value={props.value[0]}>
+    <RoleFloatLabel label={props.label} name="themeDropdown" isChecked={isValueChecked}>
       <Select mode="tags" onChange={handleChange} className={styles.dropDown} bordered={false}>
         {roles.map(
           (data: {
@@ -72,7 +75,7 @@ const RoleDropdown = (props: {
           }
         )}
       </Select>
-    </FloatLabel>
+    </RoleFloatLabel>
   )
 }
 
