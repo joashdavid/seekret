@@ -122,15 +122,15 @@ const ManageContact = () => {
         return (
           <div>
             {record.userStatus === 'Active/Owner' && (
-              <Button type="text" style={{ marginRight: 8, color: '#6F91A8' }}>
+              <Button type="text" style={{ marginRight: 8, color: '#6F91A8',width:'10vh' }}>
                 {'Owner'}
               </Button>
             )}
             {record.userStatus === 'Invite' ? (
               <Button
-                type="text"
+                type="primary"
                 onClick={() => sendInvite(record)}
-                style={{ marginRight: 8, color: '#6F91A8' }}
+                style={{ marginRight: 8, color: '#fff',width:'10vh' }}
               >
                 {invitedId.includes(record.contactId) ? 'Reinvite' : 'Invite'}
               </Button>
@@ -139,9 +139,9 @@ const ManageContact = () => {
             )}
             {record.userStatus === 'Reinvite' && (
               <Button
-                type="text"
+                type="primary"
                 onClick={() => sendInvite(record)}
-                style={{ marginRight: 8, color: '#6F91A8' }}
+                style={{ marginRight: 8, color: '#fff',width:'10vh' }}
               >
                 {'Reinvite'}
               </Button>
@@ -149,15 +149,16 @@ const ManageContact = () => {
             {record.userStatus === 'Active' && (
               <Popconfirm
                 placement="topLeft"
-                title={"Are you sure to revoke the access?"}
+                title={"Revoke the access?"}
                 onConfirm={() => revokeContact(record)}
                 okText="Yes"
                 cancelText="No"
-               className={tableStyles.popover}
+                style={{ color: 'red',width:'10vh' }}
+               
               >
                 <Button
-                  type="text"
-                  style={{ marginRight: 8, color: '#6F91A8' }}
+                  type="primary"
+                  style={{ marginRight: 8, color: '#fff', width:'10vh' }}
                 >
                   {'User'}
                 </Button>
@@ -176,6 +177,7 @@ const ManageContact = () => {
       render: (_, record: ContactTableModel) => {
         return (
           <div>
+            {record.userStatus !== 'Active/Owner' && (
             <Button
               type="text"
               onClick={() => editContact(record)}
@@ -183,9 +185,8 @@ const ManageContact = () => {
             >
               Edit
             </Button>
-            {record.userStatus === 'Active/Owner' ? (
-              ' '
-            ) : (
+            )}
+            {record.userStatus !== 'Active/Owner' && (
               <Button
                 type="text"
                 onClick={() => deleteContact(record)}

@@ -50,6 +50,17 @@ const DashBoardHeader = () => {
           console.log('header', response.data)
           store.dispatch({ type: 'SWITCH_ORG', payload: org.orgId })
         }
+        else{
+          setSelectedOrg(response.data[0].orgShortName)
+          localStorage.setItem('orgId',response.data[0].orgId)
+          setSelectedTheme(
+            `transparent linear-gradient(90deg,
+             #${response.data[0].hexcodeEnd} 0%, #${response.data[0].hexcodeStart} 
+             100%) 0% 0% no-repeat padding-box`
+          )
+          console.log('header', response.data)
+          store.dispatch({ type: 'SWITCH_ORG', payload: response.data[0].orgId })
+        }
       }
     )
   }
