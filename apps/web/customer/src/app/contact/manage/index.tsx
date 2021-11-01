@@ -153,7 +153,7 @@ const ManageContact = () => {
             )}
             {record.userStatus === 'Active' && (
               <Popconfirm
-                placement="topLeft"
+                placement="bottomLeft"
                 title={'Revoke the access?'}
                 onConfirm={() => revokeContact(record)}
                 okText="Yes"

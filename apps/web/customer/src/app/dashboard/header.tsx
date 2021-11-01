@@ -18,8 +18,8 @@ const DashBoardHeader = () => {
     const getSelectedOrgData = orgList.filter((orgSelected) => orgSelected.orgId === data)
     const selectedOrg = { ...getSelectedOrgData }
     setSelectedTheme(
-      // eslint-disable-next-line max-len
-      `transparent linear-gradient(90deg, #${selectedOrg[0].hexcodeEnd} 0%,  #${selectedOrg[0].hexcodeStart} 100%) 0% 0% no-repeat padding-box`
+      `transparent linear-gradient(90deg, #${selectedOrg[0].hexcodeEnd} 0%,  
+        #${selectedOrg[0].hexcodeStart} 100%) 0% 0% no-repeat padding-box`
     )
     setSelectedOrg(selectedOrg[0].orgShortName)
     localStorage.setItem('orgId', selectedOrg[0].orgId)
@@ -93,8 +93,8 @@ const DashBoardHeader = () => {
                 <div
                   className={landingPageStyles.optionsLogo}
                   style={{
-                    // eslint-disable-next-line max-len
-                    background: `transparent linear-gradient(90deg, #${org.hexcodeEnd} 0%,  #${org.hexcodeStart} 100%) 0% 0% no-repeat padding-box`,
+                    background: `transparent linear-gradient(90deg, #${org.hexcodeEnd} 0%, 
+                       #${org.hexcodeStart} 100%) 0% 0% no-repeat padding-box`,
                   }}
                 />
                 <span> {org.orgShortName}</span>
