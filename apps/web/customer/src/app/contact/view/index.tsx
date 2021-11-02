@@ -6,23 +6,23 @@ import styles from './view-contact.module.less'
 import DownloadLogo from '../../../assets/download.svg'
 const ROLES = [
   {
-    roleId: '1',
+    roleId: 1,
     roleName: 'Employee',
   },
   {
-    roleId: '2',
+    roleId: 2,
     roleName: 'Intern',
   },
   {
-    roleId: '3',
+    roleId: 3,
     roleName: 'Consultant',
   },
   {
-    roleId: '4',
+    roleId: 4,
     roleName: 'Vendor',
   },
   {
-    roleId: '5',
+    roleId: 5,
     roleName: 'Client',
   },
 ]
@@ -35,11 +35,11 @@ const ViewContact = () => {
   const location = useLocation<any>()
   useEffect(() => {
     if (location.state.data.groups) {
-      console.log(location.state.data)
       const roles: string[] = []
       ROLES.forEach((role) => {
-        if (location.state.data.groups.split(',').includes(role.roleId)) {
+        if (location.state.data.groups.includes(role.roleId)) {
           roles.push(role.roleName)
+          console.log(roles)
         }
         setRole(roles)
         setRoleString(roles.toString())
@@ -143,7 +143,8 @@ const ViewContact = () => {
       </Row>
       <Tabs>
         {roles &&
-          roles.map((role) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          roles.map((role: any) => {
             return (
               <TabPane tab={role} key={role}>
                 Content of Tab {role}
