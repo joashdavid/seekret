@@ -1,5 +1,5 @@
 import { Layout, Select } from 'antd'
-import { useState, useEffect, SetStateAction } from 'react'
+import { useState, useEffect } from 'react'
 import { ReactSVG } from 'react-svg'
 
 import landingPageStyles from './dashboard.module.less'
@@ -17,50 +17,53 @@ const DashBoardHeader = () => {
   const getOrgDetails = (data: string) => {
     const getSelectedOrgData = orgList.filter((orgSelected) => orgSelected.orgId === data)
     const selectedOrg = { ...getSelectedOrgData }
-    setSelectedTheme(
-      `transparent linear-gradient(90deg, #${selectedOrg[0].hexcodeEnd} 0%,  
-        #${selectedOrg[0].hexcodeStart} 100%) 0% 0% no-repeat padding-box`
+    setOrganization(
+      selectedOrg[0].orgShortName,
+      selectedOrg[0].hexcodeStart,
+      selectedOrg[0].hexcodeEnd,
+      selectedOrg[0].orgId
     )
-    setSelectedOrg(selectedOrg[0].orgShortName)
-    localStorage.setItem('orgId', selectedOrg[0].orgId)
-
-    store.dispatch({ type: 'SWITCH_ORG', payload: selectedOrg[0].orgId })
   }
-
   const fetchOrg = async () => {
     const response = await fetchOrganizationApi()
     setOrgList(response.data)
-    response.data.forEach(
-      (org: {
-        isDefault: number
-        orgShortName: SetStateAction<string>
-        orgId: string
-        hexcodeEnd: string
-        hexcodeStart: string
-      }) => {
-        if (org.isDefault) {
-          setSelectedOrg(org.orgShortName)
-          localStorage.setItem('orgId', org.orgId)
-          setSelectedTheme(
-            `transparent linear-gradient(90deg,
-             #${org.hexcodeEnd} 0%, #${org.hexcodeStart} 
-             100%) 0% 0% no-repeat padding-box`
-          )
-          console.log('header', response.data)
-          store.dispatch({ type: 'SWITCH_ORG', payload: org.orgId })
-        } else {
-          setSelectedOrg(response.data[0].orgShortName)
-          localStorage.setItem('orgId', response.data[0].orgId)
-          setSelectedTheme(
-            `transparent linear-gradient(90deg,
-             #${response.data[0].hexcodeEnd} 0%, #${response.data[0].hexcodeStart} 
-             100%) 0% 0% no-repeat padding-box`
-          )
-          console.log('header', response.data)
-          store.dispatch({ type: 'SWITCH_ORG', payload: response.data[0].orgId })
-        }
+    for (const index in response.data) {
+      if (response.data[index].isDefault) {
+        setOrganization(
+          response.data[index].orgShortName,
+          response.data[index].hexcodeStart,
+          response.data[index].hexcodeEnd,
+          response.data[index].orgId
+        )
+        console.log(response.data[index])
+        return
       }
+      else{
+        setOrganization(
+          response.data[index].orgShortName,
+          response.data[index].hexcodeStart,
+          response.data[index].hexcodeEnd,
+          response.data[index].orgId
+        )
+      }
+    }
+  }
+
+  const setOrganization = (
+    shortName: string,
+    hexcodeStart: string,
+    hexcodeEnd: string,
+    orgId: string
+  ) => {
+    setSelectedOrg(shortName)
+    localStorage.setItem('orgId', orgId)
+    setSelectedTheme(
+      `transparent linear-gradient(90deg,
+             #${hexcodeEnd} 0%, #${hexcodeStart}
+             100%) 0% 0% no-repeat padding-box`
     )
+    store.dispatch({ type: 'SWITCH_ORG', payload: orgId })
+    return
   }
 
   const fetchUpdatedOrgList = async () => {
@@ -88,7 +91,7 @@ const DashBoardHeader = () => {
       >
         {orgList.map((org) => {
           return (
-            <Option value={org.orgId} className={landingPageStyles.options}>
+            <Option value={org.orgId} key={org.orgId} className={landingPageStyles.options}>
               <div className={landingPageStyles.optionWrapper}>
                 <div
                   className={landingPageStyles.optionsLogo}

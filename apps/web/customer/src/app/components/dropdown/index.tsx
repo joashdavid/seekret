@@ -33,7 +33,7 @@ const DropDown = (props: {
       >
         {props.list.map((data) => {
           return (
-            <Option value={data}>
+            <Option value={data} key={data}>
               <div className={styles.optionWrapper}>
                 {/* <Badge color={`${'#' + theme.hexcode}`} className={styles.themeBadge} /> */}
                 <span className={styles.selected}>{data}</span>

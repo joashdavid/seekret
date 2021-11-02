@@ -56,6 +56,14 @@ const deleteContactApi = async (contact: ContactTableModel) => {
   return await apiRequest('DELETE', 'contacts/delete', dataToserver)
 }
 
+const archiveContactApi  = async(contact:ContactTableModel) => {
+  const dataToserver = {
+    orgId: contact.orgId,
+    contactIds: [contact.contactId],
+  }
+  return await apiRequest('PATCH', 'contacts/archive', dataToserver)
+}
+
 const getCurrentContactDetails = async (contact: ContactTableModel) => {
   const dataToserver = {
     orgId: contact.orgId,
@@ -74,4 +82,5 @@ export {
   deleteContactApi,
   getCurrentContactDetails,
   revokeContactApi,
+  archiveContactApi
 }

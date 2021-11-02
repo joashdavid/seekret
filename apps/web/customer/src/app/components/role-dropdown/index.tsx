@@ -66,7 +66,7 @@ const RoleDropdown = (props: {
             roleName: string
           }) => {
             return (
-              <Option value={data.roleId}>
+              <Option value={data.roleId} key={data.roleId}>
                 <div className={styles.optionWrapper}>
                   <span className={styles.selected}>{data.roleName}</span>
                 </div>

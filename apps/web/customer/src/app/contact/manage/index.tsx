@@ -7,8 +7,6 @@ import 'antd/dist/antd.css'
 import { Popconfirm } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import { useHistory } from 'react-router'
-// import { store } from '../../store'
-// import moment from 'moment'
 
 import { ContactTableModel } from '../model'
 import { ContactModel } from '../../../model/model'
@@ -17,10 +15,16 @@ import { Table } from 'antd'
 import {
   getContactApi,
   sendInviteApi,
-  deleteContactApi,
+  // deleteContactApi,
   getCurrentContactDetails,
   revokeContactApi,
+  archiveContactApi,
 } from './api'
+
+const OWNER = 'Active/Owner'
+const INVITE = 'Invite'
+const REINVITE = 'Reinvite'
+const USER = 'Active'
 
 const ManageContact = () => {
   const currentOrg = useSelector((state) => state)
@@ -57,8 +61,15 @@ const ManageContact = () => {
     }
   }
 
-  const deleteContact = async (contact: ContactTableModel) => {
-    const response = await deleteContactApi(contact)
+  // const deleteContact = async (contact: ContactTableModel) => {
+  //   const response = await deleteContactApi(contact)
+  //   if (response.success) {
+  //     getContact()
+  //   }
+  // }
+  const archiveContact = async (contact: ContactTableModel) => {
+    const response = await archiveContactApi(contact)
+    console.log(response)
     if (response.success) {
       getContact()
     }
@@ -118,20 +129,25 @@ const ManageContact = () => {
       key: 'modifiedAt',
     },
     {
-      title: 'Status',
+      title: 'Contact Status',
       dataIndex: 'status',
+      width: 200,
+      key: 'status',
+    },
+    {
+      title: 'User Status',
+      dataIndex: 'userStatus',
       width: 170,
       key: 'status',
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      render: (_, record: ContactTableModel) => {
+      render: (index, record: ContactTableModel) => {
         return (
           <div>
-            {record.userStatus === 'Active/Owner' && (
+            {record.userStatus === OWNER && (
               <Button type="text" style={{ marginRight: 8, color: '#6F91A8', width: '10vh' }}>
                 {'Owner'}
               </Button>
             )}
-            {record.userStatus === 'Invite' ? (
+            {record.userStatus === INVITE ? (
               <Button
                 type="primary"
                 onClick={() => sendInvite(record)}
@@ -142,7 +158,7 @@ const ManageContact = () => {
             ) : (
               ''
             )}
-            {record.userStatus === 'Reinvite' && (
+            {record.userStatus === REINVITE && (
               <Button
                 type="primary"
                 onClick={() => sendInvite(record)}
@@ -151,7 +167,7 @@ const ManageContact = () => {
                 {'Reinvite'}
               </Button>
             )}
-            {record.userStatus === 'Active' && (
+            {record.userStatus === USER && (
               <Popconfirm
                 placement="bottomLeft"
                 title={'Revoke the access?'}
@@ -174,30 +190,33 @@ const ManageContact = () => {
       dataIndex: 'action',
       width: 300,
       key: 'action',
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      render: (_, record: ContactTableModel) => {
+
+      render: (index, record: ContactTableModel) => {
         return (
-          <div>
-            {record.userStatus !== 'Active/Owner' && (
-              <Button
-                type="text"
-                onClick={() => editContact(record)}
-                style={{ marginRight: 8, color: '#33B986' }}
-              >
-                Edit
-              </Button>
+          // eslint-disable-next-line react/jsx-no-useless-fragment
+          <>
+            {record.userStatus !== OWNER && (
+              <div>
+                <Button
+                  type="text"
+                  onClick={() => editContact(record)}
+                  style={{ marginRight: 8, color: '#33B986' }}
+                >
+                  Edit
+                </Button>
+                {record.status !== 'archived' && (
+                  <Button
+                    type="text"
+                    onClick={() => archiveContact(record)}
+                    style={{ marginRight: 8 }}
+                    danger
+                  >
+                    Archive
+                  </Button>
+                )}
+              </div>
             )}
-            {record.userStatus !== 'Active/Owner' && (
-              <Button
-                type="text"
-                onClick={() => deleteContact(record)}
-                style={{ marginRight: 8 }}
-                danger
-              >
-                Delete
-              </Button>
-            )}
-          </div>
+          </>
         )
       },
     },

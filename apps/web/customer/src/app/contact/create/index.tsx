@@ -55,7 +55,7 @@ const CreateContact = () => {
       <Row>
         <Col span={9}>
           <div className={contactFormStyles.contactWrapper}>
-            <div className={contactFormStyles.contactChoiceContent}>
+            <div className={contactFormStyles.contactChoiceContent} onClick={displayIndividual}>
               <div className={contactFormStyles.contactImg}>
                 <img src="../assets/IndividualIcon.svg" alt="" className={contactFormStyles.icon} />
                 <div className={contactFormStyles.contactDesInfo}>
@@ -71,7 +71,7 @@ const CreateContact = () => {
         </Col>
         <Col span={8}>
           <div className={contactFormStyles.contactWrapper} style={{ marginLeft: '-18vh' }}>
-            <div className={contactFormStyles.contactChoiceContent}>
+            <div className={contactFormStyles.contactChoiceContent} onClick={displayCompany}>
               <div className={contactFormStyles.contactImg}>
                 <img
                   src="../assets/company-contact.svg"

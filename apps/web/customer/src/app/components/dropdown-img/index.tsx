@@ -30,7 +30,7 @@ const BankDropdown = (props: {
       >
         {banksWithImage.map((data) => {
           return (
-            <Option value={data.bank} className={styles.options}>
+            <Option value={data.bank} className={styles.options} key={data.bank}>
               <div className={styles.optionWrapper}>
                   <span><Avatar src={data.imgUrl} alt="" className={styles.bank} /></span>
                 <span className={styles.selected}>{data.bank}</span>

@@ -54,8 +54,7 @@ const CreateOrgDashboard = () => {
       const response = await createOrganizationApi(orgName, shortName, theme)
       console.log(response)
       if (response.success) {
-        console.log(response)
-        localStorage.setItem("Token", response.token)
+        localStorage.setItem("Token", response.data.token)
         clearForm()
         history.push('/dashboard/manageOrg')
         // props.onSave()

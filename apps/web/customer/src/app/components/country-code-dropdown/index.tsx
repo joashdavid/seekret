@@ -21,10 +21,11 @@ const CountryCode = (props: {
       <Select
         className={styles.dropDown}
         bordered={false}
-        value={props.value}
         onChange={getTheme}
         suffixIcon={<DropDownArrow />}
         onDropdownVisibleChange={toogleSuffixIcon}
+        defaultValue={"+91"}
+      
 
       >
         {countries.map((data) => {

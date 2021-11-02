@@ -4,7 +4,6 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import 'antd/dist/antd.css'
 import { ColumnsType } from 'antd/es/table'
-// import moment from 'moment'
 
 import tableStyles from './manage-org.module.less'
 import { Table } from 'antd'
@@ -19,6 +18,7 @@ const ManageOrg = () => {
   useEffect(() => {
     const getOrg = async () => {
       const response = await getOrgApi('modifiedAt', 1, 10, 'DESC')
+      console.log(response)
       setColumn('modifiedAt')
       setOrgList(response.data)
     }
@@ -41,9 +41,7 @@ const ManageOrg = () => {
       dataIndex: 'default',
       width: 100,
       key: 'default',
-
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      render: (_, record: OrgModel) => {
+      render: (index, record: OrgModel) => {
         return (
           <Input
             bordered={false}
@@ -135,13 +133,10 @@ const ManageOrg = () => {
           dataSource={orgList}
           columns={columns}
           onChange={onChange}
-          // dataSourceIndexOffset={10}
           showSorterTooltip={false}
-          // position={["topRight"]}
           pagination={{
             position: ['topRight'],
-            total: 50,
-            // onChange:{onChangePage}
+            total: 20,
           }}
         ></Table>
       </div>
