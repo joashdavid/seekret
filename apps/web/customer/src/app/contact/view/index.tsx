@@ -1,8 +1,9 @@
 import { Breadcrumb, Col, Divider, Row } from 'antd'
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
-import { Tabs } from 'antd'
+import { Tabs, Button } from 'antd'
 import styles from './view-contact.module.less'
+import DownloadLogo from '../../../assets/download.svg'
 const ROLES = [
   {
     roleId: '1',
@@ -27,16 +28,16 @@ const ROLES = [
 ]
 
 const ViewContact = () => {
-    const { TabPane } = Tabs
+  const { TabPane } = Tabs
   const [roles, setRole] = useState<string[]>()
-  const [roleString , setRoleString] = useState<string>('')
+  const [roleString, setRoleString] = useState<string>('')
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const location = useLocation<any>()
   useEffect(() => {
     if (location.state.data.groups) {
+      console.log(location.state.data)
       const roles: string[] = []
       ROLES.forEach((role) => {
-          console.log(location.state.data.groups.split(','),role.roleId)
         if (location.state.data.groups.split(',').includes(role.roleId)) {
           roles.push(role.roleName)
         }
@@ -53,20 +54,31 @@ const ViewContact = () => {
       </Breadcrumb>
       <Divider />
       <Row>
-        <Col span={2} style={{ height: '10vh' }}>
-          IMAGE
+        <Col span={2}>
+          <img src="../../../assets/default-user.png" alt="" className={styles.profileImg} />
         </Col>
 
         <Row>
           <Col span={24}>
-            <Row>
+            <Row justify="space-between">
               <Col span={5}>
                 <p style={{ color: '#1D4B75', fontWeight: 'bold', fontSize: '1.7vh' }}>
                   {location.state.data.contactName}
                 </p>
               </Col>
+              <Col>
+                <Row justify="end">
+                  <Col span={5}>
+                    <Button icon={<img src={DownloadLogo} alt="" />}>DOWNLOAD</Button>
+                  </Col>
+                  <Col span={3} />
+                  <Col span={5}>
+                    <Button icon={<img src={DownloadLogo} alt="" />}>PRINT</Button>
+                  </Col>
+                </Row>
+              </Col>
             </Row>
-            <Row >
+            <Row>
               <Col span={5}>
                 <div>
                   <span className={styles.title}>PHONE NO:</span>
@@ -82,7 +94,9 @@ const ViewContact = () => {
               <Col span={5}>
                 <div>
                   <span className={styles.title}>ROLE</span>
-                  <p className={styles.userData}>{roleString.length>0?roleString:"Unassigned"}</p>
+                  <p className={styles.userData}>
+                    {roleString.length > 0 ? roleString : 'Unassigned'}
+                  </p>
                 </div>
               </Col>
               <Col span={5}>
@@ -92,7 +106,7 @@ const ViewContact = () => {
                 </div>
               </Col>
             </Row>
-            <Row >
+            <Row>
               <Col span={8}>
                 <div>
                   <span className={styles.title}>ADDRESS</span>
@@ -128,15 +142,15 @@ const ViewContact = () => {
         </Row>
       </Row>
       <Tabs>
-          {roles && roles.map((role) => {
-              return(
-                <TabPane tab={role} key={role}>
+        {roles &&
+          roles.map((role) => {
+            return (
+              <TabPane tab={role} key={role}>
                 Content of Tab {role}
               </TabPane>
-               
-              )
-          })} 
-       </Tabs>
+            )
+          })}
+      </Tabs>
     </>
   )
 }
