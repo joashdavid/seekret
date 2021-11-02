@@ -65,6 +65,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
       setIfsc(props.data.ifsc)
       setSwift(props.data.swift)
       setContactId(props.data.contactId)
+      setRoles(props.data.roles)
       setIsedit(true)
     }
   }, [])
@@ -157,7 +158,8 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
           ifsc,
           swift,
           bankAddress,
-          contactId
+          contactId,
+          roles
         )
         if (response.success) {
           history.push('/dashboard/manageContact')

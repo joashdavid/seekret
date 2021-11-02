@@ -80,7 +80,8 @@ const createCompanyContactApi = async(
     ifsc: string,
     swift: string,
     bankAddress: string,
-    contactId: string
+    contactId: string,
+    roles:string[]
   ) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const dataToserver: any = {
@@ -92,7 +93,6 @@ const createCompanyContactApi = async(
         contactPic: 'jpg',
         email,
         phoneNo,
-        roles: [4, 5],
       }
     
     }
@@ -126,7 +126,9 @@ const createCompanyContactApi = async(
     if (swift) {
       dataToserver.updatedContact.swift = swift
     }
-    console.log(dataToserver)
+    if(roles.length > 0){
+      dataToserver.updatedContact.roles = roles
+    }
     const response = await apiRequest('PUT', 'contacts/update', dataToserver)
     return response
   }

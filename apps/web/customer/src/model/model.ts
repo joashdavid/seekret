@@ -17,6 +17,7 @@ interface ThemeModel{
 }
 
 interface ContactModel{
+  roles: string[];
   address: string;
 bankAccount: string;
 bankAddress: string;

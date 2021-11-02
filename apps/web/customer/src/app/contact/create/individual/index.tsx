@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import { useEffect, useState } from 'react'
-import { Divider, Row, Col,notification } from 'antd'
+import { Divider, Row, Col, notification } from 'antd'
 import { useHistory } from 'react-router-dom'
 
 import contactFormStyles from './create.module.less'
@@ -52,7 +52,10 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
       setIfsc(props.data.ifsc)
       setSwift(props.data.swift)
       setContactId(props.data.contactId)
+      // const roles = props.data.split('')
+      setRoles(['1','2'])
       setIsedit(true)
+     
     }
   }, [])
 
@@ -111,7 +114,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
     setRoles(data)
   }
   const getDetails = async () => {
-    if(errorIn !== 'invalid'){
+    if (errorIn !== 'invalid') {
       if (!isEdit) {
         console.log(roles)
         const response = await createContactApi(
@@ -150,7 +153,8 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
           ifsc,
           swift,
           bankAddress,
-          contactId
+          contactId,
+          roles,
         )
         if (response.success) {
           history.push('/dashboard/manageContact')
@@ -158,10 +162,12 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
           return
         }
       }
-    }else{
-      return pushNotification("INVALID CREDENTIALS",'Oops! Seems like Invalid Data!.Please enter valid information')
+    } else {
+      return pushNotification(
+        'INVALID CREDENTIALS',
+        'Oops! Seems like Invalid Data!.Please enter valid information'
+      )
     }
-    
   }
 
   const pushNotification = (message: string, description: string) => {
@@ -175,7 +181,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
   }
 
   useEffect(() => {
-    setErrorIn(validate(fullName, email,phoneNumber ))
+    setErrorIn(validate(fullName, email, phoneNumber))
   }, [fullName, email, phoneNumber])
 
   const clearForm = () => {
@@ -196,12 +202,12 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
   }
   return (
     <>
-      <Row style={{marginTop:"1vh"}}>
+      <Row style={{ marginTop: '1vh' }}>
         <Col span={9}>
           <span className={contactFormStyles.formContent}>
             1. Fill in the personal details of the individual
           </span>
-          <Row style={{marginTop:"1vh"}}>
+          <Row style={{ marginTop: '1vh' }}>
             <Col span={6}>
               <div className={contactFormStyles.dpUpload}>
                 <img
@@ -212,7 +218,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
                 <p className={contactFormStyles.uploadContent}>Upload Photo</p>
               </div>
             </Col>
-            <Col span={12} style={{marginLeft:"1.5vh"}}>
+            <Col span={12} style={{ marginLeft: '1.5vh' }}>
               <Col span={24}>
                 <TextFieldNoSuffix
                   onUserInput={getFullname}
@@ -288,11 +294,11 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
         <Col span={9}>
           <span className={contactFormStyles.rightFormContent}>2. Fill bank account details</span>
           <Row className={contactFormStyles.bankDetails}>
-            <Col span={8} style={{marginTop:"1vh"}}>
+            <Col span={8} style={{ marginTop: '1vh' }}>
               <BankDropdown onChange={getBank} label="Bank" value={bank} />
             </Col>
             <Col span={1} />
-            <Col span={8}  style={{marginTop:"1vh"}}>
+            <Col span={8} style={{ marginTop: '1vh' }}>
               <TextFieldNoSuffix
                 onUserInput={getAccountNumber}
                 label="Account number"
@@ -339,14 +345,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
               <span className={contactFormStyles.rightFormContent}>3. Assign Role </span>
             </Col>
             <Col span={20} className={contactFormStyles.bankDetails}>
-              {/* <TextFieldNoSuffix
-                onUserInput={getRoles}
-                label="Roles"
-                name="role"
-                type="text"
-                value={roles}
-              /> */}
-              <RoleDropdown type='individual' label={"Roles"} value={roles} onChange={getRoles}/>
+              <RoleDropdown type="individual" label={'Roles'} value={roles} onChange={getRoles} />
             </Col>
           </Row>
         </Col>

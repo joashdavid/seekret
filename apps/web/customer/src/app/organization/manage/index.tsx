@@ -27,13 +27,11 @@ const ManageOrg = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getOrgDetails = (record: any) => {
-    console.log(record)
     history.push('/dashboard/createOrg', record)
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const setDefaultOrg = async (record: any) => {
-    const response = await setDefaultOrgApi(record.orgId)
-    console.log(response)
+    await setDefaultOrgApi(record.orgId)
   }
   const columns: ColumnsType<OrgModel> = [
     {
@@ -46,7 +44,6 @@ const ManageOrg = () => {
           <Input
             bordered={false}
             type="radio"
-            // checked={record.isDefault === 1}
             value={record.orgId}
             name="default"
             onChange={() => {
@@ -92,9 +89,7 @@ const ManageOrg = () => {
       dataIndex: 'Edit',
       width: 200,
       key: 'Edit',
-
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      render: (_, record: OrgModel) => {
+      render: (index, record: OrgModel) => {
         return (
           <Button type="primary" onClick={() => getOrgDetails(record)} style={{ marginRight: 8 }}>
             Edit
@@ -118,9 +113,7 @@ const ManageOrg = () => {
     )
     setOrgList(response.data)
   }
-  // const onChangePage = (page:number,pageSize:number|undefined) =>{
-  //   console.log(page, pageSize)
-  // }
+ 
 
   return (
     <>

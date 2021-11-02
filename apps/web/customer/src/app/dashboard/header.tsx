@@ -24,6 +24,7 @@ const DashBoardHeader = () => {
       selectedOrg[0].orgId
     )
   }
+  
   const fetchOrg = async () => {
     const response = await fetchOrganizationApi()
     setOrgList(response.data)

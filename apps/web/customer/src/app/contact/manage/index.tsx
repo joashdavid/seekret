@@ -250,7 +250,7 @@ const ManageContact = () => {
           showSorterTooltip={false}
           pagination={{
             position: ['topRight'],
-            total: 50,
+            total: 20,
           }}
         ></Table>
       </div>

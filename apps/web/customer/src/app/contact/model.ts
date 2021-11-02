@@ -19,7 +19,7 @@ interface ContactModel {
   modifiedAt: string
   orgId: string
   phoneNo: string
-  roles: string
+  roles: string[]
   status: string
 }
 
