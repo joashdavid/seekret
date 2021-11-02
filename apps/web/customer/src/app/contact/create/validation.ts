@@ -9,6 +9,7 @@ const validate = (
 
 ): string => {
   const phonenumber = mobileNumber.replace(/\s/g, '')
+  console.log(name,email,mobileNumber)
   if (name && email &&  phonenumber) {
     if (
       userformat.test(name) &&

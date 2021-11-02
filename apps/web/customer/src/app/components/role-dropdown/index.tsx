@@ -59,7 +59,7 @@ const RoleDropdown = (props: {
 
   return (
     <RoleFloatLabel label={props.label} name="themeDropdown" isChecked={isValueChecked}>
-      <Select mode="tags" onChange={handleChange} className={styles.dropDown} bordered={false}>
+      <Select mode="tags" showSearch={false} onChange={handleChange} className={styles.dropDown} bordered={false}>
         {roles.map(
           (data: {
             roleId: Key
