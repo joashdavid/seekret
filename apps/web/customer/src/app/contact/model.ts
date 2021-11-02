@@ -2,7 +2,7 @@ interface ContactTableModel {
   orgId: string;
   contactId: string;
   key: number
-  name: string
+  contactName: string
   contactType: string
   role: string
   phoneNumber: number
@@ -10,6 +10,7 @@ interface ContactTableModel {
   status: string
   action: string
   userStatus:string
+  
 }
 
 interface ContactModel {

@@ -190,7 +190,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
             <Col span={19}>
               <TextFieldNoSuffix
                 onUserInput={getCompanyName}
-                label="Company Name"
+                label="Company Name*"
                 name="companyName"
                 type="text"
                 value={companyName}
@@ -201,7 +201,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
             <Col span={9}>
               <TextFieldNoSuffix
                 onUserInput={getphoneNumber}
-                label="Mobile Number"
+                label="Mobile Number*"
                 name="phoneNumber"
                 type="number"
                 value={phoneNumber}
@@ -211,7 +211,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
             <Col span={9}>
               <TextFieldNoSuffix
                 onUserInput={getEmail}
-                label="Email Address"
+                label="Email*"
                 name="email"
                 type="text"
                 value={email}

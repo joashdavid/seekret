@@ -93,6 +93,11 @@ const ManageContact = () => {
     history.push('/dashboard', { data, isCompanyChecked: true })
   }
 
+  const redirectToView = async(contact: ContactTableModel) => {
+    const currentContact = await getCurrentContactDetails(contact)
+    history.push('/dashboard/viewContact', { data:currentContact.data })
+  }
+
   const columns: ColumnsType<ContactTableModel> = [
     {
       title: 'Name',
@@ -101,6 +106,9 @@ const ManageContact = () => {
       key: 'contactName',
       sorter: true,
       sortDirections: ['descend', 'ascend'],
+      render: (index, record: ContactTableModel) => {
+        return( <p onClick={()=>redirectToView(record)}>{record.contactName}</p>)
+      }
     },
 
     {

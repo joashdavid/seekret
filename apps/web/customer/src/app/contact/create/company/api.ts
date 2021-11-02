@@ -82,7 +82,7 @@ const createCompanyContactApi = async(
     bankAddress: string,
     contactId: string,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    group:string[]
+    groups:string[]
   ) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const dataToserver: any = {
@@ -94,7 +94,7 @@ const createCompanyContactApi = async(
         contactPic: 'jpg',
         email,
         phoneNo,
-        group: [4, 5],
+        groups: [4, 5],
       }
     
     }
@@ -128,8 +128,8 @@ const createCompanyContactApi = async(
     if (swift) {
       dataToserver.updatedContact.swift = swift
     }
-    if(group.length>0){
-      dataToserver.updatedContact.group = group
+    if(groups.length>0){
+      dataToserver.updatedContact.groups = groups
     }
     console.log(dataToserver)
     const response = await apiRequest('PUT', 'contacts/update', dataToserver)

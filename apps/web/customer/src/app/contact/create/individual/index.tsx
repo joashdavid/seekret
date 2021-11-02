@@ -223,7 +223,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
               <Col span={24}>
                 <TextFieldNoSuffix
                   onUserInput={getFullname}
-                  label="Full name"
+                  label="Full name*"
                   name="fullname"
                   type="text"
                   value={fullName}
@@ -232,7 +232,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
               <Col span={24}>
                 <TextFieldNoSuffix
                   onUserInput={getphoneNumber}
-                  label="Mobile number"
+                  label="Mobile number*"
                   name="mobileNumber"
                   type="text"
                   value={phoneNumber}
@@ -241,7 +241,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
               <Col span={24}>
                 <TextFieldNoSuffix
                   onUserInput={getEmail}
-                  label="Email"
+                  label="Email*"
                   name="email"
                   type="text"
                   value={email}
