@@ -30,7 +30,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
   const [ifsc, setIfsc] = useState('')
   const [swift, setSwift] = useState('')
   const [bankAddress, setBankaddress] = useState('')
-  const [roles, setRoles] = useState<string[]>([])
+  const [group, setgroup] = useState<string[]>([])
   const [countryList, setCountryList] = useState([])
   const [stateList, setStateList] = useState([])
   const [contactId, setContactId] = useState('')
@@ -52,12 +52,12 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
       setIfsc(props.data.ifsc)
       setSwift(props.data.swift)
       setContactId(props.data.contactId)
-      // const roles = props.data.split('')
-      setRoles(['1','2'])
+      // const group = props.data.split('')
+      // setgroup(['1','2'])
       setIsedit(true)
      
     }
-  }, [])
+  }, [props.data])
 
   const history = useHistory()
 
@@ -110,13 +110,13 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
   const getBankaddress = (data: string) => {
     setBankaddress(data)
   }
-  const getRoles = (data: string[]) => {
-    setRoles(data)
+  const getgroup = (data: string[]) => {
+    setgroup(data)
   }
   const getDetails = async () => {
     if (errorIn !== 'invalid') {
       if (!isEdit) {
-        console.log(roles)
+        console.log(group)
         const response = await createContactApi(
           fullName,
           phoneNumber,
@@ -131,7 +131,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
           ifsc,
           swift,
           bankAddress,
-          roles
+          group
         )
         if (response.success) {
           history.push('/dashboard/manageContact')
@@ -154,8 +154,9 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
           swift,
           bankAddress,
           contactId,
-          roles,
+          group,
         )
+        console.log(response)
         if (response.success) {
           history.push('/dashboard/manageContact')
           clearForm()
@@ -198,7 +199,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
     setIfsc('')
     setSwift('')
     setBankaddress('')
-    setRoles([])
+    setgroup([])
   }
   return (
     <>
@@ -342,10 +343,10 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
           </Row>
           <Row>
             <Col span={24}>
-              <span className={contactFormStyles.rightFormContent}>3. Assign Role </span>
+              <span className={contactFormStyles.rightFormContent}>3. Assign Group </span>
             </Col>
             <Col span={20} className={contactFormStyles.bankDetails}>
-              <RoleDropdown type="individual" label={'Roles'} value={roles} onChange={getRoles} />
+              <RoleDropdown type="individual" label={'Groups'} value={group} onChange={getgroup} />
             </Col>
           </Row>
         </Col>

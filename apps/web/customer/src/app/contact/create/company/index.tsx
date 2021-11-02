@@ -33,7 +33,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
   const [bankAddress, setBankaddress] = useState('')
   const [taxNumber, setTaxNumber] = useState('')
   const [panNumber, setPanNumber] = useState('')
-  const [roles, setRoles] = useState<string[]>([])
+  const [group, setRoles] = useState<string[]>([])
   const [stateList, setStateList] = useState([])
   const [contactId, setContactId] = useState('')
   const [isEdit, setIsedit] = useState(false)
@@ -65,10 +65,10 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
       setIfsc(props.data.ifsc)
       setSwift(props.data.swift)
       setContactId(props.data.contactId)
-      setRoles(props.data.roles)
+      // setRoles(props.data.group)
       setIsedit(true)
     }
-  }, [])
+  }, [props.data])
 
   const getCompanyName = (data: string) => {
     setCompanyName(data)
@@ -137,7 +137,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
           ifsc,
           swift,
           bankAddress,
-          roles
+          group
         )
         if (response.success) {
           history.push('/dashboard/manageContact')
@@ -159,7 +159,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
           swift,
           bankAddress,
           contactId,
-          roles
+          group
         )
         if (response.success) {
           history.push('/dashboard/manageContact')
@@ -333,10 +333,10 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
           </Row>
           <Row>
             <Col span={24}>
-              <span className={contactFormStyles.rightFormContent}>3. Assign Role </span>{' '}
+              <span className={contactFormStyles.rightFormContent}>3. Assign Group </span>{' '}
             </Col>
             <Col span={19} className={contactFormStyles.bankDetails} style={{ marginTop: '1vh' }}>
-            <RoleDropdown type='company' label={"Roles"} value={roles} onChange={getRoles}/>
+            <RoleDropdown type='company' label={"Groups"} value={group} onChange={getRoles}/>
             </Col>
           </Row>
         </Col>

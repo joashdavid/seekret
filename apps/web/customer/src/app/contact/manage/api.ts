@@ -10,9 +10,7 @@ const getContactApi = async (
   limit: number,
   order: string
 ) => {
-  // const orgId = useSelector(state)
-  // const orgId  = store.getState()
-  console.log()
+  console.log(orgId)
   const dataToserver = {
     orgId: orgId.orgId,
     options: {
@@ -26,7 +24,7 @@ const getContactApi = async (
       },
       filters: {
         contactType: ['individual'],
-        role: ['1'],
+        group: ['1'],
         status: ['saved'],
         searchPattern: '%',
       },

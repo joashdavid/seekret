@@ -35,6 +35,7 @@ const ManageContact = () => {
 
   const getContact = async () => {
     const response = await getContactApi(currentOrg, 'modifiedAt', 1, 10, 'DESC')
+    console.log(response)
     setColumn('modifiedAt')
     if (response.success) {
       setContactList(response.data)
@@ -111,8 +112,8 @@ const ManageContact = () => {
       sortDirections: ['descend', 'ascend'],
     },
     {
-      title: 'Roles',
-      dataIndex: 'roles',
+      title: 'Groups',
+      dataIndex: 'groups',
       width: 250,
       key: 'roles',
     },
@@ -147,7 +148,7 @@ const ManageContact = () => {
                 {'Owner'}
               </Button>
             )}
-            {record.userStatus === INVITE ? (
+            {record.userStatus === INVITE && record.status !== 'archived' ? (
               <Button
                 type="primary"
                 onClick={() => sendInvite(record)}
@@ -158,7 +159,7 @@ const ManageContact = () => {
             ) : (
               ''
             )}
-            {record.userStatus === REINVITE && (
+            {record.userStatus === REINVITE && record.status !== 'archived' && (
               <Button
                 type="primary"
                 onClick={() => sendInvite(record)}
@@ -180,6 +181,11 @@ const ManageContact = () => {
                   {'User'}
                 </Button>
               </Popconfirm>
+            )}
+            {record.status === 'archived' && (
+              <Button type="text" style={{ marginRight: 8, color: '#6F91A8', width: '10vh' }}>
+                {'Revoked'}
+              </Button>
             )}
           </div>
         )

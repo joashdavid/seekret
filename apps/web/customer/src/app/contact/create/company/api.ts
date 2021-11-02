@@ -14,7 +14,7 @@ const createCompanyContactApi = async(
     ifsc: string,
     swift: string,
     bankAddress: string,
-    roles: string[]
+    groups: string[]
   ) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const companydataToserver : any= {
@@ -25,7 +25,7 @@ const createCompanyContactApi = async(
       contactPic: 'jpg',
       email,
       phoneNo,
-      // roles: [1, 2, 3],
+      // groups: [1, 2, 3],
     }
     if (address) {
       companydataToserver.address = address
@@ -57,8 +57,8 @@ const createCompanyContactApi = async(
     if (swift) {
       companydataToserver.swift = swift
     }
-    if(roles.length>0){
-      companydataToserver.roles = roles
+    if(groups.length>0){
+      companydataToserver.groups = groups
     }
       
       console.log(companydataToserver)
@@ -81,7 +81,8 @@ const createCompanyContactApi = async(
     swift: string,
     bankAddress: string,
     contactId: string,
-    roles:string[]
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    group:string[]
   ) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const dataToserver: any = {
@@ -93,6 +94,7 @@ const createCompanyContactApi = async(
         contactPic: 'jpg',
         email,
         phoneNo,
+        group: [4, 5],
       }
     
     }
@@ -126,9 +128,10 @@ const createCompanyContactApi = async(
     if (swift) {
       dataToserver.updatedContact.swift = swift
     }
-    if(roles.length > 0){
-      dataToserver.updatedContact.roles = roles
+    if(group.length>0){
+      dataToserver.updatedContact.group = group
     }
+    console.log(dataToserver)
     const response = await apiRequest('PUT', 'contacts/update', dataToserver)
     return response
   }
