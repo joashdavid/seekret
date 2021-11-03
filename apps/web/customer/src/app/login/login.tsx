@@ -30,8 +30,9 @@ const Login = () => {
     if (isFormValid) {
       console.log(dataToserver)
       const response = await userLoginApi(dataToserver)
+      console.log(response)
       if (response.success) {
-        console.log(response)
+        
         storeInBrowser('Token', response.data)
         history.push(GlobalRouterPath.MANAGEORG)
       }

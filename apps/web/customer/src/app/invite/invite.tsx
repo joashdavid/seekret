@@ -3,16 +3,18 @@ import globalStyles from '../app.module.less'
 import { Checkbox, Divider, Popover,notification } from 'antd'
 import TextField from '../components/text-field/text-field'
 import { useState, useEffect } from 'react'
-import createAccountApi from './api'
+import {createAccountApi,getAccessToken} from './api'
 import CycButton from '../components/cyc-button/cyc-button'
 import validate from './validation'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
 import { GlobalRouterPath } from '../routing/constant/globalRoute'
+import { CountryCode } from '../components/country-code-dropdown'
 
 const Invite = () => {
   const [name, setname] = useState('')
   const [email, setemail] = useState('')
+  const [countryCode, setcCountryCode] = useState('')
   const [mobileNumber, setmobileNumber] = useState('')
   const [password, setpassword] = useState('')
   const [confirmPassword, setconfirmPassword] = useState('')
@@ -42,6 +44,9 @@ const Invite = () => {
   const getEmail = (data: string) => {
     setemail(data)
   }
+  const getCode = (data: string) => {
+    setcCountryCode(data)
+  }
   const getMobileNumber = (data: string) => {
     setmobileNumber(data)
   }
@@ -62,8 +67,11 @@ const Invite = () => {
   )
   const createAccount = async () => {
     if(errorIn === "none"){
-      const response = await createAccountApi(name, email, mobileNumber, password)
+      const response = await createAccountApi(name, email,countryCode, mobileNumber, password)
       if (response.success) {
+        const getToken = await getAccessToken({email,password})
+        console.log(getToken.data)
+        localStorage.setItem("Token",getToken.data)
         history.push(GlobalRouterPath.DASHBOARD, { name, email, mobileNumber,password })
         return 
       }else{
@@ -121,13 +129,7 @@ const Invite = () => {
             />
             <div className={createAccountstyles.phoneNumberWrapper}>
               <div className={createAccountstyles.phoneCode}>
-                <img src="./assets/india.png" className={createAccountstyles.flag} alt=""></img>
-                <p>+91</p>
-                <img
-                  src="./assets/drop-down-down-black.svg"
-                  className={createAccountstyles.dropdown}
-                  alt=""
-                ></img>
+                <CountryCode onChange={getCode} value={countryCode} />
               </div>
               <TextField
                 onUserInput={getMobileNumber}
@@ -187,4 +189,4 @@ const Invite = () => {
     </div>
   )
 }
-export {Invite}
+export  {Invite}
