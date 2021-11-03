@@ -1,6 +1,6 @@
 interface Role {
     roleId:string;
-    rileName:string;
+    roleName:string;
 }
 
 export {Role}

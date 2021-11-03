@@ -55,7 +55,6 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
       setgroup(props.data.groups)
       // setgroup(['1','2'])
       setIsedit(true)
-     
     }
   }, [props.data])
 
@@ -154,7 +153,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
           swift,
           bankAddress,
           contactId,
-          group,
+          group
         )
         console.log(response)
         if (response.success) {
@@ -203,7 +202,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
   }
   return (
     <>
-      <Row style={{ marginTop: '1vh' }}>
+     <Row style={{ marginTop: '1vh' }}>
         <Col span={9}>
           <span className={contactFormStyles.formContent}>
             1. Fill in the personal details of the individual
@@ -219,7 +218,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
                 <p className={contactFormStyles.uploadContent}>Upload Photo</p>
               </div>
             </Col>
-            <Col span={12} style={{ marginLeft: '1.5vh' }}>
+            <Col span={13} style={{ marginLeft: '1.5vh' }}>
               <Col span={24}>
                 <TextFieldNoSuffix
                   onUserInput={getFullname}
@@ -250,7 +249,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
             </Col>
           </Row>
           <Row>
-            <Col span={19}>
+            <Col span={20}>
               <TextArea
                 onUserInput={getAddress}
                 label="Address"
@@ -261,16 +260,16 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
             </Col>
           </Row>
           <Row>
-            <Col span={9}>
+            <Col span={10}>
               <DropDown list={countryList} value={country} label="Country" onChange={getCountry} />
             </Col>
             <Col span={1} />
-            <Col span={9}>
+            <Col span={10}>
               <DropDown list={stateList} value={state} label="State" onChange={getState} />
             </Col>
           </Row>
           <Row>
-            <Col span={9}>
+            <Col span={10}>
               <TextFieldNoSuffix
                 onUserInput={getPincode}
                 label="Pincode"
@@ -280,7 +279,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
               />
             </Col>
             <Col span={1} />
-            <Col span={9}>
+            <Col span={10}>
               <TextFieldNoSuffix
                 onUserInput={getCity}
                 label="City"
@@ -291,15 +290,16 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
             </Col>
           </Row>
         </Col>
-
-        <Col span={9}>
-          <span className={contactFormStyles.rightFormContent}>2. Fill bank account details</span>
-          <Row className={contactFormStyles.bankDetails}>
-            <Col span={8} style={{ marginTop: '1vh' }}>
+        <Col span={9} style={{ marginLeft: '1vh' }}>
+          <span className={contactFormStyles.rightFormContent} style={{ marginLeft: '1vh' }}>
+            2. Fill bank account details
+          </span>
+          <Row>
+            <Col span={10} style={{ marginTop: '1vh', marginLeft: '-11.5vh' }}>
               <BankDropdown onChange={getBank} label="Bank" value={bank} />
             </Col>
             <Col span={1} />
-            <Col span={8} style={{ marginTop: '1vh' }}>
+            <Col span={10} style={{ marginTop: '1vh' }}>
               <TextFieldNoSuffix
                 onUserInput={getAccountNumber}
                 label="Account number"
@@ -309,8 +309,8 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
               />
             </Col>
           </Row>
-          <Row className={contactFormStyles.bankDetails}>
-            <Col span={8}>
+          <Row>
+            <Col span={10} style={{ marginLeft: '-11.5vh' }}>
               <TextFieldNoSuffix
                 onUserInput={getIfsc}
                 label="IFSC code"
@@ -320,7 +320,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
               />
             </Col>
             <Col span={1} />
-            <Col span={8}>
+            <Col span={10}>
               <TextFieldNoSuffix
                 onUserInput={getSwift}
                 label="Swift"
@@ -330,8 +330,8 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
               />
             </Col>
           </Row>
-          <Row className={contactFormStyles.bankDetails}>
-            <Col span={17}>
+          <Row className={contactFormStyles.rightForm}>
+            <Col span={20} style={{ marginLeft: '-11.5vh' }}>
               <TextArea
                 onUserInput={getBankaddress}
                 label="Bank Address"
@@ -342,10 +342,14 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
             </Col>
           </Row>
           <Row>
-            <Col span={24}>
-              <span className={contactFormStyles.rightFormContent}>3. Assign Group </span>
+            <Col
+              className={contactFormStyles.rightFormContent}
+              style={{ marginLeft: '-11.5vh' }}
+              span={24}
+            >
+              <span style={{ marginLeft: '-1vh' }}>3. Assign Group </span>
             </Col>
-            <Col span={20} className={contactFormStyles.bankDetails}>
+            <Col span={20} style={{ marginLeft: '-11.5vh', marginTop: '1vh' }}>
               <RoleDropdown type="individual" label={'Groups'} value={group} onChange={getgroup} />
             </Col>
           </Row>
@@ -353,7 +357,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
       </Row>
 
       <Divider />
-      <CycButton value="SAVE AND CONTINUE" disabled={false} onClick={getDetails} />
+      <CycButton value="SAVE & CLOSE" disabled={false} onClick={getDetails} />
       <Row></Row>
     </>
   )

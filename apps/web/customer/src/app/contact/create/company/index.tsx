@@ -48,7 +48,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
     getCountryList()
   }, [])
   useEffect(() => {
-    setErrorIn(validate(companyName, email,phoneNumber ))
+    setErrorIn(validate(companyName, email, phoneNumber))
   }, [companyName, email, phoneNumber])
   useEffect(() => {
     if (props.data) {
@@ -65,7 +65,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
       setIfsc(props.data.ifsc)
       setSwift(props.data.swift)
       setContactId(props.data.contactId)
-      // setRoles(props.data.group)
+      setRoles(props.data.groups)
       setIsedit(true)
     }
   }, [props.data])
@@ -121,7 +121,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
     setRoles(data)
   }
   const getCompanyDetails = async () => {
-    if(errorIn !== 'invalid'){
+    if (errorIn !== 'invalid') {
       if (!isEdit) {
         const response = await createCompanyContactApi(
           companyName,
@@ -166,13 +166,14 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
           return
         }
       }
+    } else {
+      return pushNotification(
+        'INVALID CREDENTIALS',
+        'Oops! Seems like Invalid Data!.Please enter valid information'
+      )
     }
-    else{
-      return pushNotification("INVALID CREDENTIALS",'Oops! Seems like Invalid Data!.Please enter valid information')
-    }
-    
   }
- const pushNotification = (message: string, description: string) => {
+  const pushNotification = (message: string, description: string) => {
     notification.open({
       message: message,
       description: description,
@@ -187,7 +188,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
         <Col span={9}>
           <span className={contactFormStyles.formContent}>1. Fill in Company Details</span>
           <Row style={{ marginTop: '1vh' }}>
-            <Col span={19}>
+            <Col span={21}>
               <TextFieldNoSuffix
                 onUserInput={getCompanyName}
                 label="Company Name*"
@@ -198,7 +199,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
             </Col>
           </Row>
           <Row>
-            <Col span={9}>
+            <Col span={10}>
               <TextFieldNoSuffix
                 onUserInput={getphoneNumber}
                 label="Mobile Number*"
@@ -208,7 +209,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
               />
             </Col>
             <Col span={1} />
-            <Col span={9}>
+            <Col span={10}>
               <TextFieldNoSuffix
                 onUserInput={getEmail}
                 label="Email*"
@@ -220,7 +221,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
           </Row>
 
           <Row>
-            <Col span={19}>
+            <Col span={20}>
               <TextArea
                 onUserInput={getAddress}
                 label="Address"
@@ -231,16 +232,16 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
             </Col>
           </Row>
           <Row>
-            <Col span={9}>
+            <Col span={10}>
               <DropDown list={countryList} value={country} label="Country" onChange={getCountry} />
             </Col>
             <Col span={1} />
-            <Col span={9}>
+            <Col span={10}>
               <DropDown list={stateList} value={state} label="State" onChange={getState} />
             </Col>
           </Row>
           <Row>
-            <Col span={9}>
+            <Col span={10}>
               <TextFieldNoSuffix
                 onUserInput={getPincode}
                 label="Pincode"
@@ -250,7 +251,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
               />
             </Col>
             <Col span={1} />
-            <Col span={9}>
+            <Col span={10}>
               <TextFieldNoSuffix
                 onUserInput={getCity}
                 label="City"
@@ -262,13 +263,19 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
           </Row>
         </Col>
         <Col span={9}>
-          <span className={contactFormStyles.rightFormContent}>2. Fill bank account details</span>
+          <span className={contactFormStyles.rightFormContent} style={{ marginLeft: '-10vh' }}>
+            2. Fill bank account details
+          </span>
           <Row style={{ marginTop: '1vh' }}>
-            <Col span={9} className={contactFormStyles.bankDetails}>
+            <Col
+              span={10}
+              className={contactFormStyles.bankDetails}
+              style={{ marginLeft: '-10vh' }}
+            >
               <BankDropdown onChange={getBank} label="Bank" value={bank} />
             </Col>
             <Col span={1} />
-            <Col span={9}>
+            <Col span={10}>
               <TextFieldNoSuffix
                 onUserInput={getbankAccount}
                 label="Account number"
@@ -279,7 +286,11 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
             </Col>
           </Row>
           <Row>
-            <Col span={9} className={contactFormStyles.bankDetails}>
+            <Col
+              span={10}
+              className={contactFormStyles.bankDetails}
+              style={{ marginLeft: '-10vh' }}
+            >
               <TextFieldNoSuffix
                 onUserInput={getIfsc}
                 label="IFSC code"
@@ -289,7 +300,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
               />{' '}
             </Col>
             <Col span={1} />
-            <Col span={9}>
+            <Col span={10}>
               <TextFieldNoSuffix
                 onUserInput={getSwift}
                 label="Swift"
@@ -300,7 +311,11 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
             </Col>
           </Row>
           <Row>
-            <Col span={19} className={contactFormStyles.bankDetails}>
+            <Col
+              span={20}
+              className={contactFormStyles.bankDetails}
+              style={{ marginLeft: '-10vh' }}
+            >
               <TextArea
                 onUserInput={getBankaddress}
                 label="Bank Address"
@@ -311,7 +326,11 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
             </Col>
           </Row>
           <Row>
-            <Col span={9} className={contactFormStyles.bankDetails}>
+            <Col
+              span={10}
+              className={contactFormStyles.bankDetails}
+              style={{ marginLeft: '-10vh' }}
+            >
               <TextFieldNoSuffix
                 onUserInput={getTaxNumber}
                 label="TAX Number"
@@ -321,7 +340,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
               />{' '}
             </Col>
             <Col span={1} />
-            <Col span={9}>
+            <Col span={10}>
               <TextFieldNoSuffix
                 onUserInput={getPanNumber}
                 label="PAN Number"
@@ -333,16 +352,22 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
           </Row>
           <Row>
             <Col span={24}>
-              <span className={contactFormStyles.rightFormContent}>3. Assign Group </span>{' '}
+              <span className={contactFormStyles.rightFormContent} style={{ marginLeft: '-10vh' }}>
+                3. Assign Group{' '}
+              </span>{' '}
             </Col>
-            <Col span={19} className={contactFormStyles.bankDetails} style={{ marginTop: '1vh' }}>
-            <RoleDropdown type='company' label={"Groups"} value={group} onChange={getRoles}/>
+            <Col
+              span={20}
+              className={contactFormStyles.bankDetails}
+              style={{ marginTop: '1vh', marginLeft: '-10vh' }}
+            >
+              <RoleDropdown type="company" label={'Groups'} value={group} onChange={getRoles} />
             </Col>
           </Row>
         </Col>
       </Row>
       <Divider />
-      <CycButton value="SAVE AND CONTINUE" disabled={false} onClick={getCompanyDetails} />
+      <CycButton value="SAVE & CLOSE" disabled={false} onClick={getCompanyDetails} />
       <Row></Row>
     </>
   )

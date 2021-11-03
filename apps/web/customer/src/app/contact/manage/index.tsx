@@ -219,7 +219,7 @@ const ManageContact = () => {
                 >
                   Edit
                 </Button>
-                {( record.userStatus !== REVOKED)  && (
+                {( record.userStatus !== REVOKED || record.status === "saved")  && (
                   <Button
                     type="text"
                     onClick={() => archiveContact(record)}

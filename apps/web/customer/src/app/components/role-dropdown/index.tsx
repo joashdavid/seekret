@@ -51,9 +51,9 @@ const RoleDropdown = (props: {
     if(props.value.length !== 0){
       setValueChecked(true)
     }
-    if(props.value.length === 0){
-      console.log(props.value)
-    }
+    // if(props.value.length === 0){
+    //   console.log(props.value)
+    // }
   }, [props])
   function handleChange(value: number[]) {
     setValueChecked(true)
@@ -71,7 +71,7 @@ const RoleDropdown = (props: {
         onChange={handleChange}
         className={styles.dropDown}
         bordered={false}
-        value={props.value.length > 0 ? props.value:undefined}
+        value={props.value[0] === null ? undefined : props.value}
       >
         {roles.map((data: { roleId: Key; roleName: string }) => {
           return (

@@ -91,7 +91,7 @@ const createCompanyContactApi = async (
     contactPic: 'jpg',
     email,
     phoneNo,
-    groups: [],
+
   }
   if (address) {
     companydataToserver.address = address
@@ -156,6 +156,7 @@ const updateContactApi = async (
       contactPic: 'jpg',
       email,
       phoneNo,
+      groups: [],
       
     },
   }
