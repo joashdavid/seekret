@@ -30,7 +30,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
   const [ifsc, setIfsc] = useState('')
   const [swift, setSwift] = useState('')
   const [bankAddress, setBankaddress] = useState('')
-  const [group, setgroup] = useState<string[]>([])
+  const [group, setgroup] = useState<number[]>([])
   const [countryList, setCountryList] = useState([])
   const [stateList, setStateList] = useState([])
   const [contactId, setContactId] = useState('')
@@ -52,7 +52,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
       setIfsc(props.data.ifsc)
       setSwift(props.data.swift)
       setContactId(props.data.contactId)
-      // const group = props.data.split('')
+      setgroup(props.data.groups)
       // setgroup(['1','2'])
       setIsedit(true)
      
@@ -110,7 +110,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
   const getBankaddress = (data: string) => {
     setBankaddress(data)
   }
-  const getgroup = (data: string[]) => {
+  const getgroup = (data: number[]) => {
     setgroup(data)
   }
   const getDetails = async () => {

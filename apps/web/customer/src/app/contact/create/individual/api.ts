@@ -14,7 +14,7 @@ const createContactApi = async (
   ifsc: string,
   swift: string,
   bankAddress: string,
-  groups: string[]
+  groups: number[]
 ) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dataToserver: any = {
@@ -25,6 +25,7 @@ const createContactApi = async (
     contactPic: 'jpg',
     email,
     phoneNo,
+    // groups:[]
   }
   if (address) {
     dataToserver.address = address
@@ -90,7 +91,7 @@ const createCompanyContactApi = async (
     contactPic: 'jpg',
     email,
     phoneNo,
-    groups: [1, 2, 3],
+    groups: [],
   }
   if (address) {
     companydataToserver.address = address
@@ -143,7 +144,7 @@ const updateContactApi = async (
   swift: string,
   bankAddress: string,
   contactId: string,
-  groups:string[]
+  groups:number[]
 ) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dataToserver: any = {
@@ -191,6 +192,8 @@ const updateContactApi = async (
   if(groups.length>0){
     dataToserver.updatedContact.groups = groups
   }
+  
+  console.log(dataToserver)
   const response = await apiRequest('PUT', 'contacts/update', dataToserver)
   console.log(response)
   return response

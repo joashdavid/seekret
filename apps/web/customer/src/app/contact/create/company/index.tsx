@@ -33,7 +33,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
   const [bankAddress, setBankaddress] = useState('')
   const [taxNumber, setTaxNumber] = useState('')
   const [panNumber, setPanNumber] = useState('')
-  const [group, setRoles] = useState<string[]>([])
+  const [group, setRoles] = useState<number[]>([])
   const [stateList, setStateList] = useState([])
   const [contactId, setContactId] = useState('')
   const [isEdit, setIsedit] = useState(false)
@@ -117,7 +117,7 @@ const CreateCompanyContact = (props: { data: ContactModel | undefined }) => {
   const getPanNumber = (data: string) => {
     setPanNumber(data)
   }
-  const getRoles = (data: string[]) => {
+  const getRoles = (data: number[]) => {
     setRoles(data)
   }
   const getCompanyDetails = async () => {

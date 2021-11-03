@@ -39,6 +39,7 @@ postcode: string;
 state: string;
 status: string;
 swift: string;
+groups:number[]
 }
 
 

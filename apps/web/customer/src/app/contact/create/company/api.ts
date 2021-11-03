@@ -14,7 +14,7 @@ const createCompanyContactApi = async(
     ifsc: string,
     swift: string,
     bankAddress: string,
-    groups: string[]
+    groups: number[]
   ) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const companydataToserver : any= {
@@ -82,7 +82,7 @@ const createCompanyContactApi = async(
     bankAddress: string,
     contactId: string,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    groups:string[]
+    groups:number[]
   ) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const dataToserver: any = {
