@@ -1,8 +1,8 @@
 import { Breadcrumb, Divider} from 'antd'
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
+import { Tabs } from 'antd'
 import { ContactInfo } from './contact-info'
-import { RoleForm } from './role-form'
 // import styles from './view-contact.module.less'
 // import DownloadLogo from '../../../assets/download.svg'
 const ROLES = [
@@ -29,7 +29,9 @@ const ROLES = [
 ]
 
 const ViewContact = () => {
+  const { TabPane } = Tabs
   const [roles, setRole] = useState<string[]>()
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const location = useLocation<any>()
   useEffect(() => {
@@ -52,7 +54,16 @@ const ViewContact = () => {
       </Breadcrumb>
       <Divider />
       <ContactInfo {...location.state.data}/>
-      <RoleForm roles={undefined} {...roles}/>
+      <Tabs>
+        {roles &&
+          roles.map((role: string) => {
+            return (
+              <TabPane tab={role} key={role}>
+                Content of Tab {role}
+              </TabPane>
+            )
+          })}
+      </Tabs>
     </>
   )
 }
