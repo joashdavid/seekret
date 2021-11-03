@@ -25,6 +25,7 @@ const OWNER = 'Active/Owner'
 const INVITE = 'Invite'
 const REINVITE = 'Reinvite'
 const USER = 'Active'
+const REVOKED = "Revoked"
 
 const ManageContact = () => {
   const currentOrg = useSelector((state) => state)
@@ -190,7 +191,7 @@ const ManageContact = () => {
                 </Button>
               </Popconfirm>
             )}
-            {record.status === 'archived' && (
+            {(record.status === 'archived' || record.userStatus === REVOKED ) && (
               <Button type="text" style={{ marginRight: 8, color: '#6F91A8', width: '10vh' }}>
                 {'Revoked'}
               </Button>
@@ -218,7 +219,7 @@ const ManageContact = () => {
                 >
                   Edit
                 </Button>
-                {record.status !== 'archived' && (
+                {( record.userStatus !== REVOKED)  && (
                   <Button
                     type="text"
                     onClick={() => archiveContact(record)}
