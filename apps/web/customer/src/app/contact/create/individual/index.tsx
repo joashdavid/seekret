@@ -53,7 +53,6 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
       setSwift(props.data.swift)
       setContactId(props.data.contactId)
       setgroup(props.data.groups)
-      // setgroup(['1','2'])
       setIsedit(true)
     }
   }, [props.data])
