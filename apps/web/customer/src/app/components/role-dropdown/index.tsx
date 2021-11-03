@@ -56,10 +56,12 @@ const RoleDropdown = (props: {
     setValueChecked(true)
     props.onChange(value)
   }
-
+  const handleKeyPressInput = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    event.preventDefault()
+  }
   return (
     <RoleFloatLabel label={props.label} name="themeDropdown" isChecked={isValueChecked}>
-      <Select mode="tags" showSearch={false} onChange={handleChange} className={styles.dropDown} bordered={false}>
+      <Select mode="tags" onInputKeyDown={handleKeyPressInput} showSearch={false} onChange={handleChange} className={styles.dropDown} bordered={false}>
         {roles.map(
           (data: {
             roleId: Key

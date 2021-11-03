@@ -107,32 +107,6 @@ const Login = () => {
             img={'./assets/email.svg'}
             value={email}
           />
-          {/* <TextFieldD
-               label="Email"
-               name="email"
-               type="text"
-               img={'./assets/email.svg'}
-               value={email}
-               onUserInput={getEmail}
-               /> */}
-          {/* <TextFieldAnt
-              //  onUserInput={getEmail}
-               label="Email"
-               value={email}
-               suffix={'./assets/email.svg'}/> */}
-
-          {/* <TextFieldAnt
-               label="Password"
-               value={password}
-               suffix={'./assets/eyeopen.svg'}/> */}
-          {/* <TextFieldD
-               label="Password"
-               name="password"
-               type="password"
-               img={'./assets/eyeopen.svg'}
-               value={password}
-               onUserInput={getPassword}
-               /> */}
           <TextField
             onUserInput={getPassword}
             label="Password"
@@ -163,8 +137,8 @@ const Login = () => {
           <p className={styles.createaccount}>Don’t have an account?</p>
           <div>
             <Link to={GlobalRouterPath.CREATE_ACCOUNT}>
-              <span className={styles.newaccount}>
-                Create New <img src="/assets/greenarrow.svg" alt="" />{' '}
+              <span className={globalStyles.newaccount}>
+                Create New <img src="/assets/greenarrow.svg" alt="" />
               </span>
             </Link>
           </div>

@@ -172,7 +172,7 @@ const CreateAccount = () => {
             <p className={createAccountstyles.loginPara}>Already have an account?</p>
             <div>
               <Link to={GlobalRouterPath.LOGIN}>
-                <p className={createAccountstyles.gotoLogin}>
+                <p className={globalStyles.newaccount}>
                   Login <img src="/assets/greenarrow.svg" alt="" />{' '}
                 </p>
               </Link>
