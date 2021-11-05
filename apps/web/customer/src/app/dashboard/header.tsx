@@ -10,7 +10,7 @@ import { store } from '../store'
 const DashBoardHeader = () => {
   const { Header } = Layout
   const { Option } = Select
-  const [selectedOrgTheme, setSelectedTheme] = useState<string>('')
+  const [selectedOrgTheme, setSelectedTheme] = useState('')
   const [orgList, setOrgList] = useState<OrgnizationModel[]>([])
   const [selectedOrg, setSelectedOrg] = useState<string>('')
 
@@ -32,21 +32,26 @@ const DashBoardHeader = () => {
   const fetchOrg = async () => {
     const response = await fetchOrganizationApi()
     setOrgList(response.data)
-    setOrganization(
-          response.data[0].orgShortName,
-          response.data[0].hexcodeStart,
-          response.data[0].hexcodeEnd,
-          response.data[0].orgId
-        )
-    for (const org of response.data) {
-      if(org.isDefault){
+    for (const index in response.data) {
+      if (response.data[index].isDefault) {
+        // console.log("DEfault",response.data[index].isDefault)
         setOrganization(
-         org.orgShortName,
-         org.hexcodeStart,
-         org.hexcodeEnd,
-         org.orgId
+          response.data[index].orgShortName,
+          response.data[index].hexcodeStart,
+          response.data[index].hexcodeEnd,
+          response.data[index].orgId
         )
-        break
+        console.log(response.data[index].orgId)
+        return
+      // } else {
+        // console.log(response.data[index])
+        // setOrganization(
+        //   response.data[0].orgShortName,
+        //   response.data[0].hexcodeStart,
+        //   response.data[0].hexcodeEnd,
+        //   response.data[0].orgId
+        // )
+        // return
       }
     }
   }
@@ -57,6 +62,7 @@ const DashBoardHeader = () => {
     hexcodeEnd: string,
     orgId: string
   ) => {
+    console.log(orgId)
     setSelectedOrg(shortName)
     localStorage.setItem('orgId', orgId)
     setSelectedTheme(
