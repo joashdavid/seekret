@@ -1,7 +1,7 @@
 const userformat = /^.{3,256}$/
 const mailformat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 const passwordformat = /^[\u0021-\u007E]{8,64}$/
-const phoneFormat = /^[0-9]{10,12}$/
+const phoneFormat = /^[0-9]{10}$/
 
 const validate = (
   name: string,
