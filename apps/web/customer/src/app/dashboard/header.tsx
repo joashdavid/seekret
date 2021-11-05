@@ -14,6 +14,10 @@ const DashBoardHeader = () => {
   const [orgList, setOrgList] = useState<OrgnizationModel[]>([])
   const [selectedOrg, setSelectedOrg] = useState<string>('')
 
+  useEffect(() => {
+    fetchOrg()
+  }, [])
+
   const getOrgDetails = (data: string) => {
     const getSelectedOrgData = orgList.filter((orgSelected) => orgSelected.orgId === data)
     const selectedOrg = { ...getSelectedOrgData }
@@ -24,28 +28,25 @@ const DashBoardHeader = () => {
       selectedOrg[0].orgId
     )
   }
-  
+
   const fetchOrg = async () => {
     const response = await fetchOrganizationApi()
     setOrgList(response.data)
-    for (const index in response.data) {
-      if (response.data[index].isDefault) {
-        setOrganization(
-          response.data[index].orgShortName,
-          response.data[index].hexcodeStart,
-          response.data[index].hexcodeEnd,
-          response.data[index].orgId
+    setOrganization(
+          response.data[0].orgShortName,
+          response.data[0].hexcodeStart,
+          response.data[0].hexcodeEnd,
+          response.data[0].orgId
         )
-        console.log(response.data[index])
-        return
-      }
-      else{
+    for (const org of response.data) {
+      if(org.isDefault){
         setOrganization(
-          response.data[index].orgShortName,
-          response.data[index].hexcodeStart,
-          response.data[index].hexcodeEnd,
-          response.data[index].orgId
+         org.orgShortName,
+         org.hexcodeStart,
+         org.hexcodeEnd,
+         org.orgId
         )
+        break
       }
     }
   }
@@ -71,10 +72,6 @@ const DashBoardHeader = () => {
     const response = await fetchOrganizationApi()
     setOrgList(response.data)
   }
-
-  useEffect(() => {
-    fetchOrg()
-  }, [])
 
   return (
     <Header style={{ background: `${selectedOrgTheme}` }} className="header">

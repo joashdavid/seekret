@@ -35,7 +35,7 @@ const CreateContact = () => {
           displayCompany()
           setCompanyData(location.state.data)
         }
-        console.log(location.state)
+        // console.log(location.state)
       }
       }
       , [])

@@ -61,9 +61,9 @@ const createContactApi = async (
     dataToserver.groups = groups
   }
 
-  console.log(dataToserver)
+  // console.log(dataToserver)
   const response = await apiRequest('POST', 'contacts/create', dataToserver)
-  console.log(response)
+  // console.log(response)
   return response
 }
 
@@ -124,7 +124,7 @@ const createCompanyContactApi = async (
     companydataToserver.swift = swift
   }
 
-  console.log(companydataToserver)
+  // console.log(companydataToserver)
   const response = await apiRequest('POST', 'contacts/create', companydataToserver)
   return response
 }
@@ -194,9 +194,9 @@ const updateContactApi = async (
     dataToserver.updatedContact.groups = groups
   }
   
-  console.log(dataToserver)
+  // console.log(dataToserver)
   const response = await apiRequest('PUT', 'contacts/update', dataToserver)
-  console.log(response)
+  // console.log(response)
   return response
 }
 

@@ -40,7 +40,6 @@ const ViewContact = () => {
       ROLES.forEach((role) => {
         if (location.state.data.groups.includes(role.roleId)) {
           roles.push(role.roleName)
-          console.log(roles)
         }
         setRole(roles)
       })

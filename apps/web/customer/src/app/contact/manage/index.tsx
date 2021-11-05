@@ -36,7 +36,6 @@ const ManageContact = () => {
 
   const getContact = async () => {
     const response = await getContactApi(currentOrg, 'modifiedAt', 1, 10, 'DESC')
-    console.log(response)
     setColumn('modifiedAt')
     if (response.success) {
       setContactList(response.data)

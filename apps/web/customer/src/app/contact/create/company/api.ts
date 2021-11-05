@@ -61,7 +61,7 @@ const createCompanyContactApi = async(
       companydataToserver.groups = groups
     }
       
-      console.log(companydataToserver)
+      // console.log(companydataToserver)
       const response = await apiRequest('POST','contacts/create',companydataToserver)
       return response
   }
@@ -131,7 +131,7 @@ const createCompanyContactApi = async(
     if(groups.length>0){
       dataToserver.updatedContact.groups = groups
     }
-    console.log(dataToserver)
+    // console.log(dataToserver)
     const response = await apiRequest('PUT', 'contacts/update', dataToserver)
     return response
   }

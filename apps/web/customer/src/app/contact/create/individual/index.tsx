@@ -114,7 +114,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
   const getDetails = async () => {
     if (errorIn !== 'invalid') {
       if (!isEdit) {
-        console.log(group)
+        // console.log(group)
         const response = await createContactApi(
           fullName,
           phoneNumber,
@@ -154,7 +154,7 @@ const CreateIndividualContact = (props: { data: ContactModel | undefined }) => {
           contactId,
           group
         )
-        console.log(response)
+        // console.log(response)
         if (response.success) {
           history.push('/dashboard/manageContact')
           clearForm()

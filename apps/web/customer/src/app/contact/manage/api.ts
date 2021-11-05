@@ -10,7 +10,6 @@ const getContactApi = async (
   limit: number,
   order: string
 ) => {
-  console.log(orgId)
   const dataToserver = {
     orgId: orgId.orgId,
     options: {
@@ -30,10 +29,7 @@ const getContactApi = async (
       },
     },
   }
-  console.log(dataToserver)
-  console.log('local storage', localStorage.getItem('orgId'))
   const response = await apiRequest('POST', 'contacts/manage/fetch', dataToserver)
-  console.log('response api', response)
   return response
 }
 

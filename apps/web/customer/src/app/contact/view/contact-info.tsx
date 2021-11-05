@@ -45,7 +45,6 @@ const ContactInfo = (props: {
       ROLES.forEach((role) => {
         if (props.groups.includes(role.roleId)) {
           roles.push(role.roleName)
-          console.log(roles)
         }
         setRoleString(roles.toString())
       })

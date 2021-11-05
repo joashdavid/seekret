@@ -5,7 +5,7 @@ import { CreateCompanyContact } from '../create/company'
 
 const Routing = () => {
   const match = useRouteMatch()
-    console.log(match.path)
+    // console.log(match.path)
   return (
     <Switch>
       <Route exact path={`${match.path}/individual`} component={CreateIndividualContact} />

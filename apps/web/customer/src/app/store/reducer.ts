@@ -4,7 +4,6 @@ import { ADD_ORG } from './actionType'
 // import { OrgActionType } from './model'
 
 const reducers = (state = {orgId:''}, action: any) => {
-  console.log(action)
   switch (action.type) {
     case "SWITCH_ORG":
       return {
