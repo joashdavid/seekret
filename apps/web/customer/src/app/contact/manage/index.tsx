@@ -98,6 +98,13 @@ const ManageContact = () => {
     history.push('/dashboard/viewContact', { data: currentContact.data })
   }
 
+  const rowSelection = {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onChange: (selectedRowKeys: any, selectedRows: any) => {
+      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows)
+    },
+  }
+
   const columns: ColumnsType<ContactTableModel> = [
     {
       title: 'Name',
@@ -271,6 +278,7 @@ const ManageContact = () => {
             position: ['topRight'],
             total: 20,
           }}
+          rowSelection={{ ...rowSelection }}
         ></Table>
       </div>
     </>
