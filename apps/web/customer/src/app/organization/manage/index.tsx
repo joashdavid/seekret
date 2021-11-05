@@ -123,7 +123,8 @@ const ManageOrg = () => {
       <Divider />
       <div className={tableStyles.tableHeader}>
         <Table
-          dataSource={orgList}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          dataSource={orgList.map((org: any) => ({ key: org.contactId, ...org }))}
           columns={columns}
           onChange={onChange}
           showSorterTooltip={false}

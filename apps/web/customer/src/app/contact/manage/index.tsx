@@ -262,7 +262,8 @@ const ManageContact = () => {
       <Divider />
       <div className={tableStyles.tableHeader}>
         <Table
-          dataSource={contactList}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          dataSource={contactList.map((contact: any) => ({ key: contact.contactId, ...contact }))}
           columns={columns}
           onChange={onChange}
           showSorterTooltip={false}

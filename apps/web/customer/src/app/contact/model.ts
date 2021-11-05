@@ -1,7 +1,7 @@
 interface ContactTableModel {
   orgId: string;
   contactId: string;
-  key: number
+  key: string;
   contactName: string
   contactType: string
   role: string
