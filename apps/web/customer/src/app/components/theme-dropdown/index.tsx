@@ -3,7 +3,6 @@ import styles from './theme-dropdown.module.less'
 import { Select } from 'antd'
 import { ThemeModel } from '../../../model/model'
 import { ReactComponent as DropDown } from '../../../assets/arrow-down.svg'
-// import { ReactComponent as DropDown } from '../../ass''
 import { useState } from 'react'
 
 const ThemeDropDown = (props: {
@@ -34,11 +33,12 @@ const ThemeDropDown = (props: {
           return (
             <Option value={theme.color}>
               <div className={styles.optionWrapper}>
-                {/* <Badge color={`${'#' + theme.hexcode}`} className={styles.themeBadge} /> */}
                 <div
                   className={styles.themeBadge}
-                  // eslint-disable-next-line max-len
-                  style={{ background: `transparent linear-gradient(90deg, #${theme.hexcodeEnd} 0%,  #${theme.hexcodeStart} 100%) 0% 0% no-repeat padding-box`}}
+                  style={{
+                    background: `transparent linear-gradient(90deg, #${theme.hexcodeEnd} 0%,
+                      #${theme.hexcodeStart} 100%) 0% 0% no-repeat padding-box`,
+                  }}
                 ></div>
                 <span className={styles.selected}>{theme.color}</span>
               </div>

@@ -1,4 +1,3 @@
-// import { ContactModel } from '../../../../model/model'
 import { apiRequest } from '../../../../services/axios/axios'
 
 const createCompanyContactApi = async (

@@ -25,7 +25,7 @@ const OWNER = 'Active/Owner'
 const INVITE = 'Invite'
 const REINVITE = 'Reinvite'
 const USER = 'Active'
-const REVOKED = "Revoked"
+const REVOKED = 'Revoked'
 
 const ManageContact = () => {
   const currentOrg = useSelector((state) => state)
@@ -93,9 +93,9 @@ const ManageContact = () => {
     history.push('/dashboard', { data, isCompanyChecked: true })
   }
 
-  const redirectToView = async(contact: ContactTableModel) => {
+  const redirectToView = async (contact: ContactTableModel) => {
     const currentContact = await getCurrentContactDetails(contact)
-    history.push('/dashboard/viewContact', { data:currentContact.data })
+    history.push('/dashboard/viewContact', { data: currentContact.data })
   }
 
   const columns: ColumnsType<ContactTableModel> = [
@@ -107,8 +107,12 @@ const ManageContact = () => {
       sorter: true,
       sortDirections: ['descend', 'ascend'],
       render: (index, record: ContactTableModel) => {
-        return( <p onClick={()=>redirectToView(record)}>{record.contactName}</p>)
-      }
+        return (
+          <p className={tableStyles.user} onClick={() => redirectToView(record)}>
+            {record.contactName}
+          </p>
+        )
+      },
     },
 
     {
@@ -190,7 +194,7 @@ const ManageContact = () => {
                 </Button>
               </Popconfirm>
             )}
-            {(record.status === 'archived' || record.userStatus === REVOKED ) && (
+            {(record.status === 'archived' || record.userStatus === REVOKED) && (
               <Button type="text" style={{ marginRight: 8, color: '#6F91A8', width: '10vh' }}>
                 {'Revoked'}
               </Button>
@@ -218,7 +222,7 @@ const ManageContact = () => {
                 >
                   Edit
                 </Button>
-                {( record.userStatus !== REVOKED || record.status === "saved")  && (
+                {(record.userStatus !== REVOKED || record.status === 'saved') && (
                   <Button
                     type="text"
                     onClick={() => archiveContact(record)}
