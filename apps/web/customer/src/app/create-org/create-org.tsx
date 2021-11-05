@@ -12,9 +12,9 @@ import CycButton from '../components/cyc-button/cyc-button'
 import { GlobalRouterPath } from '../routing/constant/globalRoute'
 
 const CreateOrg = () => {
-    const [orgName, setOrgName] = useState("")
-    const [shortName, setShortName] = useState("")
-    const [theme , setTheme] = useState('') 
+    const [orgName, setOrgName] = useState<string>("")
+    const [shortName, setShortName] = useState<string>("")
+    const [theme , setTheme] = useState<string>('') 
     const [themeList ,setThemeList] = useState<ThemeModel[]>([])
     const history = useHistory() 
     const getThemeData = async() => {

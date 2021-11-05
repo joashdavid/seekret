@@ -4,9 +4,9 @@ import { ReactComponent as DropDownArrow } from '../../../assets/arrow-down.svg'
 import { countries } from './country'
 import { useEffect, useState } from 'react'
 const CountryCode = (props: { onChange: (arg0: string) => void; value: string }) => {
-  const [isOptionDidChange, setIsOptionDidChange] = useState(false)
+  const [isOptionDidChange, setIsOptionDidChange] = useState<boolean>(false)
   const { Option } = Select
-  const [defaultCode, setDefaultCode] = useState(countries[0].countryCode)
+  const [defaultCode, setDefaultCode] = useState<string>(countries[0].countryCode)
   useEffect(() => {
     props.onChange(defaultCode)
   }, [])

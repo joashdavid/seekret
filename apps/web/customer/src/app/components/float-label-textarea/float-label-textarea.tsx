@@ -1,23 +1,20 @@
+import React, { useState, ReactChild } from 'react'
 
-import React, { useState, ReactChild } from "react"
+import './float-label-textarea.css'
 
-import "./float-label-textarea.css"
-
-const FloatLabelTextarea = (props: { children: ReactChild; label: string; 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    value: string; name:string, onUserInput: any }) => {
+const FloatLabelTextarea = (props: {
+  children: ReactChild
+  label: string
+  value: string
+  name: string
+}) => {
   const [isFocus, setFocus] = useState(false)
   const { children, label, value } = props
 
-  const labelClass =
-    isFocus || (value && value.length !== 0) ? "label label-float" : "label"
+  const labelClass = isFocus || (value && value.length !== 0) ? 'label label-float' : 'label'
 
   return (
-    <div
-      className="float-label"
-      onBlur={() => setFocus(false)}
-      onFocus={() => setFocus(true)}
-    >
+    <div className="float-label" onBlur={() => setFocus(false)} onFocus={() => setFocus(true)}>
       {children}
       <label className={labelClass}>{label}</label>
     </div>
@@ -25,5 +22,3 @@ const FloatLabelTextarea = (props: { children: ReactChild; label: string;
 }
 
 export default FloatLabelTextarea
-
-

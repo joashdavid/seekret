@@ -16,10 +16,10 @@ import { CheckboxChangeEvent } from 'antd/lib/checkbox'
 
 const Login = () => {
   // const [form] = Form.useForm()
-  const [email, setemail] = useState('')
-  const [password, setpassword] = useState('')
-  const [isFormValid, setFormValid] = useState(false)
-  const [isRememberMe, setIsRememberMe] = useState(false)
+  const [email, setemail] = useState<string>('')
+  const [password, setpassword] = useState<string>('')
+  const [isFormValid, setFormValid] = useState<boolean>(false)
+  const [isRememberMe, setIsRememberMe] = useState<boolean>(false)
   const history = useHistory()
 
   const userLogin = async () => {

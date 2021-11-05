@@ -10,7 +10,7 @@ import { store } from '../store'
 const DashBoardHeader = () => {
   const { Header } = Layout
   const { Option } = Select
-  const [selectedOrgTheme, setSelectedTheme] = useState('')
+  const [selectedOrgTheme, setSelectedTheme] = useState<string>('')
   const [orgList, setOrgList] = useState<OrgnizationModel[]>([])
   const [selectedOrg, setSelectedOrg] = useState<string>('')
 

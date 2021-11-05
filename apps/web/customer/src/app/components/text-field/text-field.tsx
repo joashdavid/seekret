@@ -6,13 +6,12 @@ import FloatLabel from '../float-label/float-label'
 
 const TextField = (props: { onUserInput: (arg0: string) => void; label: string; 
     name: string; type: string; img: string | undefined,value: string }) => {
-    const [isViewPassword, setIsViewPassword] = useState(false)
+    const [isViewPassword, setIsViewPassword] = useState<boolean>(false)
 
     const getCurrentInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         if(props.name === "mobileNumber"){
             console.log(formatPhoneNumber(event.target.value))
             props.onUserInput(event.target.value)
-            // props.onUserInput((event.target.value).replace(/[a-z@#$!^%*&={}<>~|?:;_`"',.[\]\\/]/g, ''))
         }
         else{
             props.onUserInput(event.target.value)

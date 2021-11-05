@@ -9,8 +9,8 @@ import { Routing } from "../routing"
 import { ContactModel } from "../../../model/model"
 
 const CreateContact = () => {
-    const [isIndividualChecked, setIndividualChecked] = useState(false)
-    const [isCompanyChecked, setCompanyChecked] = useState(false)
+    const [isIndividualChecked, setIndividualChecked] = useState<boolean>(false)
+    const [isCompanyChecked, setCompanyChecked] = useState<boolean>(false)
     const [individualData, setIndividualData] = useState<ContactModel|undefined>()
     const [companyData, setCompanyData] = useState<ContactModel|undefined>()
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

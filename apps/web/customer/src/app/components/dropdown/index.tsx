@@ -11,7 +11,7 @@ const DropDown = (props: {
   list: string[]
   label: string
 }) => {
-  const [isOptionDidChange, setIsOptionDidChange] = useState(false)
+  const [isOptionDidChange, setIsOptionDidChange] = useState<boolean>(false)
   const { Option } = Select
   const getTheme = (data: string) => {
     props.onChange(data)

@@ -12,14 +12,14 @@ import { GlobalRouterPath } from '../routing/constant/globalRoute'
 import { CountryCode } from '../components/country-code-dropdown'
 
 const CreateAccount = () => {
-  const [name, setname] = useState('')
-  const [email, setemail] = useState('')
-  const [countryCode, setcCountryCode] = useState('')
-  const [mobileNumber, setmobileNumber] = useState('')
-  const [password, setpassword] = useState('')
-  const [confirmPassword, setconfirmPassword] = useState('')
-  const [isAgreed, setisAgreed] = useState(true)
-  const [errorIn, setErrorIn] = useState('')
+  const [name, setname] = useState<string>('')
+  const [email, setemail] = useState<string>('')
+  const [countryCode, setcCountryCode] = useState<string>('')
+  const [mobileNumber, setmobileNumber] = useState<string>('')
+  const [password, setpassword] = useState<string>('')
+  const [confirmPassword, setconfirmPassword] = useState<string>('')
+  const [isAgreed, setisAgreed] = useState<boolean>(true)
+  const [errorIn, setErrorIn] = useState<string>('')
   const history = useHistory()
   const location = useLocation<{email:string,mobileNumber:string,name:string,password:string}>()
 

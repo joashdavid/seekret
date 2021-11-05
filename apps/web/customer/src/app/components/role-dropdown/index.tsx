@@ -40,7 +40,7 @@ const RoleDropdown = (props: {
   const { Option } = Select
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [roles, setRoles] = useState<any>([])
-  const [isValueChecked, setValueChecked] = useState(false)
+  const [isValueChecked, setValueChecked] = useState<boolean>(false)
   useEffect(() => {
     if (props.type === 'individual') {
       

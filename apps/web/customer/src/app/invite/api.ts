@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import { apiRequest } from '../../services/axios/axios'
 
 const createAccountApi = async (
@@ -16,15 +14,12 @@ const createAccountApi = async (
     phoneNo: mobileNumber,
     password,
   }
-  console.log(dataToServer)
   const response = await apiRequest('POST', 'contacts/register', dataToServer)
   return response
 }
-const getAccessToken = async (data: {email:string,password:string}) => {
- 
-    const response = await apiRequest('POST', 'users/login', data)
-    return response
-  }
-  
+const getAccessToken = async (data: { email: string; password: string }) => {
+  const response = await apiRequest('POST', 'users/login', data)
+  return response
+}
 
-export {createAccountApi,getAccessToken}
+export { createAccountApi, getAccessToken }

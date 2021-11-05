@@ -15,7 +15,7 @@ const Otp = () => {
   const history = useHistory()
   const location =
     useLocation<{ email: string; mobileNumber: string; name: string; password: string }>()
-  const [otp, setOtp] = useState('')
+  const [otp, setOtp] = useState<string>('')
   const getOtp = (otpValue: string) => {
     setOtp(otpValue)
   }

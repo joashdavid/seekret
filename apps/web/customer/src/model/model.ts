@@ -32,7 +32,7 @@ email: string
 roleId: string[];
 gst: string;
 ifsc: string;
-orgId: string;
+orgId: string | null;
 pan: string;
 phoneNo: string;
 postcode: string;
@@ -41,6 +41,8 @@ status: string;
 swift: string;
 groups:number[]
 }
+
+
 
 
 

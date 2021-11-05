@@ -13,11 +13,11 @@ import { OrgModel } from '../manage/model'
 const CreateOrgDashboard = () => {
   const location = useLocation<OrgModel>()
   const history = useHistory()
-  const [orgName, setOrgName] = useState('')
-  const [shortName, setShortName] = useState('')
-  const [theme, setTheme] = useState('')
-  const [isEdit, setIsedit] = useState(false)
-  const [orgId, setOrgId] = useState('')
+  const [orgName, setOrgName] = useState<string>('')
+  const [shortName, setShortName] = useState<string>('')
+  const [theme, setTheme] = useState<string>('')
+  const [isEdit, setIsedit] = useState<boolean>(false)
+  const [orgId, setOrgId] = useState<string>('')
   const [themeList, setThemeList] = useState<ThemeModel[]>([])
   
   useEffect(() => {
