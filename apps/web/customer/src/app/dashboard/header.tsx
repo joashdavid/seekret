@@ -13,6 +13,7 @@ const DashBoardHeader = () => {
   const [selectedOrgTheme, setSelectedTheme] = useState('')
   const [orgList, setOrgList] = useState<OrgnizationModel[]>([])
   const [selectedOrg, setSelectedOrg] = useState<string>('')
+  // const [isDefault, setIsDefault] = useState<boolean>(false)
 
   useEffect(() => {
     fetchOrg()
@@ -32,27 +33,32 @@ const DashBoardHeader = () => {
   const fetchOrg = async () => {
     const response = await fetchOrganizationApi()
     setOrgList(response.data)
+    let isDefault = false
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let defaultOrg: any = {}
     for (const index in response.data) {
       if (response.data[index].isDefault) {
-        // console.log("DEfault",response.data[index].isDefault)
-        setOrganization(
-          response.data[index].orgShortName,
-          response.data[index].hexcodeStart,
-          response.data[index].hexcodeEnd,
-          response.data[index].orgId
-        )
-        console.log(response.data[index].orgId)
-        return
-      // } else {
-        // console.log(response.data[index])
-        // setOrganization(
-        //   response.data[0].orgShortName,
-        //   response.data[0].hexcodeStart,
-        //   response.data[0].hexcodeEnd,
-        //   response.data[0].orgId
-        // )
-        // return
+        isDefault = true
+        defaultOrg = response.data[index]
+        break
+      } else {
+        isDefault = false
       }
+    }
+    if (isDefault) {
+      setOrganization(
+        defaultOrg.orgShortName,
+        defaultOrg.hexcodeStart,
+        defaultOrg.hexcodeEnd,
+        defaultOrg.orgId
+      )
+    } else {
+      setOrganization(
+        response.data[0].orgShortName,
+        response.data[0].hexcodeStart,
+        response.data[0].hexcodeEnd,
+        response.data[0].orgId
+      )
     }
   }
 
