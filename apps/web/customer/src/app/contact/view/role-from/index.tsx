@@ -4,9 +4,9 @@ import { EmployeeMentInfo } from './employement-info'
 import { MoreDetails } from './more-details'
 import { PayRollInfo } from './payroll'
 import { DocumentInfo } from './document'
-// import styles from './view-contact.module.less'
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const RoleForm = (props: { roles: string[] | undefined; data: any }) => {
+import { ContactModel } from '../../../../model/model'
+
+const RoleForm = (props: { roles: string[] | undefined; data: ContactModel }) => {
   const { TabPane } = Tabs
   return (
     <Tabs>
@@ -14,7 +14,6 @@ const RoleForm = (props: { roles: string[] | undefined; data: any }) => {
         props.roles.map((role: string) => {
           return (
             <TabPane tab={role} key={role}>
-              {/* <span>{role}</span> */}
               <Space>
                 <BankInfo data={props.data}/>
                 <Col span={1}></Col>

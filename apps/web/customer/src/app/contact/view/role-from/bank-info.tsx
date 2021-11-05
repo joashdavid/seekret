@@ -2,7 +2,6 @@ import { Col, Row, Card } from 'antd'
 import { ContactModel } from '../../../../model/model'
 import styles from '../view-contact.module.less'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const BankInfo = (props:{data:ContactModel}) => {
   return (
     <Card title="Bank Details" extra={'Edit'} style={{ width: '25.835vw', height: '30.75vh' }}>

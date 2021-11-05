@@ -5,7 +5,7 @@ const DocumentInfo = () => {
   return (
     <Card
     title="Documents"
-    extra={<a href="#">Edit</a>}
+    extra={"Edit"}
     style={{ width: "25.835vw", height: "30.75vh" }}
   >
     <Row>

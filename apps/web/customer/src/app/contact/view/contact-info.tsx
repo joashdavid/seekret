@@ -48,7 +48,7 @@ const ContactInfo = (props: {
         setRoleString(roles.toString())
       })
     }
-  }, [])
+  }, [props])
 
   return (
     
