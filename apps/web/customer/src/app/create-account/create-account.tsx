@@ -33,10 +33,9 @@ const CreateAccount = () => {
       setmobileNumber(location.state.mobileNumber)
       setpassword(location.state.password)
       setconfirmPassword(location.state.password)
-
     }
   },
-  [])
+  [location])
 
   const getFullName = (data: string) => {
     setname(data)

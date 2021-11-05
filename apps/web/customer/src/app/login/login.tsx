@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 
 import globalStyles from '../app.module.less'
 import styles from './login.module.less'
-import { userLoginApi } from './api'
+import { userLoginApi, resendOtpApi } from './api'
 import TextField from '../components/text-field/text-field'
 import { validate } from './validation'
 import CycButton from '../components/cyc-button/cyc-button'
@@ -21,40 +21,43 @@ const Login = () => {
   const [isFormValid, setFormValid] = useState<boolean>(false)
   const [isRememberMe, setIsRememberMe] = useState<boolean>(false)
   const history = useHistory()
-
+  useEffect(() => {
+    setFormValid(validate(email, password))
+  }, [email, password])
   const userLogin = async () => {
     const dataToserver = {
       email,
       password,
     }
+
     if (isFormValid) {
       console.log(dataToserver)
       const response = await userLoginApi(dataToserver)
-      console.log(response)
       if (response.success) {
-        
+        if (response.msg === 'New or unverified user') {
+          redirectToOtp()
+          return
+        }
+        if (response.msg === 'No organization associated to the user found') {
+          storeInBrowser('Token', response.data)
+          history.push('/createOrganization')
+          return
+        }
         storeInBrowser('Token', response.data)
         history.push(GlobalRouterPath.MANAGEORG)
-      }
-      else{
+      } else {
         return pushNotification(
           'INVALID CREDENTILAS',
           'Oops! Seems like Invalid Data!.Please enter valid information'
         )
       }
-    }
-    else{
+    } else {
       return pushNotification(
         'INVALID CREDENTILAS',
         'Oops! Seems like Invalid Data!.Please enter valid information'
       )
     }
-   
   }
-
-  useEffect(() => {
-    setFormValid(validate(email, password))
-  }, [email, password])
 
   const getPassword = (data: string) => {
     setpassword(data)
@@ -74,6 +77,14 @@ const Login = () => {
       duration: 3,
       className: 'notificationMessage',
     })
+  }
+
+  const redirectToOtp = async () => {
+    const responseFromServer = await resendOtpApi(email)
+    if (responseFromServer.success) {
+      history.push(GlobalRouterPath.OTP, { email, password })
+      return
+    }
   }
 
   return (

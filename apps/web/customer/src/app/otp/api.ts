@@ -11,18 +11,18 @@ const otpToserverApi = async (email: string | null, data: string) => {
   return response
 }
 
-const getAccessToken = async (data: {email:string,password:string}) => {
- 
+const getAccessToken = async (data: { email: string; password: string }) => {
   const response = await apiRequest('POST', 'users/login', data)
+
   return response
 }
 
-const resendOtpApi = async(email:string) => {
-    const dataToserver = {
-        email
-    }
-    return await apiRequest("POST",'users/sendOtp',dataToserver)
-    
+const resendOtpApi = async (email: string) => {
+  const dataToserver = {
+    email,
+    action: 'verifyEmail',
+  }
+  return await apiRequest('POST', 'users/sendOtp', dataToserver)
 }
 
 export { otpToserverApi, getAccessToken, resendOtpApi }
