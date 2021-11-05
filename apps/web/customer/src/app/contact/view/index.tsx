@@ -1,8 +1,8 @@
-import { Breadcrumb, Divider} from 'antd'
+import { Breadcrumb, Divider } from 'antd'
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
-import { Tabs } from 'antd'
 import { ContactInfo } from './contact-info'
+import { RoleForm } from './role-form'
 // import styles from './view-contact.module.less'
 // import DownloadLogo from '../../../assets/download.svg'
 const ROLES = [
@@ -29,13 +29,13 @@ const ROLES = [
 ]
 
 const ViewContact = () => {
-  const { TabPane } = Tabs
   const [roles, setRole] = useState<string[]>()
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const location = useLocation<any>()
   useEffect(() => {
     if (location.state.data.groups) {
+      console.log(location.state.data)
       const roles: string[] = []
       ROLES.forEach((role) => {
         if (location.state.data.groups.includes(role.roleId)) {
@@ -52,17 +52,9 @@ const ViewContact = () => {
         <Breadcrumb.Item>View. Contact</Breadcrumb.Item>
       </Breadcrumb>
       <Divider />
-      <ContactInfo {...location.state.data}/>
-      <Tabs>
-        {roles &&
-          roles.map((role: string) => {
-            return (
-              <TabPane tab={role} key={role}>
-                Content of Tab {role}
-              </TabPane>
-            )
-          })}
-      </Tabs>
+      <ContactInfo {...location.state.data} />
+      <Divider />
+      <RoleForm roles={roles} data={location.state.data}/>
     </>
   )
 }
