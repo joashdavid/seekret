@@ -1,5 +1,5 @@
 import { Col, Row, Card } from 'antd'
-import styles from './view-contact.module.less'
+import styles from '../view-contact.module.less'
 
 const PayRollInfo = () => {
   return (

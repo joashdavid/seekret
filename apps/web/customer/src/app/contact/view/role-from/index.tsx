@@ -14,6 +14,7 @@ const RoleForm = (props: { roles: string[] | undefined; data: any }) => {
         props.roles.map((role: string) => {
           return (
             <TabPane tab={role} key={role}>
+              {/* <span>{role}</span> */}
               <Space>
                 <BankInfo data={props.data}/>
                 <Col span={1}></Col>

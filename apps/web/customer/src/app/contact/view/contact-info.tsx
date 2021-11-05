@@ -2,7 +2,6 @@ import { Col, Row } from 'antd'
 import {  useEffect, useState } from 'react'
 import { Button } from 'antd'
 import styles from './view-contact.module.less'
-import DownloadLogo from '../../../assets/download.svg'
 const ROLES = [
   {
     roleId: 1,
@@ -69,11 +68,11 @@ const ContactInfo = (props: {
               <Col>
                 <Row justify="end">
                   <Col span={5}>
-                    <Button icon={<img src={DownloadLogo} alt="" />}>DOWNLOAD</Button>
+                    <Button >DOWNLOAD</Button>
                   </Col>
                   <Col span={3} />
                   <Col span={5}>
-                    <Button icon={<img src={DownloadLogo} alt="" />}>PRINT</Button>
+                    <Button >PRINT</Button>
                   </Col>
                 </Row>
               </Col>

@@ -2,9 +2,7 @@ import { Breadcrumb, Divider } from 'antd'
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
 import { ContactInfo } from './contact-info'
-import { RoleForm } from './role-form'
-// import styles from './view-contact.module.less'
-// import DownloadLogo from '../../../assets/download.svg'
+import { RoleForm } from './role-from'
 const ROLES = [
   {
     roleId: 1,

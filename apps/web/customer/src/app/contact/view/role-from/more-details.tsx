@@ -1,37 +1,41 @@
 import { Col, Row, Card } from 'antd'
-import styles from './view-contact.module.less'
+import styles from '../view-contact.module.less'
 
 const MoreDetails = () => {
   return (
     <Card
-    title="Employment details"
-    extra={'Edit'}
-    style={{ width: '25.835vw', height: '30.75vh' }}
+    title="More Details"
+    extra={
+      <a href="#" className={styles.a}>
+        Edit
+      </a>
+    }
+    style={{ width: "25.835vw", height: "30.75vh" }}
   >
     <Row>
       <Col span={12}>
-        <span className={styles.userDetails}> EMPLOYEE ID </span>
+        <span className={styles.userDetails}> Business Unit </span>
         <Col span={24}>
           <span className={styles.userData}>Lorem Ipsum</span>
         </Col>
       </Col>
       <Col span={12}>
-        <span className={styles.userDetails}>DOB</span>
+        <span className={styles.userDetails}>Department</span>
         <Col span={24}>
-          <span className={styles.userData}>Lorem Ipsum</span>
+          <span className={styles.userData}>IT</span>
         </Col>
       </Col>
     </Row>
     <Row></Row>
     <Row>
       <Col span={12}>
-        <span className={styles.userDetails}> GENDRE </span>
+        <span className={styles.userDetails}> DESIGNATION </span>
         <Col span={24}>
           <span className={styles.userData}>Lorem Ipsum</span>
         </Col>
       </Col>
       <Col span={12}>
-        <span className={styles.userDetails}>BLOOD GROUP</span>
+        <span className={styles.userDetails}>REPORT TO</span>
         <Col span={24}>
           <span className={styles.userData}>Lorem Ipsum</span>
         </Col>
@@ -39,13 +43,13 @@ const MoreDetails = () => {
     </Row>
     <Row>
       <Col span={12}>
-        <span className={styles.userDetails}> AADHAR NO. </span>
+        <span className={styles.userDetails}> EMPLOYMENT TYPE </span>
         <Col span={24}>
           <span className={styles.userData}>Lorem Ipsum</span>
         </Col>
       </Col>
       <Col span={12}>
-        <span className={styles.userDetails}>PAN CARD NO.</span>
+        <span className={styles.userDetails}>EMPLOYMENT STATUS</span>
         <Col span={24}>
           <span className={styles.userData}>Lorem Ipsum</span>
         </Col>
@@ -59,7 +63,7 @@ const MoreDetails = () => {
         </Col>
       </Col>
       <Col span={12}>
-        <span className={styles.userDetails}>UAN NO</span>
+        <span className={styles.userDetails}>JOINING DATE</span>
         <Col span={24}>
           <span className={styles.userData}>Lorem Ipsum</span>
         </Col>
@@ -73,21 +77,7 @@ const MoreDetails = () => {
         </Col>
       </Col>
       <Col span={12}>
-        <span className={styles.userDetails}>EMERGENCY CONTACT PERSON</span>
-        <Col span={24}>
-          <span className={styles.userData}>Lorem Ipsum</span>
-        </Col>
-      </Col>
-    </Row>
-    <Row>
-      <Col span={12}>
-        <span className={styles.userDetails}> EMERGENCY CONTACT NUMBER</span>
-        <Col span={24}>
-          <span className={styles.userData}>Lorem Ipsum</span>
-        </Col>
-      </Col>
-      <Col span={12}>
-        <span className={styles.userDetails}>RELATIONSHIP</span>
+        <span className={styles.userDetails}>BUSINESS UNIT</span>
         <Col span={24}>
           <span className={styles.userData}>Lorem Ipsum</span>
         </Col>
