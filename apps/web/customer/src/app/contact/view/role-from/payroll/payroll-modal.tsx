@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { TextFieldNoSuffix } from '../../../../components/text-field-nosuffix'
 import CycButton from '../../../../components/cyc-button/cyc-button'
 import { ContactDetailModel } from '../../../../../model/model'
+import { updateClientApi } from './api'
 
 const PayRollInfoModal = (props: {
   onOk: () => void
@@ -12,6 +13,7 @@ const PayRollInfoModal = (props: {
   data: ContactDetailModel | undefined
   orgId: string | null
   isModalVisible: boolean | undefined
+  group:string
 }) => {
   const [netSalary, setNetSalary] = useState<string>('')
   const [ctc, setCtc] = useState<string>('')
@@ -42,6 +44,25 @@ const PayRollInfoModal = (props: {
     setInsuranceNo(data)
   }
 
+  const updateClient = async() => {
+      if(props.data){
+        const response =await updateClientApi(
+        props.orgId,
+        props.data.contactId,
+            netSalary,
+            ctc,
+            insuranceProvider,
+            insuranceNo,
+            insuranceStatus,
+            props.group,
+          )
+         if(response.success){
+             handleOk()
+         }
+      }
+ 
+  }
+
   return (
     <Modal
       title="Edit Payroll Details"
@@ -49,7 +70,7 @@ const PayRollInfoModal = (props: {
       onOk={handleOk}
       onCancel={handleCancel}
       closeIcon={<CloseOutlined />}
-      footer={[<CycButton value="UPDATE" disabled={false} onClick={handleCancel} />]}
+      footer={[<CycButton value="UPDATE" disabled={false} onClick={updateClient} />]}
       style={{ marginTop: '8.4vw' }}
     >
       <Row justify="space-between">

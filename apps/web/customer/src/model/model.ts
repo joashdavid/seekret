@@ -75,5 +75,6 @@ interface ContactDetailModel {
   resignationDate: string|null
   uanNo: string|null
   swift: string|null
+  netStipend:string|null
 }
 export { UserRegistrationModel, UserLoginModel, ThemeModel, ContactModel, ContactDetailModel }

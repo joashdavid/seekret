@@ -7,7 +7,7 @@ import { TextFieldNoSuffix } from '../../../../components/text-field-nosuffix'
 import CycButton from '../../../../components/cyc-button/cyc-button'
 import { updateClientApi } from './api'
 import { ContactDetailModel } from '../../../../../model/model'
-import { fetchClientDetailsApi } from '../api'
+import { fetchClientDetailApi } from '../api'
 
 const EmployeModal = (props: {
   onOk: () => void
@@ -15,6 +15,7 @@ const EmployeModal = (props: {
   data: ContactDetailModel | undefined
   orgId: string | null
   isModalVisible: boolean | undefined
+  group:string
 }) => {
   const [employeeId, setEmployeId] = useState<string>('')
   const [dob, setDob] = useState<string>('')
@@ -33,7 +34,7 @@ const EmployeModal = (props: {
 
   const fetchClient = async () => {
     if (props.data) {
-      const response = await fetchClientDetailsApi(props.orgId, props.data.contactId)
+      const response = await fetchClientDetailApi(props.orgId, props.data.contactId ,props.group)
       console.log(response.data)
     }
   }
@@ -87,7 +88,8 @@ const EmployeModal = (props: {
         bloodGroup,
         panNo,
         uanNo,
-        emergencyContactNo
+        emergencyContactNo,
+        props.group
         // emergencyContactNo,
         // relationship
       )

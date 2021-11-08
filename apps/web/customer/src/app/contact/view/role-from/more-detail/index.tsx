@@ -35,13 +35,13 @@ const MoreDetails = (props: { data: ContactDetailModel; orgId: string | null }) 
         <Col span={12}>
           <span className={styles.userDetails}> Business Unit </span>
           <Col span={24}>
-            <span className={styles.userData}>{props.data.businessUnit}</span>
+            <span className={styles.userData}>{contactInfo?.businessUnit ? contactInfo.businessUnit : '-'}</span>
           </Col>
         </Col>
         <Col span={12}>
           <span className={styles.userDetails}>Department</span>
           <Col span={24}>
-            <span className={styles.userData}>{props.data.department}</span>
+            <span className={styles.userData}>{contactInfo?.department? contactInfo.department : '-'}</span>
           </Col>
         </Col>
       </Row>
@@ -50,13 +50,13 @@ const MoreDetails = (props: { data: ContactDetailModel; orgId: string | null }) 
         <Col span={12}>
           <span className={styles.userDetails}> DESIGNATION </span>
           <Col span={24}>
-            <span className={styles.userData}>{props.data.designation}</span>
+            <span className={styles.userData}>{contactInfo?.designation ? contactInfo.designation : '-'}</span>
           </Col>
         </Col>
         <Col span={12}>
           <span className={styles.userDetails}>REPORT TO</span>
           <Col span={24}>
-            <span className={styles.userData}>{props.data.reportingTo}</span>
+            <span className={styles.userData}>{contactInfo?.reportingTo ? contactInfo.reportingTo : '-'}</span>
           </Col>
         </Col>
       </Row>
@@ -64,13 +64,13 @@ const MoreDetails = (props: { data: ContactDetailModel; orgId: string | null }) 
         <Col span={12}>
           <span className={styles.userDetails}> EMPLOYMENT TYPE </span>
           <Col span={24}>
-            <span className={styles.userData}>{props.data.employmentType}</span>
+            <span className={styles.userData}>{contactInfo?.employmentType ? contactInfo.employmentType : ''}</span>
           </Col>
         </Col>
         <Col span={12}>
           <span className={styles.userDetails}>EMPLOYMENT STATUS</span>
           <Col span={24}>
-            <span className={styles.userData}>{props.data.employeeStatus}</span>
+            <span className={styles.userData}>{contactInfo?.employeeStatus ? contactInfo.employeeStatus : '-'}</span>
           </Col>
         </Col>
       </Row>
@@ -78,13 +78,13 @@ const MoreDetails = (props: { data: ContactDetailModel; orgId: string | null }) 
         <Col span={12}>
           <span className={styles.userDetails}> OFFICE LOCATION </span>
           <Col span={24}>
-            <span className={styles.userData}>{props.data.officeLocation}</span>
+            <span className={styles.userData}>{contactInfo?.officeLocation ? contactInfo.officeLocation : '-'}</span>
           </Col>
         </Col>
         <Col span={12}>
           <span className={styles.userDetails}>JOINING DATE</span>
           <Col span={24}>
-            <span className={styles.userData}>{props.data.joiningDate}</span>
+            <span className={styles.userData}>{contactInfo?.joiningDate ? contactInfo.joiningDate : '-'}</span>
           </Col>
         </Col>
       </Row>
@@ -92,13 +92,13 @@ const MoreDetails = (props: { data: ContactDetailModel; orgId: string | null }) 
         <Col span={12}>
           <span className={styles.userDetails}> NOTICE PERIOD </span>
           <Col span={24}>
-            <span className={styles.userData}>{props.data.noticePeriod}</span>
+            <span className={styles.userData}>{contactInfo?.noticePeriod ? contactInfo.noticePeriod : '-'}</span>
           </Col>
         </Col>
         <Col span={12}>
           <span className={styles.userDetails}>BUSINESS UNIT</span>
           <Col span={24}>
-            <span className={styles.userData}>{props.data.businessUnit}</span>
+            <span className={styles.userData}>{contactInfo?.businessUnit ? contactInfo.businessUnit : '-'}</span>
           </Col>
         </Col>
       </Row>

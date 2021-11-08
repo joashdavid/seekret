@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react'
 import styles from '../../view-contact.module.less'
 import { PayRollInfoModal } from './payroll-modal'
 import { ContactDetailModel } from '../../../../../model/model'
+import { fetchClientDetailApi } from '../api'
 
-const PayRollInfo = (props: { data: ContactDetailModel; orgId: string | null }) => {
+const PayRollInfo = (props: { data: ContactDetailModel; orgId: string | null, group:string }) => {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [contactInfo, setContactInfo] = useState<ContactDetailModel>()
   useEffect(() => {
@@ -16,11 +17,18 @@ const PayRollInfo = (props: { data: ContactDetailModel; orgId: string | null }) 
     setIsModalVisible(true)
   }
   const handleOk = () => {
-    // fetchClient()
+    fetchClient()
     setIsModalVisible(false)
   }
   const handleCancel = () => {
     setIsModalVisible(false)
+  }
+  const fetchClient = async () => {
+    if (props.data) {
+      const response = await fetchClientDetailApi(props.orgId, props.data.contactId,props.group)
+      setContactInfo(response.data)
+      return
+    }
   }
   return (
     <Card
@@ -36,13 +44,14 @@ const PayRollInfo = (props: { data: ContactDetailModel; orgId: string | null }) 
         <Col span={12}>
           <span className={styles.userDetails}> NET SALARY </span>
           <Col span={24}>
-            <span className={styles.userData}> {props.data.netSalary} </span>
+            {props.group === "Employee" && <span className={styles.userData}> {contactInfo?.netSalary ? contactInfo.netSalary : '-'} </span>}
+            {props.group === "Intern" && <span className={styles.userData}> {contactInfo?.netStipend ? contactInfo.netStipend : '-'} </span>}
           </Col>
         </Col>
         <Col span={12}>
           <span className={styles.userDetails}> CTC </span>
           <Col span={24}>
-            <span className={styles.userData}> {props.data.ctc} </span>
+            <span className={styles.userData}> {contactInfo?.ctc ? contactInfo.ctc : '-'} </span>
           </Col>
         </Col>
       </Row>
@@ -51,13 +60,13 @@ const PayRollInfo = (props: { data: ContactDetailModel; orgId: string | null }) 
         <Col span={12}>
           <span className={styles.userDetails}>INSURANCE PROVIDER</span>
           <Col span={24}>
-            <span className={styles.userData}>{props.data.insuranceProvider}</span>
+            <span className={styles.userData}>{contactInfo?.insuranceProvider ? contactInfo.insuranceProvider : '-'}</span>
           </Col>
         </Col>
         <Col span={12}>
           <span className={styles.userDetails}>INSURANCE STATUS </span>
           <Col span={24}>
-            <span className={styles.userData}>{props.data.insuranceStatus}</span>
+            <span className={styles.userData}>{contactInfo?.insuranceStatus ? contactInfo.insuranceStatus : '-'}</span>
           </Col>
         </Col>
       </Row>
@@ -65,7 +74,7 @@ const PayRollInfo = (props: { data: ContactDetailModel; orgId: string | null }) 
         <Col span={12}>
           <span className={styles.userDetails}>INSURANCE NUMBER</span>
           <Col span={24}>
-            <span className={styles.userData}>{props.data.insuranceNo}</span>
+            <span className={styles.userData}>{contactInfo?.insuranceNo ? contactInfo.insuranceNo : '-'}</span>
           </Col>
         </Col>
       </Row>
@@ -75,6 +84,7 @@ const PayRollInfo = (props: { data: ContactDetailModel; orgId: string | null }) 
         isModalVisible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
+        group = {props.group}
       />
     </Card>
   )

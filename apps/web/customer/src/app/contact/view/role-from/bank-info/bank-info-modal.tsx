@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { TextFieldNoSuffix } from '../../../../components/text-field-nosuffix'
 import CycButton from '../../../../components/cyc-button/cyc-button'
 import { ContactDetailModel } from '../../../../../model/model'
+import { updateClientApi } from './api'
 
 const BankInfoModal = (props: {
   onOk: () => void
@@ -12,11 +13,12 @@ const BankInfoModal = (props: {
   data: ContactDetailModel | undefined
   orgId: string | null
   isModalVisible: boolean | undefined
+  group: string
 }) => {
   const [bankName, setBankName] = useState<string>('')
   const [bankAccountNo, setBankAccountNo] = useState<string>('')
   const [ifsc, setIfsc] = useState<string>('')
-  const [swift, setSwift] = useState<string>('')
+//   const [swift, setSwift] = useState<string>('')
 
   const getBankName = (data: string) => {
     setBankName(data)
@@ -27,14 +29,30 @@ const BankInfoModal = (props: {
   const getIfsc = (data: string) => {
     setIfsc(data)
   }
-  const getSwift = (data: string) => {
-    setSwift(data)
-  }
+//   const getSwift = (data: string) => {
+//     setSwift(data)
+//   }
   const handleOk = () => {
     props.onOk()
   }
   const handleCancel = () => {
     props.onCancel()
+  }
+
+  const updateClient = async () => {
+    if (props.data) {
+      const response = await updateClientApi(
+        props.orgId,
+        props.data.contactId,
+        bankName,
+        bankAccountNo,
+        ifsc,
+        props.group
+      )
+      if(response.success){
+          handleOk()
+      }
+    }
   }
   return (
     <Modal
@@ -43,7 +61,7 @@ const BankInfoModal = (props: {
       onOk={handleOk}
       onCancel={handleCancel}
       closeIcon={<CloseOutlined />}
-      footer={[<CycButton value="UPDATE" disabled={false} onClick={handleCancel} />]}
+      footer={[<CycButton value="UPDATE" disabled={false} onClick={updateClient} />]}
       style={{ marginTop: '8.4vw' }}
     >
       <Row justify="space-between">
@@ -78,7 +96,7 @@ const BankInfoModal = (props: {
           />
         </Col>
         <Col span={1}></Col>
-        <Col span={12}>
+        {/* <Col span={12}>
           <TextFieldNoSuffix
             onUserInput={getSwift}
             label="SWIFT"
@@ -86,7 +104,7 @@ const BankInfoModal = (props: {
             type="text"
             value={swift}
           />
-        </Col>
+        </Col> */}
       </Row>
     </Modal>
   )

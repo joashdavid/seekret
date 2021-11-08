@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react'
 
 import { ContactDetailModel } from '../../../../../model/model'
 import styles from '../../view-contact.module.less'
-import { fetchClientDetailsApi } from '../api'
+import { fetchClientDetailApi } from '../api'
 import { BankInfoModal } from './bank-info-modal'
 
 // import { fetchClientDetailsApi } from './api'
 
-const BankInfo = (props: { data: ContactDetailModel; orgId: string | null }) => {
+const BankInfo = (props: { data: ContactDetailModel; orgId: string | null, group:string }) => {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [contactInfo, setContactInfo] = useState<ContactDetailModel>()
   useEffect(() => {
@@ -18,8 +18,8 @@ const BankInfo = (props: { data: ContactDetailModel; orgId: string | null }) => 
   const showModal = () => {
     setIsModalVisible(true)
   }
-  const handleOk = () => {
-    fetchClient()
+  const handleOk = async() => {
+    await fetchClient()
     setIsModalVisible(false)
   }
   const handleCancel = () => {
@@ -27,14 +27,12 @@ const BankInfo = (props: { data: ContactDetailModel; orgId: string | null }) => 
   }
   const fetchClient = async () => {
     if (props.data) {
-      const response = await fetchClientDetailsApi(props.orgId, props.data.contactId)
+      const response = await fetchClientDetailApi(props.orgId, props.data.contactId,props.group)
       setContactInfo(response.data)
       return
     }
   }
-  useEffect(() => {
-    console.log(props, 'Bank')
-  }, [props])
+
 
   return (
     <Card
@@ -51,7 +49,7 @@ const BankInfo = (props: { data: ContactDetailModel; orgId: string | null }) => 
           <span className={styles.userDetails}> Bank </span>
           <Col span={24}>
             <span className={styles.userData}>
-              {props.data.bankName ? props.data.bankName : 'NIL'}
+              {contactInfo?.bankName ? contactInfo.bankName : '-'}
             </span>
           </Col>
         </Col>
@@ -59,7 +57,7 @@ const BankInfo = (props: { data: ContactDetailModel; orgId: string | null }) => 
           <span className={styles.userDetails}> Account Number </span>
           <Col span={24}>
             <span className={styles.userData}>
-              {props.data.bankAccountNo ? props.data.bankAccountNo : 'NIL'}
+              {contactInfo?.bankAccountNo ? contactInfo.bankAccountNo : '-'}
             </span>
           </Col>
         </Col>
@@ -69,13 +67,13 @@ const BankInfo = (props: { data: ContactDetailModel; orgId: string | null }) => 
         <Col span={12}>
           <span className={styles.userDetails}>IFSC Code</span>
           <Col span={24}>
-            <span className={styles.userData}>{props.data.ifsc ? props.data.ifsc : 'NIL'}</span>
+            <span className={styles.userData}>{contactInfo?.ifsc ? contactInfo.ifsc : '-'}</span>
           </Col>
         </Col>
         <Col span={12}>
           <span className={styles.userDetails}>SWIFT </span>
           <Col span={24}>
-            <span className={styles.userData}>{props.data.swift ? props.data.swift : 'NIL'}</span>
+            <span className={styles.userData}>{contactInfo?.swift ? contactInfo.swift : '-'}</span>
           </Col>
         </Col>
       </Row>
@@ -85,6 +83,7 @@ const BankInfo = (props: { data: ContactDetailModel; orgId: string | null }) => 
         isModalVisible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
+        group = {props.group}
       />
     </Card>
   )

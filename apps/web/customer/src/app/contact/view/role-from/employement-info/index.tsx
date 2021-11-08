@@ -5,13 +5,18 @@ import { useState, useEffect } from 'react'
 import { EmployeModal } from './employment-modal'
 import styles from '../../view-contact.module.less'
 import { ContactDetailModel } from '../../../../../model/model'
-import { fetchClientDetailsApi } from '../api'
+import { fetchClientDetailApi } from '../api'
 
-const EmployeeMentInfo = (props: { data: ContactDetailModel; orgId: string | null }) => {
+const EmployeeMentInfo = (props: {
+  data: ContactDetailModel
+  orgId: string | null
+  group: string
+}) => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
   const [contactInfo, setContactInfo] = useState<ContactDetailModel>()
   useEffect(() => {
     setContactInfo(props.data)
+    console.log(props.group)
   }, [props])
 
   const showModal = () => {
@@ -26,7 +31,7 @@ const EmployeeMentInfo = (props: { data: ContactDetailModel; orgId: string | nul
   }
   const fetchClient = async () => {
     if (props.data) {
-      const response = await fetchClientDetailsApi(props.orgId, props.data.contactId)
+      const response = await fetchClientDetailApi(props.orgId, props.data.contactId,props.group)
       setContactInfo(response.data)
       return
     }
@@ -46,13 +51,15 @@ const EmployeeMentInfo = (props: { data: ContactDetailModel; orgId: string | nul
         <Col span={12}>
           <span className={styles.userDetails}> EMPLOYEE ID </span>
           <Col span={24}>
-            <span className={styles.userData}>{contactInfo?.employeeId}</span>
+            <span className={styles.userData}>
+              {contactInfo?.employeeId ? contactInfo.employeeId : '-'}
+            </span>
           </Col>
         </Col>
         <Col span={12}>
           <span className={styles.userDetails}>DOB</span>
           <Col span={24}>
-            <span className={styles.userData}>{contactInfo?.dob}</span>
+            <span className={styles.userData}>{contactInfo?.dob ? contactInfo.dob : '-'}</span>
           </Col>
         </Col>
       </Row>
@@ -61,13 +68,17 @@ const EmployeeMentInfo = (props: { data: ContactDetailModel; orgId: string | nul
         <Col span={12}>
           <span className={styles.userDetails}> GENDER </span>
           <Col span={24}>
-            <span className={styles.userData}>{contactInfo?.gender}</span>
+            <span className={styles.userData}>
+              {contactInfo?.gender ? contactInfo.gender : '-'}
+            </span>
           </Col>
         </Col>
         <Col span={12}>
           <span className={styles.userDetails}>BLOOD GROUP</span>
           <Col span={24}>
-            <span className={styles.userData}>{contactInfo?.bloodGroup}</span>
+            <span className={styles.userData}>
+              {contactInfo?.bloodGroup ? contactInfo.bloodGroup : '-'}
+            </span>
           </Col>
         </Col>
       </Row>
@@ -75,13 +86,15 @@ const EmployeeMentInfo = (props: { data: ContactDetailModel; orgId: string | nul
         <Col span={12}>
           <span className={styles.userDetails}> AADHAR NO. </span>
           <Col span={24}>
-            <span className={styles.userData}>{contactInfo?.aadharNo}</span>
+            <span className={styles.userData}>
+              {contactInfo?.aadharNo ? contactInfo.aadharNo : '-'}
+            </span>
           </Col>
         </Col>
         <Col span={12}>
           <span className={styles.userDetails}>PAN CARD NO.</span>
           <Col span={24}>
-            <span className={styles.userData}>{contactInfo?.pan}</span>
+            <span className={styles.userData}>{contactInfo?.pan ? contactInfo.pan : '-'}</span>
           </Col>
         </Col>
       </Row>
@@ -89,13 +102,15 @@ const EmployeeMentInfo = (props: { data: ContactDetailModel; orgId: string | nul
         <Col span={12}>
           <span className={styles.userDetails}> OFFICE LOCATION </span>
           <Col span={24}>
-            <span className={styles.userData}>{contactInfo?.officeLocation}</span>
+            <span className={styles.userData}>
+              {contactInfo?.officeLocation ? contactInfo.officeLocation : '-'}
+            </span>
           </Col>
         </Col>
         <Col span={12}>
           <span className={styles.userDetails}>UAN NO</span>
           <Col span={24}>
-            <span className={styles.userData}>{contactInfo?.uanNo}</span>
+            <span className={styles.userData}>{contactInfo?.uanNo ? contactInfo.uanNo : '-'}</span>
           </Col>
         </Col>
       </Row>
@@ -103,7 +118,9 @@ const EmployeeMentInfo = (props: { data: ContactDetailModel; orgId: string | nul
         <Col span={12}>
           <span className={styles.userDetails}> NOTICE PERIOD </span>
           <Col span={24}>
-            <span className={styles.userData}>{contactInfo?.noticePeriod}</span>
+            <span className={styles.userData}>
+              {contactInfo?.noticePeriod ? contactInfo.noticePeriod : '-'}
+            </span>
           </Col>
         </Col>
         <Col span={12}>
@@ -117,7 +134,9 @@ const EmployeeMentInfo = (props: { data: ContactDetailModel; orgId: string | nul
         <Col span={12}>
           <span className={styles.userDetails}> EMERGENCY CONTACT NUMBER</span>
           <Col span={24}>
-            <span className={styles.userData}>{contactInfo?.emergencyContact}</span>
+            <span className={styles.userData}>
+              {contactInfo?.emergencyContact ? contactInfo.emergencyContact : '-'}
+            </span>
           </Col>
         </Col>
         <Col span={12}>
@@ -133,6 +152,7 @@ const EmployeeMentInfo = (props: { data: ContactDetailModel; orgId: string | nul
         isModalVisible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
+        group = {props.group}
       />
     </Card>
   )

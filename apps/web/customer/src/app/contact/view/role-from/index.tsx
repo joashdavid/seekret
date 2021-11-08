@@ -7,38 +7,44 @@ import { MoreDetails } from './more-detail'
 import { PayRollInfo } from './payroll'
 import { DocumentInfo } from './document'
 import { ContactModel } from '../../../../model/model'
-import { fetchClientDetailsApi } from './api'
+import { fetchClientDetailApi } from './api'
 
 const RoleForm = (props: { roles: string[] | undefined; data: ContactModel }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [contactInfo, setContactInfo] = useState<any>({})
+  const [currentTab , setCurrentTab] = useState<string>('')
   const { TabPane } = Tabs
   useEffect(() => {
-    fetchClient()
+    if(props.roles){
+      setCurrentTab(props.roles[0])
+      fetchClient(props.roles[0])
+    }
+
+   
   }, [props])
 
-  const fetchClient = async () => {
-    const response = await fetchClientDetailsApi(props.data.orgId, props.data.contactId)
+  const fetchClient = async (group:string) => {
+    const response = await fetchClientDetailApi(props.data.orgId, props.data.contactId,group)
     setContactInfo(response.data)
-    console.log(response.data)
   }
-  const switchTabs = (activeKey: string) => {
-    console.log(activeKey)
+  const switchTabs = async(activeKey: string) => {
+    setCurrentTab(activeKey)
+    await fetchClient(activeKey)
   }
   return (
-    <Tabs onTabClick={switchTabs}>
+    <Tabs onTabClick={switchTabs} activeKey={currentTab}>
       {props.roles?.map((role: string) => {
         return (
-          <TabPane tab={role} key={role}>
+          <TabPane tab={role} key={role} >
             <Space>
-              <BankInfo data={contactInfo} orgId={props.data.orgId} />
+              <BankInfo data={contactInfo} orgId={props.data.orgId} group={currentTab}  />
               <Col span={1}></Col>
               <MoreDetails data={contactInfo} orgId={props.data.orgId}/>
               <Col span={1}></Col>
-              <EmployeeMentInfo data={contactInfo} orgId={props.data.orgId} />
+              <EmployeeMentInfo data={contactInfo} orgId={props.data.orgId} group={currentTab} />
             </Space>
             <Space>
-              <PayRollInfo data={contactInfo} orgId={props.data.orgId}/>
+              <PayRollInfo data={contactInfo} orgId={props.data.orgId} group={currentTab}/>
               <Col span={1}></Col>
               <DocumentInfo />
             </Space>
