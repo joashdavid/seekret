@@ -3,7 +3,7 @@ import { apiRequest } from '../../../../../services/axios/axios'
 const updateClientApi = async(
   orgId: string|null,
   contactId: string,
-  employeId: string,
+  // employeId: string,
   dob: string,
   gender: string,
   aadharNo: string,
@@ -20,9 +20,9 @@ const updateClientApi = async(
       orgId,
       contactId,
       updatedEmployee: {
-      //   employeId,
+        // employeId,
         dob,
-        // gender,
+        gender,
         aadharNo,
         bloodGroup,
         pan,
@@ -43,7 +43,7 @@ const updateClientApi = async(
       updatedIntern: {
       //   employeId,
         dob,
-        // gender,
+        gender,
         aadharNo,
         bloodGroup,
         pan,

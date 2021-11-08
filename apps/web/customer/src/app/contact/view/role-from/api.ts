@@ -27,6 +27,30 @@ const fetchClientDetailApi = async (orgId: string | null, contactId: string, gro
           })
           return response
     }
+    else if(group === 'Consultant'){
+        const response = await apiRequest('POST', 'contacts/consultants/fetchconsultant', {
+            orgId,
+            contactId,
+          })
+          console.log(response)
+          return response
+    }
+    else if(group === "Vendor"){
+        const response = await apiRequest('POST', 'contacts/vendors/fetchVendor', {
+            orgId,
+            contactId,
+          })
+          console.log(response)
+          return response
+    }
+    else if(group === "Client"){
+        const response = await apiRequest('POST', 'contacts/Clients/fetchClient', {
+            orgId,
+            contactId,
+          })
+          console.log(response)
+          return response
+    }
 
 
 }

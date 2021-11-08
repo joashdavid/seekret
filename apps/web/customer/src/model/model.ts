@@ -76,5 +76,10 @@ interface ContactDetailModel {
   uanNo: string|null
   swift: string|null
   netStipend:string|null
+  employmentStatus:string|null
+  businessType:string|null
+  vendorStatus:string|null
+  website?:string|null
+  unit?:string|null
 }
 export { UserRegistrationModel, UserLoginModel, ThemeModel, ContactModel, ContactDetailModel }

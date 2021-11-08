@@ -31,7 +31,7 @@ const EmployeeMentInfo = (props: {
   }
   const fetchClient = async () => {
     if (props.data) {
-      const response = await fetchClientDetailApi(props.orgId, props.data.contactId,props.group)
+      const response = await fetchClientDetailApi(props.orgId, props.data.contactId, props.group)
       setContactInfo(response.data)
       return
     }
@@ -124,14 +124,6 @@ const EmployeeMentInfo = (props: {
           </Col>
         </Col>
         <Col span={12}>
-          <span className={styles.userDetails}>EMERGENCY CONTACT PERSON</span>
-          <Col span={24}>
-            <span className={styles.userData}>Lorem Ipsum</span>
-          </Col>
-        </Col>
-      </Row>
-      <Row>
-        <Col span={12}>
           <span className={styles.userDetails}> EMERGENCY CONTACT NUMBER</span>
           <Col span={24}>
             <span className={styles.userData}>
@@ -139,20 +131,15 @@ const EmployeeMentInfo = (props: {
             </span>
           </Col>
         </Col>
-        <Col span={12}>
-          <span className={styles.userDetails}>RELATIONSHIP</span>
-          <Col span={24}>
-            <span className={styles.userData}>Lorem Ipsum</span>
-          </Col>
-        </Col>
       </Row>
+
       <EmployeModal
         data={contactInfo}
         orgId={props.orgId}
         isModalVisible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
-        group = {props.group}
+        group={props.group}
       />
     </Card>
   )

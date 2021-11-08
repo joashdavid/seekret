@@ -17,7 +17,7 @@ const EmployeModal = (props: {
   isModalVisible: boolean | undefined
   group:string
 }) => {
-  const [employeeId, setEmployeId] = useState<string>('')
+  // const [employeeId, setEmployeId] = useState<string>('')
   const [dob, setDob] = useState<string>('')
   const [gender, setGender] = useState<string>('')
   const [aadharNo, setAdharNo] = useState<string>('')
@@ -26,7 +26,7 @@ const EmployeModal = (props: {
   const [uanNo, setUanNo] = useState<string>('')
   const [emergencyContact, setEmergencyContact] = useState<string>('')
   const [emergencyContactNo, setEmergencyContactNo] = useState<string>('')
-  const [relationship, setRelationship] = useState<string>('')
+  // const [relationship, setRelationship] = useState<string>('')
 
   // useEffect(() => {
   //     fetchClient()
@@ -45,9 +45,9 @@ const EmployeModal = (props: {
   const handleCancel = () => {
     props.onCancel()
   }
-  const getEmployeId = (data: string) => {
-    setEmployeId(data)
-  }
+  // const getEmployeId = (data: string) => {
+  //   setEmployeId(data)
+  // }
   const getDob = (data: string) => {
     setDob(data)
   }
@@ -72,16 +72,16 @@ const EmployeModal = (props: {
   const getEmergencyContactNo = (data: string) => {
     setEmergencyContactNo(data)
   }
-  const getRelationShip = (data: string) => {
-    setRelationship(data)
-  }
+  // const getRelationShip = (data: string) => {
+  //   setRelationship(data)
+  // }
 
   const updateClient = async () => {
     if (props.data) {
       const response = await updateClientApi(
         props.orgId,
         props.data.contactId,
-        employeeId,
+        // employeeId,
         dob,
         gender,
         aadharNo,
@@ -111,13 +111,22 @@ const EmployeModal = (props: {
       style={{ marginTop: '8.4vw' }}
     >
       <Row justify="space-between">
-        <Col span={12}>
+        {/* <Col span={12}>
           <TextFieldNoSuffix
             onUserInput={getEmployeId}
             label="Employee Id"
             name="employeeId"
             type="text"
             value={employeeId}
+          />
+        </Col> */}
+        <Col span={12}>
+          <TextFieldNoSuffix
+            onUserInput={getAadharNo}
+            label="Aadhar No."
+            name="employeeId"
+            type="text"
+            value={aadharNo}
           />
         </Col>
         <Col span={1}></Col>
@@ -147,13 +156,13 @@ const EmployeModal = (props: {
         </Col>
       </Row>
       <Row justify="space-between">
-        <Col span={12}>
+      <Col span={12}>
           <TextFieldNoSuffix
-            onUserInput={getAadharNo}
-            label="Aadhar No."
+            onUserInput={getUanNo}
+            label="UAN No."
             name="employeeId"
             type="text"
-            value={aadharNo}
+            value={uanNo}
           />
         </Col>
         <Col span={1}></Col>
@@ -168,13 +177,13 @@ const EmployeModal = (props: {
         </Col>
       </Row>
       <Row justify="space-between">
-        <Col span={12}>
+      <Col span={12}>
           <TextFieldNoSuffix
-            onUserInput={getUanNo}
-            label="UAN No."
+            onUserInput={getEmergencyContactNo}
+            label="Emergency Contact Number"
             name="employeeId"
             type="text"
-            value={uanNo}
+            value={emergencyContactNo}
           />
         </Col>
         <Col span={1}></Col>
@@ -189,17 +198,9 @@ const EmployeModal = (props: {
         </Col>
       </Row>
       <Row justify="space-between">
-        <Col span={12}>
-          <TextFieldNoSuffix
-            onUserInput={getEmergencyContactNo}
-            label="Emergency Contact Number"
-            name="employeeId"
-            type="text"
-            value={emergencyContactNo}
-          />
-        </Col>
+        
         <Col span={1}></Col>
-        <Col span={12}>
+        {/* <Col span={12}>
           <TextFieldNoSuffix
             onUserInput={getRelationShip}
             label="Relationship"
@@ -207,7 +208,7 @@ const EmployeModal = (props: {
             type="text"
             value={relationship}
           />
-        </Col>
+        </Col> */}
       </Row>
     </Modal>
   )

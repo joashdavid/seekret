@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { TextFieldNoSuffix } from '../../../../components/text-field-nosuffix'
 import CycButton from '../../../../components/cyc-button/cyc-button'
 import { ContactDetailModel } from '../../../../../model/model'
+import { updateClientApi } from './api'
 
 const MoreDetailsModal = (props: {
   onOk: () => void
@@ -13,12 +14,19 @@ const MoreDetailsModal = (props: {
   data: ContactDetailModel | undefined
   orgId: string | null
   isModalVisible: boolean | undefined
+  group: string
 }) => {
-  const [phoneNumber, setphoneNumber] = useState<string>('')
-//   const [bankName, setBankName] = useState<string>('')
-//   const [bankAccountNo, setBankAccountNo] = useState<string>('')
-//   const [ifsc, setIfsc] = useState<string>('')
-//   const [swift, setSwift] = useState<string>('')
+  const [businessUnit, setBusinessUnit] = useState<string>('')
+  const [department, setDepartment] = useState<string>('')
+  const [designation, setDesignation] = useState<string>('')
+  const [employeeType, setEmployeeType] = useState<string>('')
+  const [employeeStatus, setEmployeeStatus] = useState<string>('')
+  const [officeLocation, setOfficeLocation] = useState<string>('')
+  const [joiningDate, setJoiningDate] = useState<string>('')
+  const [resignationDate, setResignationDate] = useState<string>('')
+  const [noticePeriod, setNoticePeriod] = useState<string>('')
+  const [reportTo, setReportTo] = useState<string>('')
+  //   const [bankAccountNo, setBankAccountNo] = useState<string>('')
 
   const handleOk = () => {
     props.onOk()
@@ -26,126 +34,187 @@ const MoreDetailsModal = (props: {
   const handleCancel = () => {
     props.onCancel()
   }
-
-  const getphoneNumber = (data: string) => {
-    setphoneNumber(data)
+  const getDepartment = (data: string) => {
+    setDepartment(data)
   }
+  const getBusinessUnit = (data: string) => {
+    setBusinessUnit(data)
+  }
+  const getDesignation = (data: string) => {
+    setDesignation(data)
+  }
+  const getEmployeeType = (data: string) => {
+    setEmployeeType(data)
+  }
+  const getEmployeeStatus = (data: string) => {
+    setEmployeeStatus(data)
+  }
+  const getOfficeLocation = (data: string) => {
+    setOfficeLocation(data)
+  }
+  const getJoiningDate = (data: string) => {
+    setJoiningDate(data)
+  }
+  const getResignationDate = (data: string) => {
+    setResignationDate(data)
+  }
+  const getNoticePeriod = (data: string) => {
+    setNoticePeriod(data)
+  }
+  const getReportTo = (data: string) => {
+    setReportTo(data)
+  }
+
+  const updateClient = async () => {
+    if (props.data) {
+      const response = await updateClientApi(
+        props.orgId,
+        props.data.contactId,
+        businessUnit,
+        department,
+        designation,
+        employeeType,
+        employeeStatus,
+        officeLocation,
+        joiningDate,
+        resignationDate,
+        noticePeriod,
+        reportTo,
+        props.group
+      )
+      if (response.success) {
+        handleOk()
+      }
+    }
+  }
+
   return (
     <Modal
-      title="Edit Employment Details"
+      title="Edit Details"
       visible={props.isModalVisible}
       onOk={handleOk}
       onCancel={handleCancel}
       closeIcon={<CloseOutlined />}
-      footer={[<CycButton value="UPDATE" disabled={false} onClick={handleCancel} />]}
+      footer={[<CycButton value="UPDATE" disabled={false} onClick={updateClient} />]}
       style={{ marginTop: '8.4vw' }}
     >
       <Row justify="space-between">
         <Col span={12}>
           <TextFieldNoSuffix
-            onUserInput={getphoneNumber}
-            label="Business Unit"
-            name="employeeId"
+            onUserInput={getBusinessUnit}
+            label={props.group === 'Client' || props.group === 'Vendor' ? 'Unit' : 'Business Unit'}
+            // "Business Unit"
+            name="Business Unit"
             type="text"
-            value={phoneNumber}
+            value={businessUnit}
           />
         </Col>
         <Col span={1}></Col>
         <Col span={12}>
           <TextFieldNoSuffix
-            onUserInput={getphoneNumber}
-            label="Department"
-            name="dob"
+            onUserInput={getDepartment}
+            label={props.group === 'Client' || props.group === 'Vendor' ? 'Website' : 'Department'}
+            name="Department"
             type="text"
-            value={phoneNumber}
+            value={department}
           />
         </Col>
       </Row>
       <Row justify="space-between">
         <Col span={12}>
           <TextFieldNoSuffix
-            onUserInput={getphoneNumber}
-            label="Designation"
-            name="employeeId"
+            onUserInput={getDesignation}
+            label={
+              props.group === 'Client' || props.group === 'Vendor' ? 'Business Type' : 'Designation'
+            }
+            name="Designation"
             type="text"
-            value={phoneNumber}
+            value={designation}
           />
         </Col>
         <Col span={1}></Col>
         <Col span={12}>
           <TextFieldNoSuffix
-            onUserInput={getphoneNumber}
-            label="Employment Status"
-            name="dob"
+            onUserInput={getReportTo}
+            label={
+              props.group === 'Client' || props.group === 'Vendor' ? 'Vendor Status' : 'Report to'
+            }
+            name="Report to"
             type="text"
-            value={phoneNumber}
+            value={reportTo}
           />
         </Col>
       </Row>
-      <Row justify="space-between">
-        <Col span={12}>
-          <TextFieldNoSuffix
-            onUserInput={getphoneNumber}
-            label="Office Location"
-            name="employeeId"
-            type="text"
-            value={phoneNumber}
-          />
-        </Col>
-        <Col span={1}></Col>
-        <Col span={12}>
-          <TextFieldNoSuffix
-            onUserInput={getphoneNumber}
-            label="Joining Date"
-            name="dob"
-            type="text"
-            value={phoneNumber}
-          />
-        </Col>
-      </Row>
-      <Row justify="space-between">
-        <Col span={12}>
-          <TextFieldNoSuffix
-            onUserInput={getphoneNumber}
-            label="Office Location"
-            name="employeeId"
-            type="text"
-            value={phoneNumber}
-          />
-        </Col>
-        <Col span={1}></Col>
-        <Col span={12}>
-          <TextFieldNoSuffix
-            onUserInput={getphoneNumber}
-            label="Joining Date"
-            name="dob"
-            type="text"
-            value={phoneNumber}
-          />
-        </Col>
-      </Row>
-      <Row justify="space-between">
-        <Col span={12}>
-          <TextFieldNoSuffix
-            onUserInput={getphoneNumber}
-            label="Notice Period"
-            name="employeeId"
-            type="text"
-            value={phoneNumber}
-          />
-        </Col>
-        <Col span={1}></Col>
-        <Col span={12}>
-          <TextFieldNoSuffix
-            onUserInput={getphoneNumber}
-            label="Business Unit"
-            name="dob"
-            type="text"
-            value={phoneNumber}
-          />
-        </Col>
-      </Row>
-     
+      {props.group === 'Client' || props.group === 'Vendor' ? (
+        ''
+      ) : (
+        <>
+          <Row justify="space-between">
+            <Col span={12}>
+              <TextFieldNoSuffix
+                onUserInput={getEmployeeStatus}
+                label="Employment Status"
+                name="Employment Status"
+                type="text"
+                value={employeeStatus}
+              />
+            </Col>
+
+            <Col span={1}></Col>
+            <Col span={12}>
+              <TextFieldNoSuffix
+                onUserInput={getEmployeeType}
+                label="Employee Type"
+                name="Employee Type"
+                type="text"
+                value={employeeType}
+              />
+            </Col>
+          </Row>
+          <Row justify="space-between">
+            <Col span={12}>
+              <TextFieldNoSuffix
+                onUserInput={getOfficeLocation}
+                label="Office Location"
+                name="Office Location"
+                type="text"
+                value={officeLocation}
+              />
+            </Col>
+            <Col span={1}></Col>
+            <Col span={12}>
+              <TextFieldNoSuffix
+                onUserInput={getJoiningDate}
+                label="Joining Date"
+                name="Joining Date"
+                type="text"
+                value={joiningDate}
+              />
+            </Col>
+          </Row>
+          <Row justify="space-between">
+            <Col span={12}>
+              <TextFieldNoSuffix
+                onUserInput={getNoticePeriod}
+                label="Notice Period"
+                name="Notice Period"
+                type="text"
+                value={noticePeriod}
+              />
+            </Col>
+            <Col span={1}></Col>
+            <Col span={12}>
+              <TextFieldNoSuffix
+                onUserInput={getResignationDate}
+                label="Resignation Date"
+                name="Resignation Date"
+                type="text"
+                value={resignationDate}
+              />
+            </Col>
+          </Row>
+        </>
+      )}
     </Modal>
   )
 }

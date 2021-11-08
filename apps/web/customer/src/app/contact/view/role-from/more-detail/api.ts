@@ -3,10 +3,16 @@ import { apiRequest } from '../../../../../services/axios/axios'
 const updateClientApi = async (
   orgId: string | null,
   contactId: string,
-  bankName: string,
-  bankAccountNo: string,
-  ifsc: string,
-  swift:string,
+  businessUnit: string,
+  department: string,
+  designation: string,
+  employmentType: string,
+  employeeStatus: string,
+  officeLocation: string,
+  joiningDate: string,
+  resignationDate: string,
+  noticePeriod: string,
+  reportingTo: string,
   group: string
 ) => {
   if (group === 'Employee') {
@@ -14,9 +20,16 @@ const updateClientApi = async (
       orgId,
       contactId,
       updatedEmployee: {
-        bankName,
-        bankAccountNo,
-        ifsc,
+        businessUnit,
+        department,
+        designation,
+        employmentType,
+        employeeStatus,
+        // officeLocation,
+        joiningDate,
+        resignationDate,
+        noticePeriod,
+        reportingTo,
       },
     }
     const response = await apiRequest('PUT', 'contacts/employees/update', dataToserver)
@@ -27,27 +40,20 @@ const updateClientApi = async (
       orgId,
       contactId,
       updatedIntern: {
-        bankName,
-        bankAccountNo,
-        ifsc,
+        businessUnit,
+        department,
+        designation,
+        joiningDate,
+        resignationDate,
+        noticePeriod,
+        reportingTo,
+        employmentType,
+        employmentStatus:employeeStatus,
       },
     }
     const response = await apiRequest('PUT', 'contacts/interns/update', dataToserver)
     console.log(response)
-    return response
-  }
-  else if (group === 'Consultant') {
-    const dataToserver = {
-      orgId,
-      contactId,
-      updatedConsultant: {
-        bankAccountName:bankName,
-        bankAccountNo,
-        ifsc,
-      },
-    }
-    const response = await apiRequest('PUT', 'contacts/consultants/update', dataToserver)
-    console.log(response)
+
     return response
   }
   else if (group === 'Vendor') {
@@ -55,30 +61,15 @@ const updateClientApi = async (
       orgId,
       contactId,
       updatedVendor: {
-        bankName,
-        bankAccountNo,
-        ifsc,
-        swift
+        unit:businessUnit,
+        website:department,
+        businessType:designation,
+        vendorStatus:reportingTo,
       },
     }
     const response = await apiRequest('PUT', 'contacts/vendors/update', dataToserver)
     console.log(response)
-    return response
-  }
-  else if (group === 'Client') {
-    const dataToserver = {
-      orgId,
-      contactId,
-      updatedClient: {
-        bankName,
-        bankAccountNo,
-        ifsc,
-        swift
-      },
-    }
-    console.log(dataToserver)
-    const response = await apiRequest('PUT', 'contacts/clients/update', dataToserver)
-    console.log(response)
+
     return response
   }
 }

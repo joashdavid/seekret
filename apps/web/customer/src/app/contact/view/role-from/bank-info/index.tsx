@@ -8,7 +8,7 @@ import { BankInfoModal } from './bank-info-modal'
 
 // import { fetchClientDetailsApi } from './api'
 
-const BankInfo = (props: { data: ContactDetailModel; orgId: string | null, group:string }) => {
+const BankInfo = (props: { data: ContactDetailModel; orgId: string | null; group: string }) => {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [contactInfo, setContactInfo] = useState<ContactDetailModel>()
   useEffect(() => {
@@ -18,7 +18,7 @@ const BankInfo = (props: { data: ContactDetailModel; orgId: string | null, group
   const showModal = () => {
     setIsModalVisible(true)
   }
-  const handleOk = async() => {
+  const handleOk = async () => {
     await fetchClient()
     setIsModalVisible(false)
   }
@@ -27,12 +27,11 @@ const BankInfo = (props: { data: ContactDetailModel; orgId: string | null, group
   }
   const fetchClient = async () => {
     if (props.data) {
-      const response = await fetchClientDetailApi(props.orgId, props.data.contactId,props.group)
+      const response = await fetchClientDetailApi(props.orgId, props.data.contactId, props.group)
       setContactInfo(response.data)
       return
     }
   }
-
 
   return (
     <Card
@@ -46,15 +45,21 @@ const BankInfo = (props: { data: ContactDetailModel; orgId: string | null, group
     >
       <Row>
         <Col span={12}>
-          <span className={styles.userDetails}> Bank </span>
+          <span className={styles.userDetails}> BANK </span>
           <Col span={24}>
-            <span className={styles.userData}>
-              {contactInfo?.bankName ? contactInfo.bankName : '-'}
-            </span>
+            {props.group === 'Consultant' ? (
+              <span className={styles.userData}>
+                {contactInfo?.bankAccountName ? contactInfo.bankAccountName : '-'}
+              </span>
+            ) : (
+              <span className={styles.userData}>
+                {contactInfo?.bankName ? contactInfo.bankName : '-'}
+              </span>
+            )}
           </Col>
         </Col>
         <Col span={12}>
-          <span className={styles.userDetails}> Account Number </span>
+          <span className={styles.userDetails}> ACCOUNT NUMBER </span>
           <Col span={24}>
             <span className={styles.userData}>
               {contactInfo?.bankAccountNo ? contactInfo.bankAccountNo : '-'}
@@ -65,17 +70,23 @@ const BankInfo = (props: { data: ContactDetailModel; orgId: string | null, group
       <Row></Row>
       <Row>
         <Col span={12}>
-          <span className={styles.userDetails}>IFSC Code</span>
+          <span className={styles.userDetails}>IFSC CODE</span>
           <Col span={24}>
             <span className={styles.userData}>{contactInfo?.ifsc ? contactInfo.ifsc : '-'}</span>
           </Col>
         </Col>
-        <Col span={12}>
-          <span className={styles.userDetails}>SWIFT </span>
-          <Col span={24}>
-            <span className={styles.userData}>{contactInfo?.swift ? contactInfo.swift : '-'}</span>
+        {props.group === 'Vendor' || props.group === 'Client' ? (
+          <Col span={12}>
+            <span className={styles.userDetails}>SWIFT </span>
+            <Col span={24}>
+              <span className={styles.userData}>
+                {contactInfo?.swift ? contactInfo.swift : '-'}
+              </span>
+            </Col>
           </Col>
-        </Col>
+        ) : (
+          ''
+        )}
       </Row>
       <BankInfoModal
         data={contactInfo}
@@ -83,7 +94,7 @@ const BankInfo = (props: { data: ContactDetailModel; orgId: string | null, group
         isModalVisible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
-        group = {props.group}
+        group={props.group}
       />
     </Card>
   )

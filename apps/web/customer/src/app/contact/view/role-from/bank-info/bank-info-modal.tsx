@@ -18,7 +18,7 @@ const BankInfoModal = (props: {
   const [bankName, setBankName] = useState<string>('')
   const [bankAccountNo, setBankAccountNo] = useState<string>('')
   const [ifsc, setIfsc] = useState<string>('')
-//   const [swift, setSwift] = useState<string>('')
+  const [swift, setSwift] = useState<string>('')
 
   const getBankName = (data: string) => {
     setBankName(data)
@@ -29,9 +29,9 @@ const BankInfoModal = (props: {
   const getIfsc = (data: string) => {
     setIfsc(data)
   }
-//   const getSwift = (data: string) => {
-//     setSwift(data)
-//   }
+  const getSwift = (data: string) => {
+    setSwift(data)
+  }
   const handleOk = () => {
     props.onOk()
   }
@@ -47,10 +47,11 @@ const BankInfoModal = (props: {
         bankName,
         bankAccountNo,
         ifsc,
+        swift,
         props.group
       )
-      if(response.success){
-          handleOk()
+      if (response.success) {
+        handleOk()
       }
     }
   }
@@ -79,7 +80,7 @@ const BankInfoModal = (props: {
           <TextFieldNoSuffix
             onUserInput={getBankAccountNo}
             label="Account Number"
-            name="dob"
+            name="Account Number"
             type="text"
             value={bankAccountNo}
           />
@@ -90,21 +91,25 @@ const BankInfoModal = (props: {
           <TextFieldNoSuffix
             onUserInput={getIfsc}
             label="IFSC Code"
-            name="employeeId"
+            name="IFSC Code"
             type="text"
             value={ifsc}
           />
         </Col>
         <Col span={1}></Col>
-        {/* <Col span={12}>
-          <TextFieldNoSuffix
-            onUserInput={getSwift}
-            label="SWIFT"
-            name="dob"
-            type="text"
-            value={swift}
-          />
-        </Col> */}
+        {props.group === 'Vendor' || props.group === 'Client' ? (
+          <Col span={12}>
+            <TextFieldNoSuffix
+              onUserInput={getSwift}
+              label="SWIFT"
+              name="SWIFT"
+              type="text"
+              value={swift}
+            />
+          </Col>
+        ) : (
+          ''
+        )}
       </Row>
     </Modal>
   )

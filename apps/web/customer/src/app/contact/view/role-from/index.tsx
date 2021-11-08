@@ -24,8 +24,11 @@ const RoleForm = (props: { roles: string[] | undefined; data: ContactModel }) =>
   }, [props])
 
   const fetchClient = async (group:string) => {
-    const response = await fetchClientDetailApi(props.data.orgId, props.data.contactId,group)
-    setContactInfo(response.data)
+    if(group){
+      const response = await fetchClientDetailApi(props.data.orgId, props.data.contactId,group)
+      setContactInfo(response.data)
+    }
+ 
   }
   const switchTabs = async(activeKey: string) => {
     setCurrentTab(activeKey)
@@ -39,8 +42,9 @@ const RoleForm = (props: { roles: string[] | undefined; data: ContactModel }) =>
             <Space>
               <BankInfo data={contactInfo} orgId={props.data.orgId} group={currentTab}  />
               <Col span={1}></Col>
-              <MoreDetails data={contactInfo} orgId={props.data.orgId}/>
+              <MoreDetails data={contactInfo} orgId={props.data.orgId} group={currentTab}/>
               <Col span={1}></Col>
+              
               <EmployeeMentInfo data={contactInfo} orgId={props.data.orgId} group={currentTab} />
             </Space>
             <Space>
