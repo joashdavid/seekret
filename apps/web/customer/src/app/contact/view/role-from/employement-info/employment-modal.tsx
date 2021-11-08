@@ -1,0 +1,213 @@
+/* eslint-disable max-lines */
+import { Col, Row, Modal } from 'antd'
+import { CloseOutlined } from '@ant-design/icons'
+import { useState } from 'react'
+
+import { TextFieldNoSuffix } from '../../../../components/text-field-nosuffix'
+import CycButton from '../../../../components/cyc-button/cyc-button'
+import { updateClientApi } from './api'
+import { ContactDetailModel } from '../../../../../model/model'
+import { fetchClientDetailsApi } from '../api'
+
+const EmployeModal = (props: {
+  onOk: () => void
+  onCancel: () => void
+  data: ContactDetailModel | undefined
+  orgId: string | null
+  isModalVisible: boolean | undefined
+}) => {
+  const [employeeId, setEmployeId] = useState<string>('')
+  const [dob, setDob] = useState<string>('')
+  const [gender, setGender] = useState<string>('')
+  const [aadharNo, setAdharNo] = useState<string>('')
+  const [bloodGroup, setbloodGroup] = useState<string>('')
+  const [panNo, setPanNo] = useState<string>('')
+  const [uanNo, setUanNo] = useState<string>('')
+  const [emergencyContact, setEmergencyContact] = useState<string>('')
+  const [emergencyContactNo, setEmergencyContactNo] = useState<string>('')
+  const [relationship, setRelationship] = useState<string>('')
+
+  // useEffect(() => {
+  //     fetchClient()
+  // },[props])
+
+  const fetchClient = async () => {
+    if (props.data) {
+      const response = await fetchClientDetailsApi(props.orgId, props.data.contactId)
+      console.log(response.data)
+    }
+  }
+
+  const handleOk = () => {
+    props.onOk()
+  }
+  const handleCancel = () => {
+    props.onCancel()
+  }
+  const getEmployeId = (data: string) => {
+    setEmployeId(data)
+  }
+  const getDob = (data: string) => {
+    setDob(data)
+  }
+  const getGender = (data: string) => {
+    setGender(data)
+  }
+  const getAadharNo = (data: string) => {
+    setAdharNo(data)
+  }
+  const getBloodGroup = (data: string) => {
+    setbloodGroup(data)
+  }
+  const getPanNo = (data: string) => {
+    setPanNo(data)
+  }
+  const getUanNo = (data: string) => {
+    setUanNo(data)
+  }
+  const getEmergencyContact = (data: string) => {
+    setEmergencyContact(data)
+  }
+  const getEmergencyContactNo = (data: string) => {
+    setEmergencyContactNo(data)
+  }
+  const getRelationShip = (data: string) => {
+    setRelationship(data)
+  }
+
+  const updateClient = async () => {
+    if (props.data) {
+      const response = await updateClientApi(
+        props.orgId,
+        props.data.contactId,
+        employeeId,
+        dob,
+        gender,
+        aadharNo,
+        bloodGroup,
+        panNo,
+        uanNo,
+        emergencyContactNo
+        // emergencyContactNo,
+        // relationship
+      )
+      if (response.success) {
+        fetchClient()
+        handleOk()
+      }
+      console.log(response)
+    }
+  }
+  return (
+    <Modal
+      title="Edit Employment Details"
+      visible={props.isModalVisible}
+      onOk={handleOk}
+      onCancel={handleCancel}
+      closeIcon={<CloseOutlined />}
+      footer={[<CycButton value="UPDATE" disabled={false} onClick={updateClient} />]}
+      style={{ marginTop: '8.4vw' }}
+    >
+      <Row justify="space-between">
+        <Col span={12}>
+          <TextFieldNoSuffix
+            onUserInput={getEmployeId}
+            label="Employee Id"
+            name="employeeId"
+            type="text"
+            value={employeeId}
+          />
+        </Col>
+        <Col span={1}></Col>
+        <Col span={12}>
+          <TextFieldNoSuffix onUserInput={getDob} label="DOB" name="dob" type="text" value={dob} />
+        </Col>
+      </Row>
+      <Row justify="space-between">
+        <Col span={12}>
+          <TextFieldNoSuffix
+            onUserInput={getGender}
+            label="Gender"
+            name="employeeId"
+            type="text"
+            value={gender}
+          />
+        </Col>
+        <Col span={1}></Col>
+        <Col span={12}>
+          <TextFieldNoSuffix
+            onUserInput={getBloodGroup}
+            label="Blood Group"
+            name="dob"
+            type="text"
+            value={bloodGroup}
+          />
+        </Col>
+      </Row>
+      <Row justify="space-between">
+        <Col span={12}>
+          <TextFieldNoSuffix
+            onUserInput={getAadharNo}
+            label="Aadhar No."
+            name="employeeId"
+            type="text"
+            value={aadharNo}
+          />
+        </Col>
+        <Col span={1}></Col>
+        <Col span={12}>
+          <TextFieldNoSuffix
+            onUserInput={getPanNo}
+            label="Pan Card No."
+            name="dob"
+            type="text"
+            value={panNo}
+          />
+        </Col>
+      </Row>
+      <Row justify="space-between">
+        <Col span={12}>
+          <TextFieldNoSuffix
+            onUserInput={getUanNo}
+            label="UAN No."
+            name="employeeId"
+            type="text"
+            value={uanNo}
+          />
+        </Col>
+        <Col span={1}></Col>
+        <Col span={12}>
+          <TextFieldNoSuffix
+            onUserInput={getEmergencyContact}
+            label="Emergency Contact Person"
+            name="dob"
+            type="text"
+            value={emergencyContact}
+          />
+        </Col>
+      </Row>
+      <Row justify="space-between">
+        <Col span={12}>
+          <TextFieldNoSuffix
+            onUserInput={getEmergencyContactNo}
+            label="Emergency Contact Number"
+            name="employeeId"
+            type="text"
+            value={emergencyContactNo}
+          />
+        </Col>
+        <Col span={1}></Col>
+        <Col span={12}>
+          <TextFieldNoSuffix
+            onUserInput={getRelationShip}
+            label="Relationship"
+            name="dob"
+            type="text"
+            value={relationship}
+          />
+        </Col>
+      </Row>
+    </Modal>
+  )
+}
+export { EmployeModal }

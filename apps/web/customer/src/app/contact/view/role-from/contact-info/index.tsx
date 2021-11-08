@@ -1,7 +1,7 @@
 import { Col, Row } from 'antd'
 import {  useEffect, useState } from 'react'
 import { Button } from 'antd'
-import styles from './view-contact.module.less'
+import styles from '../../view-contact.module.less'
 const ROLES = [
   {
     roleId: 1,

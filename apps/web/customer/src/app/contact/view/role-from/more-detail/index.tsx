@@ -1,9 +1,36 @@
 import { Col, Row, Card } from 'antd'
-import styles from '../view-contact.module.less'
+import { useState, useEffect } from 'react'
 
-const MoreDetails = () => {
+import styles from '../../view-contact.module.less'
+import { MoreDetailsModal } from './more-details-modal'
+import { ContactDetailModel } from '../../../../../model/model'
+
+const MoreDetails = (props: { data: ContactDetailModel; orgId: string | null }) => {
+  const [contactInfo, setContactInfo] = useState<ContactDetailModel>()
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  useEffect(() => {
+    setContactInfo(props.data)
+  }, [props])
+  const showModal = () => {
+    setIsModalVisible(true)
+  }
+  const handleOk = () => {
+    // fetchClient()
+    setIsModalVisible(false)
+  }
+  const handleCancel = () => {
+    setIsModalVisible(false)
+  }
   return (
-    <Card title="More Details" extra={'Edit'} style={{ width: '25.835vw', height: '30.75vh' }}>
+    <Card
+      title="More Details"
+      extra={
+        <span className={styles.edit} onClick={showModal}>
+          Edit
+        </span>
+      }
+      style={{ width: '25.835vw', height: '30.75vh' }}
+    >
       <Row>
         <Col span={12}>
           <span className={styles.userDetails}> Business Unit </span>
@@ -75,6 +102,13 @@ const MoreDetails = () => {
           </Col>
         </Col>
       </Row>
+      <MoreDetailsModal
+        data={contactInfo}
+        orgId={props.orgId}
+        isModalVisible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      />
     </Card>
   )
 }

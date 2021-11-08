@@ -1,7 +1,7 @@
 import { Breadcrumb, Divider } from 'antd'
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
-import { ContactInfo } from './contact-info'
+import { ContactInfo } from './role-from/contact-info'
 import { RoleForm } from './role-from'
 const ROLES = [
   {
