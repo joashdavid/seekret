@@ -5,9 +5,9 @@ import { useState } from 'react'
 
 import { TextFieldNoSuffix } from '../../../../components/text-field-nosuffix'
 import CycButton from '../../../../components/cyc-button/cyc-button'
-import { updateClientApi } from './api'
 import { ContactDetailModel } from '../../../../../model/model'
-import { fetchClientDetailApi } from '../api'
+import { updateClientApi } from './api'
+// import { EditEmployeeIntern } from './employee-intern'
 
 const EmployeModal = (props: {
   onOk: () => void
@@ -15,29 +15,19 @@ const EmployeModal = (props: {
   data: ContactDetailModel | undefined
   orgId: string | null
   isModalVisible: boolean | undefined
-  group:string
+  group: string
 }) => {
-  // const [employeeId, setEmployeId] = useState<string>('')
-  const [dob, setDob] = useState<string>('')
-  const [gender, setGender] = useState<string>('')
-  const [aadharNo, setAdharNo] = useState<string>('')
-  const [bloodGroup, setbloodGroup] = useState<string>('')
-  const [panNo, setPanNo] = useState<string>('')
-  const [uanNo, setUanNo] = useState<string>('')
-  const [emergencyContact, setEmergencyContact] = useState<string>('')
-  const [emergencyContactNo, setEmergencyContactNo] = useState<string>('')
-  // const [relationship, setRelationship] = useState<string>('')
-
-  // useEffect(() => {
-  //     fetchClient()
-  // },[props])
-
-  const fetchClient = async () => {
-    if (props.data) {
-      const response = await fetchClientDetailApi(props.orgId, props.data.contactId ,props.group)
-      console.log(response.data)
-    }
-  }
+  const [businessUnit, setBusinessUnit] = useState<string>('')
+  const [department, setDepartment] = useState<string>('')
+  const [designation, setDesignation] = useState<string>('')
+  const [employeeType, setEmployeeType] = useState<string>('')
+  const [employeeStatus, setEmployeeStatus] = useState<string>('')
+  const [officeLocation, setOfficeLocation] = useState<string>('')
+  const [joiningDate, setJoiningDate] = useState<string>('')
+  const [resignationDate, setResignationDate] = useState<string>('')
+  const [noticePeriod, setNoticePeriod] = useState<string>('')
+  const [reportTo, setReportTo] = useState<string>('')
+  //   const [bankAccountNo, setBankAccountNo] = useState<string>('')
 
   const handleOk = () => {
     props.onOk()
@@ -45,64 +35,63 @@ const EmployeModal = (props: {
   const handleCancel = () => {
     props.onCancel()
   }
-  // const getEmployeId = (data: string) => {
-  //   setEmployeId(data)
-  // }
-  const getDob = (data: string) => {
-    setDob(data)
+  const getDepartment = (data: string) => {
+    setDepartment(data)
   }
-  const getGender = (data: string) => {
-    setGender(data)
+  const getBusinessUnit = (data: string) => {
+    setBusinessUnit(data)
   }
-  const getAadharNo = (data: string) => {
-    setAdharNo(data)
+  const getDesignation = (data: string) => {
+    setDesignation(data)
   }
-  const getBloodGroup = (data: string) => {
-    setbloodGroup(data)
+  const getEmployeeType = (data: string) => {
+    setEmployeeType(data)
   }
-  const getPanNo = (data: string) => {
-    setPanNo(data)
+  const getEmployeeStatus = (data: string) => {
+    setEmployeeStatus(data)
   }
-  const getUanNo = (data: string) => {
-    setUanNo(data)
+  const getOfficeLocation = (data: string) => {
+    setOfficeLocation(data)
   }
-  const getEmergencyContact = (data: string) => {
-    setEmergencyContact(data)
+  const getJoiningDate = (data: string) => {
+    setJoiningDate(data)
   }
-  const getEmergencyContactNo = (data: string) => {
-    setEmergencyContactNo(data)
+  const getResignationDate = (data: string) => {
+    setResignationDate(data)
   }
-  // const getRelationShip = (data: string) => {
-  //   setRelationship(data)
-  // }
+  const getNoticePeriod = (data: string) => {
+    setNoticePeriod(data)
+  }
+  const getReportTo = (data: string) => {
+    setReportTo(data)
+  }
 
   const updateClient = async () => {
     if (props.data) {
       const response = await updateClientApi(
         props.orgId,
         props.data.contactId,
-        // employeeId,
-        dob,
-        gender,
-        aadharNo,
-        bloodGroup,
-        panNo,
-        uanNo,
-        emergencyContactNo,
+        businessUnit,
+        department,
+        designation,
+        employeeType,
+        employeeStatus,
+        officeLocation,
+        joiningDate,
+        resignationDate,
+        noticePeriod,
+        reportTo,
         props.group
-        // emergencyContactNo,
-        // relationship
       )
       if (response.success) {
-        fetchClient()
         handleOk()
       }
-      console.log(response)
     }
   }
+
   return (
     <Modal
-      title="Edit Employment Details"
+      title="Edit Details"
       visible={props.isModalVisible}
       onOk={handleOk}
       onCancel={handleCancel}
@@ -110,107 +99,128 @@ const EmployeModal = (props: {
       footer={[<CycButton value="UPDATE" disabled={false} onClick={updateClient} />]}
       style={{ marginTop: '8.4vw' }}
     >
-      <Row justify="space-between">
-        {/* <Col span={12}>
-          <TextFieldNoSuffix
-            onUserInput={getEmployeId}
-            label="Employee Id"
-            name="employeeId"
-            type="text"
-            value={employeeId}
-          />
-        </Col> */}
-        <Col span={12}>
-          <TextFieldNoSuffix
-            onUserInput={getAadharNo}
-            label="Aadhar No."
-            name="employeeId"
-            type="text"
-            value={aadharNo}
-          />
-        </Col>
-        <Col span={1}></Col>
-        <Col span={12}>
-          <TextFieldNoSuffix onUserInput={getDob} label="DOB" name="dob" type="text" value={dob} />
-        </Col>
-      </Row>
+      <>
       <Row justify="space-between">
         <Col span={12}>
           <TextFieldNoSuffix
-            onUserInput={getGender}
-            label="Gender"
-            name="employeeId"
+            onUserInput={getBusinessUnit}
+            label={props.group === 'Client' || props.group === 'Vendor' ? 'Unit' : 'Business Unit'}
+            // "Business Unit"
+            name="Business Unit"
             type="text"
-            value={gender}
+            value={businessUnit}
           />
         </Col>
         <Col span={1}></Col>
         <Col span={12}>
           <TextFieldNoSuffix
-            onUserInput={getBloodGroup}
-            label="Blood Group"
-            name="dob"
+            onUserInput={getDepartment}
+            label={props.group === 'Client' || props.group === 'Vendor' ? 'Website' : 'Department'}
+            name="Department"
             type="text"
-            value={bloodGroup}
+            value={department}
           />
         </Col>
       </Row>
       <Row justify="space-between">
-      <Col span={12}>
+        <Col span={12}>
           <TextFieldNoSuffix
-            onUserInput={getUanNo}
-            label="UAN No."
-            name="employeeId"
+            onUserInput={getDesignation}
+            label={
+              props.group === 'Client' || props.group === 'Vendor' ? 'Business Type' : 'Designation'
+            }
+            name="Designation"
             type="text"
-            value={uanNo}
+            value={designation}
           />
         </Col>
         <Col span={1}></Col>
         <Col span={12}>
           <TextFieldNoSuffix
-            onUserInput={getPanNo}
-            label="Pan Card No."
-            name="dob"
+            onUserInput={getReportTo}
+            label={
+              props.group === 'Client' || props.group === 'Vendor' ? 'Vendor Status' : 'Report to'
+            }
+            name="Report to"
             type="text"
-            value={panNo}
+            value={reportTo}
           />
         </Col>
       </Row>
-      <Row justify="space-between">
-      <Col span={12}>
-          <TextFieldNoSuffix
-            onUserInput={getEmergencyContactNo}
-            label="Emergency Contact Number"
-            name="employeeId"
-            type="text"
-            value={emergencyContactNo}
-          />
-        </Col>
-        <Col span={1}></Col>
-        <Col span={12}>
-          <TextFieldNoSuffix
-            onUserInput={getEmergencyContact}
-            label="Emergency Contact Person"
-            name="dob"
-            type="text"
-            value={emergencyContact}
-          />
-        </Col>
-      </Row>
-      <Row justify="space-between">
-        
-        <Col span={1}></Col>
-        {/* <Col span={12}>
-          <TextFieldNoSuffix
-            onUserInput={getRelationShip}
-            label="Relationship"
-            name="dob"
-            type="text"
-            value={relationship}
-          />
-        </Col> */}
-      </Row>
+      {props.group === 'Client' || props.group === 'Vendor' ? (
+        ''
+      ) : (
+        <>
+          <Row justify="space-between">
+            <Col span={12}>
+              <TextFieldNoSuffix
+                onUserInput={getEmployeeStatus}
+                label="Employment Status"
+                name="Employment Status"
+                type="text"
+                value={employeeStatus}
+              />
+            </Col>
+
+            <Col span={1}></Col>
+            <Col span={12}>
+              <TextFieldNoSuffix
+                onUserInput={getEmployeeType}
+                label="Employee Type"
+                name="Employee Type"
+                type="text"
+                value={employeeType}
+              />
+            </Col>
+          </Row>
+          <Row justify="space-between">
+            <Col span={12}>
+              <TextFieldNoSuffix
+                onUserInput={getOfficeLocation}
+                label="Office Location"
+                name="Office Location"
+                type="text"
+                value={officeLocation}
+              />
+            </Col>
+            <Col span={1}></Col>
+            <Col span={12}>
+              <TextFieldNoSuffix
+                onUserInput={getJoiningDate}
+                label="Joining Date"
+                name="Joining Date"
+                type="text"
+                value={joiningDate}
+              />
+            </Col>
+          </Row>
+          <Row justify="space-between">
+            <Col span={12}>
+              <TextFieldNoSuffix
+                onUserInput={getNoticePeriod}
+                label="Notice Period"
+                name="Notice Period"
+                type="text"
+                value={noticePeriod}
+              />
+            </Col>
+            <Col span={1}></Col>
+            <Col span={12}>
+              <TextFieldNoSuffix
+                onUserInput={getResignationDate}
+                label="Resignation Date"
+                name="Resignation Date"
+                type="text"
+                value={resignationDate}
+              />
+            </Col>
+          </Row>
+        </>
+      )}
+      </>
+{/* } */}
     </Modal>
   )
 }
+
 export { EmployeModal }

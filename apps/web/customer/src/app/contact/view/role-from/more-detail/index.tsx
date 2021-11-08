@@ -3,7 +3,7 @@ import { Card } from 'antd'
 import { useState, useEffect } from 'react'
 
 import styles from '../../view-contact.module.less'
-import { MoreDetailsModal } from './more-details-modal'
+import { MoreDetailsModal } from './edit'
 import { ContactDetailModel } from '../../../../../model/model'
 import { fetchClientDetailApi } from '../api'
 import { MoreDetailsConsultant } from './more-detail-consultant'

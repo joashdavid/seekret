@@ -19,6 +19,7 @@ const BankInfoModal = (props: {
   const [bankAccountNo, setBankAccountNo] = useState<string>('')
   const [ifsc, setIfsc] = useState<string>('')
   const [swift, setSwift] = useState<string>('')
+  const [bankBranch, setBankBranch] = useState<string>('')
 
   const getBankName = (data: string) => {
     setBankName(data)
@@ -31,6 +32,9 @@ const BankInfoModal = (props: {
   }
   const getSwift = (data: string) => {
     setSwift(data)
+  }
+  const getBankBranch = (data: string) => {
+    setBankBranch(data)
   }
   const handleOk = () => {
     props.onOk()
@@ -48,6 +52,7 @@ const BankInfoModal = (props: {
         bankAccountNo,
         ifsc,
         swift,
+        bankBranch,
         props.group
       )
       if (response.success) {
@@ -96,7 +101,17 @@ const BankInfoModal = (props: {
             value={ifsc}
           />
         </Col>
-        <Col span={1}></Col>
+        <Col span={12}>
+          <TextFieldNoSuffix
+            onUserInput={getBankBranch}
+            label="Bank Branch"
+            name="Bank Branch"
+            type="text"
+            value={bankBranch}
+          />
+        </Col>
+      </Row>
+      <Row>
         {props.group === 'Vendor' || props.group === 'Client' ? (
           <Col span={12}>
             <TextFieldNoSuffix

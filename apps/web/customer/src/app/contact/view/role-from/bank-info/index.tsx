@@ -74,16 +74,22 @@ const BankInfo = (props: { data: ContactDetailModel; orgId: string | null; group
             <span className={styles.userData}>{contactInfo?.ifsc ? contactInfo.ifsc : '-'}</span>
           </Col>
         </Col>
-        <Col span={12}>
-          <span className={styles.userDetails}>BANK BRANCH</span>
-          <Col span={24}>
-            <span className={styles.userData}>{contactInfo?.bankBranch ? contactInfo.bankBranch : '-'}</span>
+        {props.group === 'Vendor' || props.group === 'Client' ? (
+          ""
+        ) : (
+          <Col span={12}>
+            <span className={styles.userDetails}>BANK BRANCH</span>
+            <Col span={24}>
+              <span className={styles.userData}>
+                {contactInfo?.bankBranch ? contactInfo.bankBranch : '-'}
+              </span>
+            </Col>
           </Col>
-        </Col>
-        
+        )}
+      
       </Row>
       <Row>
-      {props.group === 'Vendor' || props.group === 'Client' ? (
+        {props.group === 'Vendor' || props.group === 'Client' ? (
           <Col span={12}>
             <span className={styles.userDetails}>SWIFT </span>
             <Col span={24}>

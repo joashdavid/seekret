@@ -1,77 +1,69 @@
+
 import { apiRequest } from '../../../../../services/axios/axios'
 
-const updateClientApi = async (
-  orgId: string | null,
+const updateClientApi = async(
+  orgId: string|null,
   contactId: string,
-  businessUnit: string,
-  department: string,
-  designation: string,
-  employmentType: string,
-  employeeStatus: string,
-  officeLocation: string,
-  joiningDate: string,
-  resignationDate: string,
-  noticePeriod: string,
-  reportingTo: string,
-  group: string
+  // employeId: string,
+  dob: string,
+  gender: string,
+  aadharNo: string,
+  bloodGroup: string,
+  pan: string,
+  uanNo: string,
+  emergencyContact: string,
+  group:string
+  // emergencyContactNo: string,
+  // relationship: string
 ) => {
-  if (group === 'Employee') {
-    const dataToserver = {
+  if(group === "Employee"){
+    const data = {
       orgId,
       contactId,
       updatedEmployee: {
-        businessUnit,
-        department,
-        designation,
-        employmentType,
-        employeeStatus,
-        // officeLocation,
-        joiningDate,
-        resignationDate,
-        noticePeriod,
-        reportingTo,
+        // employeId,
+        dob,
+        gender,
+        aadharNo,
+        bloodGroup,
+        pan,
+        uanNo,
+        emergencyContact,
+      //   emergencyContactNo,
+      //   relationship,
       },
     }
-    const response = await apiRequest('PUT', 'contacts/employees/update', dataToserver)
-    console.log(response)
+    console.log(data)
+    const response =await apiRequest('PUT', 'contacts/employees/update', data)
     return response
-  } else if (group === 'Intern') {
-    const dataToserver = {
+  }
+  else if(group === "Intern"){
+    const data = {
       orgId,
       contactId,
       updatedIntern: {
-        businessUnit,
-        department,
-        designation,
-        joiningDate,
-        resignationDate,
-        noticePeriod,
-        reportingTo,
-        employmentType,
-        employmentStatus:employeeStatus,
+      //   employeId,
+        dob,
+        gender,
+        aadharNo,
+        bloodGroup,
+        pan,
+        emergencyContact,
+      //   emergencyContactNo,
+      //   relationship,
       },
     }
-    const response = await apiRequest('PUT', 'contacts/interns/update', dataToserver)
-    console.log(response)
-
+    console.log(data)
+    const response =await apiRequest('PUT', 'contacts/interns/update', data)
     return response
   }
-  else if (group === 'Vendor') {
-    const dataToserver = {
-      orgId,
-      contactId,
-      updatedVendor: {
-        unit:businessUnit,
-        website:department,
-        businessType:designation,
-        vendorStatus:reportingTo,
-      },
-    }
-    const response = await apiRequest('PUT', 'contacts/vendors/update', dataToserver)
-    console.log(response)
-
-    return response
-  }
+ 
 }
 
-export { updateClientApi }
+const fetchClientApi = async(orgId:string|null,contactId:string) => {
+  const response =await apiRequest('POST', 'contacts/employees/fetchEmployee', {orgId,contactId})
+  console.log(response)
+  return response
+}
+
+export { updateClientApi, fetchClientApi }

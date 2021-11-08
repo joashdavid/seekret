@@ -54,7 +54,7 @@ const EmployeeMentInfo = (props: {
       }
       style={{ width: '25.835vw', height: '30.75vh' }}
     >
-      {props.group === 'Employee' && (
+      {(props.group === 'Employee' ||  props.group === 'Intern') && (
         <EmployementDetailEmpIntern data={contactInfo} orgId={props.orgId} group={props.group} />
       )}
       {props.group === 'Vendor' && (

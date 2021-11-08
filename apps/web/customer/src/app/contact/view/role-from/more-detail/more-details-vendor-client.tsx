@@ -39,7 +39,7 @@ const MoreDetailVendorClient = (props: {
           <span className={styles.userDetails}> ENGAGEMENTTYPE TYPE </span>
           <Col span={24}>
             <span className={styles.userData}>
-              {contactInfo?.businessType ? contactInfo.businessType : '-'}
+              {contactInfo?.engType ? contactInfo.engType : '-'}
             </span>
           </Col>
         </Col>
@@ -47,17 +47,17 @@ const MoreDetailVendorClient = (props: {
           <span className={styles.userDetails}> GST REG TYPE </span>
           <Col span={24}>
             <span className={styles.userData}>
-              {contactInfo?.vendorStatus ? contactInfo.vendorStatus : '-'}
+              {contactInfo?.gstRegType ? contactInfo.gstRegType : '-'}
             </span>
           </Col>
         </Col>
       </Row>
       <Row>
         <Col span={12}>
-          <span className={styles.userDetails}> TRN NO </span>
+          <span className={styles.userDetails}> GST REG NO </span>
           <Col span={24}>
             <span className={styles.userData}>
-              {contactInfo?.businessType ? contactInfo.businessType : '-'}
+              {contactInfo?.gstRegNo ? contactInfo.gstRegNo : '-'}
             </span>
           </Col>
         </Col>
@@ -76,7 +76,7 @@ const MoreDetailVendorClient = (props: {
             <span className={styles.userDetails}> CURRENCY </span>
             <Col span={24}>
               <span className={styles.userData}>
-                {contactInfo?.businessType ? contactInfo.businessType : '-'}
+                {contactInfo?.currency ? contactInfo.currency : '-'}
               </span>
             </Col>
           </Col>
@@ -90,6 +90,16 @@ const MoreDetailVendorClient = (props: {
           </Col>
         </Row>
       )}
+      <Row>
+      <Col span={12}>
+          <span className={styles.userDetails}> TRN NO </span>
+          <Col span={24}>
+            <span className={styles.userData}>
+              {contactInfo?.trnNo ? contactInfo.trnNo : '-'}
+            </span>
+          </Col>
+        </Col>
+      </Row>
     </>
   )
 }

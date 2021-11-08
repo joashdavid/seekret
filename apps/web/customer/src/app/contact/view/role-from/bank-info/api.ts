@@ -7,6 +7,7 @@ const updateClientApi = async (
   bankAccountNo: string,
   ifsc: string,
   swift:string,
+  bankBranch:string,
   group: string
 ) => {
   if (group === 'Employee') {
@@ -17,6 +18,7 @@ const updateClientApi = async (
         bankName,
         bankAccountNo,
         ifsc,
+        bankBranch
       },
     }
     const response = await apiRequest('PUT', 'contacts/employees/update', dataToserver)
@@ -30,6 +32,7 @@ const updateClientApi = async (
         bankName,
         bankAccountNo,
         ifsc,
+        bankBranch
       },
     }
     const response = await apiRequest('PUT', 'contacts/interns/update', dataToserver)
@@ -44,6 +47,7 @@ const updateClientApi = async (
         bankAccountName:bankName,
         bankAccountNo,
         ifsc,
+        bankBranch
       },
     }
     const response = await apiRequest('PUT', 'contacts/consultants/update', dataToserver)
@@ -58,7 +62,8 @@ const updateClientApi = async (
         bankName,
         bankAccountNo,
         ifsc,
-        swift
+        swift,
+       bankAddress: bankBranch
       },
     }
     const response = await apiRequest('PUT', 'contacts/vendors/update', dataToserver)
@@ -73,7 +78,8 @@ const updateClientApi = async (
         bankName,
         bankAccountNo,
         ifsc,
-        swift
+        swift,
+        bankAddress: bankBranch
       },
     }
     console.log(dataToserver)

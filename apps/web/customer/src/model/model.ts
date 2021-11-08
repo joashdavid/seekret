@@ -83,5 +83,12 @@ interface ContactDetailModel {
   unit?:string|null
   gst?:string|null
   relationShip?:string|null
+  bankAddress?:string|null
+  engType?:string|null
+  gstRegType?:string|null
+  gstRegNo?:string|null
+  trnNo:string|null
+  currency:string|null
+  paymentTerms:string|null
 }
 export { UserRegistrationModel, UserLoginModel, ThemeModel, ContactModel, ContactDetailModel }
