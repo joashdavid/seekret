@@ -81,5 +81,7 @@ interface ContactDetailModel {
   vendorStatus:string|null
   website?:string|null
   unit?:string|null
+  gst?:string|null
+  relationShip?:string|null
 }
 export { UserRegistrationModel, UserLoginModel, ThemeModel, ContactModel, ContactDetailModel }

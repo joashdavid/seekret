@@ -1,10 +1,14 @@
-import { Col, Row, Card } from 'antd'
+/* eslint-disable max-lines */
+import { Card } from 'antd'
 import { useState, useEffect } from 'react'
 
 import styles from '../../view-contact.module.less'
 import { MoreDetailsModal } from './more-details-modal'
 import { ContactDetailModel } from '../../../../../model/model'
 import { fetchClientDetailApi } from '../api'
+import { MoreDetailsConsultant } from './more-detail-consultant'
+import { MoreDetailVendorClient } from './more-details-vendor-client'
+import {MoreDetailEmployeeIntern} from './more-details-emp-intern'
 
 const MoreDetails = (props: { data: ContactDetailModel; orgId: string | null; group: string }) => {
   const [contactInfo, setContactInfo] = useState<ContactDetailModel>()
@@ -39,152 +43,16 @@ const MoreDetails = (props: { data: ContactDetailModel; orgId: string | null; gr
       }
       style={{ width: '25.835vw', height: '30.75vh' }}
     >
-      <Row>
-        <Col span={12}>
-          {props.group === 'Vendor' || props.group === 'Client' ? (
-            <>
-              <span className={styles.userDetails}>  UNIT </span>
-              <Col span={24}>
-                <span className={styles.userData}>
-                  {contactInfo?.unit ? contactInfo.unit : '-'}
-                </span>
-              </Col>
-            </>
-          ) : (
-            <>
-            <span className={styles.userDetails}> BUSINESS UNIT </span>
-            <Col span={24}>
-              <span className={styles.userData}>
-                {contactInfo?.businessUnit ? contactInfo.businessUnit : '-'}
-              </span>
-            </Col>
-          </>
-          )}
-        </Col>
-        {props.group === 'Vendor' || props.group === 'Client' ? (
-          <Col span={12}>
-            <span className={styles.userDetails}>WEBSITE</span>
-            <Col span={24}>
-              <span className={styles.userData}>
-                {contactInfo?.website ? contactInfo.website : '-'}
-              </span>
-            </Col>
-          </Col>
-        ) : (
-          <Col span={12}>
-            <span className={styles.userDetails}>DEPARTMENT</span>
-            <Col span={24}>
-              <span className={styles.userData}>
-                {contactInfo?.department ? contactInfo.department : '-'}
-              </span>
-            </Col>
-          </Col>
-        )}
-      </Row>
-      {props.group === 'Vendor' || props.group === 'Client' ? (
-        ''
-      ) : (
-        <Row>
-          <Col span={12}>
-            <span className={styles.userDetails}> DESIGNATION </span>
-            <Col span={24}>
-              <span className={styles.userData}>
-                {contactInfo?.designation ? contactInfo.designation : '-'}
-              </span>
-            </Col>
-          </Col>
-          <Col span={12}>
-            <span className={styles.userDetails}>REPORT TO</span>
-            <Col span={24}>
-              <span className={styles.userData}>
-                {contactInfo?.reportingTo ? contactInfo.reportingTo : '-'}
-              </span>
-            </Col>
-          </Col>
-        </Row>
+      {props.group === 'Consultant' && (
+        <MoreDetailsConsultant data={contactInfo} orgId={props.orgId} group={props.group} />
       )}
-      <Row>
-        {props.group === 'Vendor' || props.group === 'Client' ? (
-          <Col span={12}>
-            <span className={styles.userDetails}> BUSINESS TYPE </span>
-            <Col span={24}>
-              <span className={styles.userData}>
-                {contactInfo?.businessType ? contactInfo.businessType : '-'}
-              </span>
-            </Col>
-          </Col>
-        ) : (
-          <Col span={12}>
-            <span className={styles.userDetails}> EMPLOYMENT TYPE </span>
-            <Col span={24}>
-              <span className={styles.userData}>
-                {contactInfo?.employmentType ? contactInfo.employmentType : '-'}
-              </span>
-            </Col>
-          </Col>
-        )}
-        {props.group === 'Vendor' || props.group === 'Client' ? (
-          <Col span={12}>
-            <span className={styles.userDetails}> VENDOR STATUS </span>
-            <Col span={24}>
-              <span className={styles.userData}>
-                {contactInfo?.vendorStatus ? contactInfo.vendorStatus : '-'}
-              </span>
-            </Col>
-          </Col>
-        ) : (
-          <Col span={12}>
-            <span className={styles.userDetails}>EMPLOYMENT STATUS</span>
-            <Col span={24}>
-              <span className={styles.userData}>
-                {contactInfo?.employeeStatus ? contactInfo.employmentStatus : '-'}
-              </span>
-            </Col>
-          </Col>
-        )}
-      </Row>
-      {props.group === 'Vendor' || props.group === 'Client' ? (
-        ''
-      ) : (
-        <>
-          <Row>
-            <Col span={12}>
-              <span className={styles.userDetails}> OFFICE LOCATION </span>
-              <Col span={24}>
-                <span className={styles.userData}>
-                  {contactInfo?.officeLocation ? contactInfo.officeLocation : '-'}
-                </span>
-              </Col>
-            </Col>
-            <Col span={12}>
-              <span className={styles.userDetails}>JOINING DATE</span>
-              <Col span={24}>
-                <span className={styles.userData}>
-                  {contactInfo?.joiningDate ? contactInfo.joiningDate : '-'}
-                </span>
-              </Col>
-            </Col>
-          </Row>
-          <Row>
-            <Col span={12}>
-              <span className={styles.userDetails}> NOTICE PERIOD </span>
-              <Col span={24}>
-                <span className={styles.userData}>
-                  {contactInfo?.noticePeriod ? contactInfo.noticePeriod : '-'}
-                </span>
-              </Col>
-            </Col>
-            <Col span={12}>
-              <span className={styles.userDetails}>BUSINESS UNIT</span>
-              <Col span={24}>
-                <span className={styles.userData}>
-                  {contactInfo?.businessUnit ? contactInfo.businessUnit : '-'}
-                </span>
-              </Col>
-            </Col>
-          </Row>
-        </>
+      {(props.group === 'Employee' || props.group === 'Intern') && (
+        <MoreDetailEmployeeIntern data={contactInfo} orgId={props.orgId} group={props.group} />
       )}
+      {(props.group === 'Vendor' || props.group === 'Client') && (
+        <MoreDetailVendorClient data={contactInfo} orgId={props.orgId} group={props.group} />
+      )}
+
       <MoreDetailsModal
         data={contactInfo}
         orgId={props.orgId}

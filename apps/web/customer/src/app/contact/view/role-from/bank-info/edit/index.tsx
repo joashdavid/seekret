@@ -2,10 +2,10 @@ import { Col, Row, Modal } from 'antd'
 import { CloseOutlined } from '@ant-design/icons'
 import { useState } from 'react'
 
-import { TextFieldNoSuffix } from '../../../../components/text-field-nosuffix'
-import CycButton from '../../../../components/cyc-button/cyc-button'
-import { ContactDetailModel } from '../../../../../model/model'
-import { updateClientApi } from './api'
+import { TextFieldNoSuffix } from '../../../../../components/text-field-nosuffix'
+import CycButton from '../../../../../components/cyc-button/cyc-button'
+import { ContactDetailModel } from '../../../../../../model/model'
+import { updateClientApi } from '../api'
 
 const BankInfoModal = (props: {
   onOk: () => void

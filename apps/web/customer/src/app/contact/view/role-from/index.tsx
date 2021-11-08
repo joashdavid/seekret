@@ -12,25 +12,22 @@ import { fetchClientDetailApi } from './api'
 const RoleForm = (props: { roles: string[] | undefined; data: ContactModel }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [contactInfo, setContactInfo] = useState<any>({})
-  const [currentTab , setCurrentTab] = useState<string>('')
+  const [currentTab, setCurrentTab] = useState<string>('')
   const { TabPane } = Tabs
   useEffect(() => {
-    if(props.roles){
+    if (props.roles) {
       setCurrentTab(props.roles[0])
       fetchClient(props.roles[0])
     }
-
-   
   }, [props])
 
-  const fetchClient = async (group:string) => {
-    if(group){
-      const response = await fetchClientDetailApi(props.data.orgId, props.data.contactId,group)
+  const fetchClient = async (group: string) => {
+    if (group) {
+      const response = await fetchClientDetailApi(props.data.orgId, props.data.contactId, group)
       setContactInfo(response.data)
     }
- 
   }
-  const switchTabs = async(activeKey: string) => {
+  const switchTabs = async (activeKey: string) => {
     setCurrentTab(activeKey)
     await fetchClient(activeKey)
   }
@@ -38,17 +35,21 @@ const RoleForm = (props: { roles: string[] | undefined; data: ContactModel }) =>
     <Tabs onTabClick={switchTabs} activeKey={currentTab}>
       {props.roles?.map((role: string) => {
         return (
-          <TabPane tab={role} key={role} >
+          <TabPane tab={role} key={role}>
             <Space>
-              <BankInfo data={contactInfo} orgId={props.data.orgId} group={currentTab}  />
+              <BankInfo data={contactInfo} orgId={props.data.orgId} group={currentTab} />
               <Col span={1}></Col>
-              <MoreDetails data={contactInfo} orgId={props.data.orgId} group={currentTab}/>
+              <MoreDetails data={contactInfo} orgId={props.data.orgId} group={currentTab} />
               <Col span={1}></Col>
-              
+
               <EmployeeMentInfo data={contactInfo} orgId={props.data.orgId} group={currentTab} />
             </Space>
             <Space>
-              <PayRollInfo data={contactInfo} orgId={props.data.orgId} group={currentTab}/>
+              {(currentTab === 'Employee' ||
+                currentTab === 'Intern') && (
+                  <PayRollInfo data={contactInfo} orgId={props.data.orgId} group={currentTab} />
+                )}
+
               <Col span={1}></Col>
               <DocumentInfo />
             </Space>

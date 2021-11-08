@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { ContactDetailModel } from '../../../../../model/model'
 import styles from '../../view-contact.module.less'
 import { fetchClientDetailApi } from '../api'
-import { BankInfoModal } from './bank-info-modal'
+import { BankInfoModal } from './edit'
 
 // import { fetchClientDetailsApi } from './api'
 
@@ -67,7 +67,6 @@ const BankInfo = (props: { data: ContactDetailModel; orgId: string | null; group
           </Col>
         </Col>
       </Row>
-      <Row></Row>
       <Row>
         <Col span={12}>
           <span className={styles.userDetails}>IFSC CODE</span>
@@ -75,7 +74,16 @@ const BankInfo = (props: { data: ContactDetailModel; orgId: string | null; group
             <span className={styles.userData}>{contactInfo?.ifsc ? contactInfo.ifsc : '-'}</span>
           </Col>
         </Col>
-        {props.group === 'Vendor' || props.group === 'Client' ? (
+        <Col span={12}>
+          <span className={styles.userDetails}>BANK BRANCH</span>
+          <Col span={24}>
+            <span className={styles.userData}>{contactInfo?.bankBranch ? contactInfo.bankBranch : '-'}</span>
+          </Col>
+        </Col>
+        
+      </Row>
+      <Row>
+      {props.group === 'Vendor' || props.group === 'Client' ? (
           <Col span={12}>
             <span className={styles.userDetails}>SWIFT </span>
             <Col span={24}>

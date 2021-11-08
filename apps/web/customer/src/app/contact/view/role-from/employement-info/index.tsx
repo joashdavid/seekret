@@ -1,11 +1,14 @@
 /* eslint-disable max-lines */
-import { Col, Row, Card } from 'antd'
+import { Card } from 'antd'
 import { useState, useEffect } from 'react'
 
 import { EmployeModal } from './employment-modal'
 import styles from '../../view-contact.module.less'
 import { ContactDetailModel } from '../../../../../model/model'
 import { fetchClientDetailApi } from '../api'
+import { EmployementDetailEmpIntern } from './employement-details-emp-intern'
+import { ServiceDetailVendor } from './service-details-vendoe-client'
+import { ServiceDetailConsultant } from './service-detail-consultant'
 
 const EmployeeMentInfo = (props: {
   data: ContactDetailModel
@@ -39,7 +42,11 @@ const EmployeeMentInfo = (props: {
 
   return (
     <Card
-      title="Employment details"
+      title={
+        props.group === 'Employee' || props.group === 'Intern'
+          ? 'Employment details'
+          : 'Service Details'
+      }
       extra={
         <span className={styles.edit} onClick={showModal}>
           Edit
@@ -47,91 +54,15 @@ const EmployeeMentInfo = (props: {
       }
       style={{ width: '25.835vw', height: '30.75vh' }}
     >
-      <Row>
-        <Col span={12}>
-          <span className={styles.userDetails}> EMPLOYEE ID </span>
-          <Col span={24}>
-            <span className={styles.userData}>
-              {contactInfo?.employeeId ? contactInfo.employeeId : '-'}
-            </span>
-          </Col>
-        </Col>
-        <Col span={12}>
-          <span className={styles.userDetails}>DOB</span>
-          <Col span={24}>
-            <span className={styles.userData}>{contactInfo?.dob ? contactInfo.dob : '-'}</span>
-          </Col>
-        </Col>
-      </Row>
-      <Row></Row>
-      <Row>
-        <Col span={12}>
-          <span className={styles.userDetails}> GENDER </span>
-          <Col span={24}>
-            <span className={styles.userData}>
-              {contactInfo?.gender ? contactInfo.gender : '-'}
-            </span>
-          </Col>
-        </Col>
-        <Col span={12}>
-          <span className={styles.userDetails}>BLOOD GROUP</span>
-          <Col span={24}>
-            <span className={styles.userData}>
-              {contactInfo?.bloodGroup ? contactInfo.bloodGroup : '-'}
-            </span>
-          </Col>
-        </Col>
-      </Row>
-      <Row>
-        <Col span={12}>
-          <span className={styles.userDetails}> AADHAR NO. </span>
-          <Col span={24}>
-            <span className={styles.userData}>
-              {contactInfo?.aadharNo ? contactInfo.aadharNo : '-'}
-            </span>
-          </Col>
-        </Col>
-        <Col span={12}>
-          <span className={styles.userDetails}>PAN CARD NO.</span>
-          <Col span={24}>
-            <span className={styles.userData}>{contactInfo?.pan ? contactInfo.pan : '-'}</span>
-          </Col>
-        </Col>
-      </Row>
-      <Row>
-        <Col span={12}>
-          <span className={styles.userDetails}> OFFICE LOCATION </span>
-          <Col span={24}>
-            <span className={styles.userData}>
-              {contactInfo?.officeLocation ? contactInfo.officeLocation : '-'}
-            </span>
-          </Col>
-        </Col>
-        <Col span={12}>
-          <span className={styles.userDetails}>UAN NO</span>
-          <Col span={24}>
-            <span className={styles.userData}>{contactInfo?.uanNo ? contactInfo.uanNo : '-'}</span>
-          </Col>
-        </Col>
-      </Row>
-      <Row>
-        <Col span={12}>
-          <span className={styles.userDetails}> NOTICE PERIOD </span>
-          <Col span={24}>
-            <span className={styles.userData}>
-              {contactInfo?.noticePeriod ? contactInfo.noticePeriod : '-'}
-            </span>
-          </Col>
-        </Col>
-        <Col span={12}>
-          <span className={styles.userDetails}> EMERGENCY CONTACT NUMBER</span>
-          <Col span={24}>
-            <span className={styles.userData}>
-              {contactInfo?.emergencyContact ? contactInfo.emergencyContact : '-'}
-            </span>
-          </Col>
-        </Col>
-      </Row>
+      {props.group === 'Employee' && (
+        <EmployementDetailEmpIntern data={contactInfo} orgId={props.orgId} group={props.group} />
+      )}
+      {props.group === 'Vendor' && (
+        <ServiceDetailVendor data={contactInfo} orgId={props.orgId} group={props.group} />
+      )}
+      {props.group === 'Consultant' && (
+        <ServiceDetailConsultant data={contactInfo} orgId={props.orgId} group={props.group} />
+      )}
 
       <EmployeModal
         data={contactInfo}
