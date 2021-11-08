@@ -15,6 +15,10 @@ const MoreDetailsModal = (props: {
   isModalVisible: boolean | undefined
 }) => {
   const [phoneNumber, setphoneNumber] = useState<string>('')
+//   const [bankName, setBankName] = useState<string>('')
+//   const [bankAccountNo, setBankAccountNo] = useState<string>('')
+//   const [ifsc, setIfsc] = useState<string>('')
+//   const [swift, setSwift] = useState<string>('')
 
   const handleOk = () => {
     props.onOk()

@@ -36,13 +36,13 @@ const PayRollInfo = (props: { data: ContactDetailModel; orgId: string | null }) 
         <Col span={12}>
           <span className={styles.userDetails}> NET SALARY </span>
           <Col span={24}>
-            <span className={styles.userData}> Lorem Ipsum </span>
+            <span className={styles.userData}> {props.data.netSalary} </span>
           </Col>
         </Col>
         <Col span={12}>
           <span className={styles.userDetails}> CTC </span>
           <Col span={24}>
-            <span className={styles.userData}> Lorem Ipsum </span>
+            <span className={styles.userData}> {props.data.ctc} </span>
           </Col>
         </Col>
       </Row>
@@ -51,13 +51,13 @@ const PayRollInfo = (props: { data: ContactDetailModel; orgId: string | null }) 
         <Col span={12}>
           <span className={styles.userDetails}>INSURANCE PROVIDER</span>
           <Col span={24}>
-            <span className={styles.userData}>Lorem Ipsum</span>
+            <span className={styles.userData}>{props.data.insuranceProvider}</span>
           </Col>
         </Col>
         <Col span={12}>
           <span className={styles.userDetails}>INSURANCE STATUS </span>
           <Col span={24}>
-            <span className={styles.userData}>Lorem Ipsum</span>
+            <span className={styles.userData}>{props.data.insuranceStatus}</span>
           </Col>
         </Col>
       </Row>
@@ -65,7 +65,7 @@ const PayRollInfo = (props: { data: ContactDetailModel; orgId: string | null }) 
         <Col span={12}>
           <span className={styles.userDetails}>INSURANCE NUMBER</span>
           <Col span={24}>
-            <span className={styles.userData}>Lorem Ipsum</span>
+            <span className={styles.userData}>{props.data.insuranceNo}</span>
           </Col>
         </Col>
       </Row>
