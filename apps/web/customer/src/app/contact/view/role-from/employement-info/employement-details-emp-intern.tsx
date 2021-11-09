@@ -6,14 +6,13 @@ import styles from '../../view-contact.module.less'
 import { ContactDetailModel } from '../../../../../model/model'
 
 const EmployementDetailEmpIntern = (props: {
-  data: ContactDetailModel|undefined,
+  data: ContactDetailModel | undefined
   orgId: string | null
   group: string
 }) => {
   const [contactInfo, setContactInfo] = useState<ContactDetailModel>()
   useEffect(() => {
     setContactInfo(props.data)
-    console.log(props.group)
   }, [props])
 
   return (
@@ -30,7 +29,9 @@ const EmployementDetailEmpIntern = (props: {
         <Col span={12}>
           <span className={styles.userDetails}>DEPARTMENT</span>
           <Col span={24}>
-            <span className={styles.userData}>{contactInfo?.department ? contactInfo.department : '-'}</span>
+            <span className={styles.userData}>
+              {contactInfo?.department ? contactInfo.department : '-'}
+            </span>
           </Col>
         </Col>
       </Row>
@@ -65,7 +66,9 @@ const EmployementDetailEmpIntern = (props: {
         <Col span={12}>
           <span className={styles.userDetails}>EMPLOYEMENT STATUS</span>
           <Col span={24}>
-            <span className={styles.userData}>{contactInfo?.employmentStatus ? contactInfo.employmentStatus : '-'}</span>
+            <span className={styles.userData}>
+              {contactInfo?.employmentStatus ? contactInfo.employmentStatus : '-'}
+            </span>
           </Col>
         </Col>
       </Row>
@@ -81,7 +84,9 @@ const EmployementDetailEmpIntern = (props: {
         <Col span={12}>
           <span className={styles.userDetails}>JOINING DATE</span>
           <Col span={24}>
-            <span className={styles.userData}>{contactInfo?.joiningDate ? contactInfo.joiningDate : '-'}</span>
+            <span className={styles.userData}>
+              {contactInfo?.joiningDate ? contactInfo.joiningDate : '-'}
+            </span>
           </Col>
         </Col>
       </Row>
@@ -110,16 +115,16 @@ const EmployementDetailEmpIntern = (props: {
             </span>
           </Col>
         </Col>
-        {props.group === "Employee" &&<Col span={12}>
-          <span className={styles.userDetails}>PREVIOUS EMPLOYER </span>
-          <Col span={24}>
-            <span className={styles.userData}>
-              {contactInfo?.resignationDate ? contactInfo.resignationDate : '-'}
-            </span>
+        {props.group === 'Employee' && (
+          <Col span={12}>
+            <span className={styles.userDetails}>PREVIOUS EMPLOYER </span>
+            <Col span={24}>
+              <span className={styles.userData}>
+                {contactInfo?.resignationDate ? contactInfo.resignationDate : '-'}
+              </span>
+            </Col>
           </Col>
-        </Col> }
-        
-        
+        )}
       </Row>
     </>
   )

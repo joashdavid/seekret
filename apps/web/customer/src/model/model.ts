@@ -92,5 +92,10 @@ interface ContactDetailModel {
   paymentTerms:string|null
   service:string|null
   rate:string|null
+  serviceType:string|null
+  consultantStatus:string|null
+  startDate:string|null
+  endDate:string|null
+
 }
 export { UserRegistrationModel, UserLoginModel, ThemeModel, ContactModel, ContactDetailModel }

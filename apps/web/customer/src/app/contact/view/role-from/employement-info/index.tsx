@@ -19,7 +19,6 @@ const EmployeeMentInfo = (props: {
   const [contactInfo, setContactInfo] = useState<ContactDetailModel>()
   useEffect(() => {
     setContactInfo(props.data)
-    console.log(props.group)
   }, [props])
 
   const showModal = () => {

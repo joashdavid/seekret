@@ -25,14 +25,14 @@ const ServiceDetailConsultant = (props: {
           <span className={styles.userDetails}> RATE </span>
           <Col span={24}>
             <span className={styles.userData}>
-              {contactInfo?.employeeId ? contactInfo.employeeId : '-'}
+              {contactInfo?.rate ? contactInfo.rate : '-'}
             </span>
           </Col>
         </Col>
         <Col span={12}>
           <span className={styles.userDetails}>CURRENCY</span>
           <Col span={24}>
-            <span className={styles.userData}>{contactInfo?.dob ? contactInfo.dob : '-'}</span>
+            <span className={styles.userData}>{contactInfo?.currency ? contactInfo.currency : '-'}</span>
           </Col>
         </Col>
       </Row>
@@ -42,7 +42,7 @@ const ServiceDetailConsultant = (props: {
           <span className={styles.userDetails}> UNIT </span>
           <Col span={24}>
             <span className={styles.userData}>
-              {contactInfo?.gender ? contactInfo.gender : '-'}
+              {contactInfo?.unit ? contactInfo.unit : '-'}
             </span>
           </Col>
         </Col>
@@ -50,7 +50,7 @@ const ServiceDetailConsultant = (props: {
           <span className={styles.userDetails}>SERVICE TYPE</span>
           <Col span={24}>
             <span className={styles.userData}>
-              {contactInfo?.bloodGroup ? contactInfo.bloodGroup : '-'}
+              {contactInfo?.serviceType ? contactInfo.serviceType : '-'}
             </span>
           </Col>
         </Col>
@@ -60,14 +60,14 @@ const ServiceDetailConsultant = (props: {
           <span className={styles.userDetails}> START DATE </span>
           <Col span={24}>
             <span className={styles.userData}>
-              {contactInfo?.aadharNo ? contactInfo.aadharNo : '-'}
+              {contactInfo?.startDate ? contactInfo.startDate : '-'}
             </span>
           </Col>
         </Col>
         <Col span={12}>
           <span className={styles.userDetails}>END DATE</span>
           <Col span={24}>
-            <span className={styles.userData}>{contactInfo?.pan ? contactInfo.pan : '-'}</span>
+            <span className={styles.userData}>{contactInfo?.endDate ? contactInfo.endDate : '-'}</span>
           </Col>
         </Col>
       </Row>
@@ -76,7 +76,7 @@ const ServiceDetailConsultant = (props: {
           <span className={styles.userDetails}>STATUS </span>
           <Col span={24}>
             <span className={styles.userData}>
-              {contactInfo?.officeLocation ? contactInfo.officeLocation : '-'}
+              {contactInfo?.consultantStatus ? contactInfo.consultantStatus : '-'}
             </span>
           </Col>
         </Col>
