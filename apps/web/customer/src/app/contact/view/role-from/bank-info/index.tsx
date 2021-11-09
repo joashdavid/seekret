@@ -75,7 +75,14 @@ const BankInfo = (props: { data: ContactDetailModel; orgId: string | null; group
           </Col>
         </Col>
         {props.group === 'Vendor' || props.group === 'Client' ? (
-          ""
+          <Col span={12}>
+          <span className={styles.userDetails}>BANK ADDRESS</span>
+          <Col span={24}>
+            <span className={styles.userData}>
+              {contactInfo?.bankAddress ? contactInfo.bankAddress : '-'}
+            </span>
+          </Col>
+        </Col>
         ) : (
           <Col span={12}>
             <span className={styles.userDetails}>BANK BRANCH</span>

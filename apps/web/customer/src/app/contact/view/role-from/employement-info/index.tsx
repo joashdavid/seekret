@@ -2,7 +2,7 @@
 import { Card } from 'antd'
 import { useState, useEffect } from 'react'
 
-import { EmployeModal } from './employment-modal'
+import { EmployeModal } from './edit'
 import styles from '../../view-contact.module.less'
 import { ContactDetailModel } from '../../../../../model/model'
 import { fetchClientDetailApi } from '../api'

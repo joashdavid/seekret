@@ -114,14 +114,6 @@ const MoreDetailEmployeeIntern = (props: {
       </Row>
       <Row>
         <Col span={12}>
-          <span className={styles.userDetails}> EMERGENCY CONTACT PERSON </span>
-          <Col span={24}>
-            <span className={styles.userData}>
-              {contactInfo?.emergencyContact ? contactInfo.emergencyContact : '-'}
-            </span>
-          </Col>
-        </Col>
-        <Col span={12}>
           <span className={styles.userDetails}> RELATIONSHIP </span>
           <Col span={24}>
             <span className={styles.userData}>

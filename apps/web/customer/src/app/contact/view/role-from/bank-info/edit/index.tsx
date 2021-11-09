@@ -104,7 +104,7 @@ const BankInfoModal = (props: {
         <Col span={12}>
           <TextFieldNoSuffix
             onUserInput={getBankBranch}
-            label="Bank Branch"
+            label= {props.group === 'Vendor' || props.group === 'Client' ? "Bank Address" : "Bank Branch"}
             name="Bank Branch"
             type="text"
             value={bankBranch}

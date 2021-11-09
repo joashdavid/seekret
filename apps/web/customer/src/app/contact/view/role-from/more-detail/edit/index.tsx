@@ -27,6 +27,14 @@ const MoreDetailsModal = (props: {
   const [emergencyContact, setEmergencyContact] = useState<string>('')
   const [emergencyContactNo, setEmergencyContactNo] = useState<string>('')
   const [gst, setGst] = useState<string>('')
+  const [trnNo, setTrnNo] = useState<string>('')
+  const [website, setWebsite] = useState<string>('')
+  const [vendorStatus, setVendorStatus] = useState<string>('')
+  const [gstRegNo, setGstRegNo] = useState<string>('')
+  const [gstRegType, setGstRegType] = useState<string>('')
+  const [engType, setEngType] = useState<string>('')
+  const [paymentTerms , setPaymentTerms] =  useState<string>('')
+  const [currency ,setCurrency] = useState<string>('')
   // const [relationship, setRelationship] = useState<string>('')
 
   // useEffect(() => {
@@ -46,9 +54,7 @@ const MoreDetailsModal = (props: {
   const handleCancel = () => {
     props.onCancel()
   }
-  // const getEmployeId = (data: string) => {
-  //   setEmployeId(data)
-  // }
+
   const getDob = (data: string) => {
     setDob(data)
   }
@@ -76,6 +82,30 @@ const MoreDetailsModal = (props: {
   const getGst = (data: string) => {
     setGst(data)
   }
+  const getGstRegType = (data: string) => {
+    setGstRegType(data)
+  }
+  const getGstRegNo = (data: string) => {
+    setGstRegNo(data)
+  }
+  const getWebsite = (data: string) => {
+    setWebsite(data)
+  }
+  const getVendorStatus = (data: string) => {
+    setVendorStatus(data)
+  }
+  const getTrnNo = (data: string) => {
+    setTrnNo(data)
+  }
+  const getEngType = (data: string) => {
+    setEngType(data)
+  }
+  const getCurrency = (data: string) => {
+    setCurrency(data)
+  }
+  const getPaymentTerms = (data: string) => {
+    setPaymentTerms(data)
+  }
   // const getRelationShip = (data: string) => {
   //   setRelationship(data)
   // }
@@ -93,6 +123,15 @@ const MoreDetailsModal = (props: {
         panNo,
         uanNo,
         emergencyContactNo,
+        gst,
+        website,
+        gstRegNo,
+        gstRegType,
+        vendorStatus,
+        paymentTerms,
+        currency,
+        trnNo,
+        engType,
         props.group
         // emergencyContactNo,
         // relationship
@@ -104,19 +143,19 @@ const MoreDetailsModal = (props: {
       console.log(response)
     }
   }
-  return (
-    <Modal
-      title="Edit Employment Details"
-      visible={props.isModalVisible}
-      onOk={handleOk}
-      onCancel={handleCancel}
-      closeIcon={<CloseOutlined />}
-      footer={[<CycButton value="UPDATE" disabled={false} onClick={updateClient} />]}
-      style={{ marginTop: '8.4vw' }}
-    >
-      <Row justify="space-between">
-        {(props.group === 'Employee' ||
-          props.group === 'Intern') && (
+  if (props.group === 'Employee' || props.group === 'Intern' || props.group === 'Consultant') {
+    return (
+      <Modal
+        title="Edit Details"
+        visible={props.isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        closeIcon={<CloseOutlined />}
+        footer={[<CycButton value="UPDATE" disabled={false} onClick={updateClient} />]}
+        style={{ marginTop: '8.4vw' }}
+      >
+        <Row justify="space-between">
+          {(props.group === 'Employee' || props.group === 'Intern') && (
             <Col span={12}>
               <TextFieldNoSuffix
                 onUserInput={getAadharNo}
@@ -127,27 +166,32 @@ const MoreDetailsModal = (props: {
               />
             </Col>
           )}
-        {props.group === 'Consultant' && (
+          {props.group === 'Consultant' && (
+            <Col span={12}>
+              <TextFieldNoSuffix
+                onUserInput={getGender}
+                label="Gender"
+                name="employeeId"
+                type="text"
+                value={gender}
+              />
+            </Col>
+          )}
+
+          <Col span={1}></Col>
           <Col span={12}>
             <TextFieldNoSuffix
-              onUserInput={getGender}
-              label="Gender"
-              name="employeeId"
+              onUserInput={getDob}
+              label="DOB"
+              name="dob"
               type="text"
-              value={gender}
+              value={dob}
             />
           </Col>
-        )}
-
-        <Col span={1}></Col>
-        <Col span={12}>
-          <TextFieldNoSuffix onUserInput={getDob} label="DOB" name="dob" type="text" value={dob} />
-        </Col>
-      </Row>
-      <Row justify="space-between">
-        <Col span={12}>
-          {(props.group === 'Employee' ||
-            props.group === 'Intern') && (
+        </Row>
+        <Row justify="space-between">
+          <Col span={12}>
+            {(props.group === 'Employee' || props.group === 'Intern') && (
               <Col span={24}>
                 <TextFieldNoSuffix
                   onUserInput={getGender}
@@ -158,21 +202,20 @@ const MoreDetailsModal = (props: {
                 />
               </Col>
             )}
-          {props.group === 'Consultant' && (
-            <Col span={24}>
-              <TextFieldNoSuffix
-                onUserInput={getGst}
-                label="GST"
-                name="GST"
-                type="text"
-                value={gst}
-              />
-            </Col>
-          )}
-        </Col>
-        <Col span={1}></Col>
-        {(props.group === 'Employee' ||
-          props.group === 'Intern') && (
+            {props.group === 'Consultant' && (
+              <Col span={24}>
+                <TextFieldNoSuffix
+                  onUserInput={getGst}
+                  label="GST"
+                  name="GST"
+                  type="text"
+                  value={gst}
+                />
+              </Col>
+            )}
+          </Col>
+          <Col span={1}></Col>
+          {(props.group === 'Employee' || props.group === 'Intern') && (
             <Col span={12}>
               <TextFieldNoSuffix
                 onUserInput={getBloodGroup}
@@ -183,20 +226,19 @@ const MoreDetailsModal = (props: {
               />
             </Col>
           )}
-        {props.group === 'Consultant' && (
-          <Col span={12}>
-            <TextFieldNoSuffix
-              onUserInput={getPanNo}
-              label="Pan Card No."
-              name="dob"
-              type="text"
-              value={panNo}
-            />
-          </Col>
-        )}
-      </Row>
-      {(props.group === 'Employee' ||
-        props.group === 'Intern' )&& (
+          {props.group === 'Consultant' && (
+            <Col span={12}>
+              <TextFieldNoSuffix
+                onUserInput={getPanNo}
+                label="Pan Card No."
+                name="dob"
+                type="text"
+                value={panNo}
+              />
+            </Col>
+          )}
+        </Row>
+        {(props.group === 'Employee' || props.group === 'Intern') && (
           <>
             <Row justify="space-between">
               <Col span={12}>
@@ -245,7 +287,124 @@ const MoreDetailsModal = (props: {
             </Row>
           </>
         )}
-    </Modal>
-  )
+      </Modal>
+    )
+  } else if (props.group === 'Vendor' || props.group === 'Client') {
+    return (
+      <Modal
+        title="Edit Details"
+        visible={props.isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        closeIcon={<CloseOutlined />}
+        footer={[<CycButton value="UPDATE" disabled={false} onClick={updateClient} />]}
+        style={{ marginTop: '8.4vw' }}
+      >
+        <Row justify="space-between">
+          <Col span={12}>
+            <TextFieldNoSuffix
+              onUserInput={getPanNo}
+              label="Pan No."
+              name="employeeId"
+              type="text"
+              value={panNo}
+            />
+          </Col>
+
+          <Col span={1}></Col>
+          <Col span={12}>
+            <TextFieldNoSuffix
+              onUserInput={getWebsite}
+              label="Website"
+              name="website"
+              type="text"
+              value={website}
+            />
+          </Col>
+        </Row>
+        <Row justify="space-between">
+          <Col span={12}>
+            <Col span={24}>
+              <TextFieldNoSuffix
+                onUserInput={getEngType}
+                label="Engagement type"
+                name="GST"
+                type="text"
+                value={engType}
+              />
+            </Col>
+          </Col>
+          <Col span={1}></Col>
+
+          <Col span={12}>
+            <TextFieldNoSuffix
+              onUserInput={getGstRegType}
+              label="Gst registation type"
+              name="Gst registation type"
+              type="text"
+              value={gstRegType}
+            />
+          </Col>
+
+          <Col span={12}>
+            <TextFieldNoSuffix
+              onUserInput={getGstRegNo}
+              label="Gst registration no"
+              name="dob"
+              type="text"
+              value={gstRegNo}
+            />
+          </Col>
+        </Row>
+
+        <Row justify="space-between">
+          <Col span={12}>
+            <TextFieldNoSuffix
+              onUserInput={getTrnNo}
+              label="TRN No"
+              name="TRN no"
+              type="text"
+              value={trnNo}
+            />
+          </Col>
+          <Col span={1}></Col>
+          <Col span={12}>
+            <TextFieldNoSuffix
+              onUserInput={getVendorStatus}
+              label="Status"
+              name="status"
+              type="text"
+              value={vendorStatus}
+            />
+          </Col>
+        </Row>
+        {props.group === 'Client' && (
+          <Row justify="space-between">
+            <Col span={12}>
+              <TextFieldNoSuffix
+                onUserInput={getCurrency}
+                label="Currency"
+                name="Currency"
+                type="text"
+                value={currency}
+              />
+            </Col>
+            <Col span={1}></Col>
+            <Col span={12}>
+              <TextFieldNoSuffix
+                onUserInput={getPaymentTerms}
+                label="Payment Terms"
+                name="PaymentTerms"
+                type="text"
+                value={paymentTerms}
+              />
+            </Col>
+          </Row>
+        )}
+      </Modal>
+    )
+  } else {
+    return <p></p>
+  }
 }
 export { MoreDetailsModal }
