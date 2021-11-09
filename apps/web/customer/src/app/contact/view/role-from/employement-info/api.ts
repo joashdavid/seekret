@@ -13,6 +13,17 @@ const updateClientApi = async (
   resignationDate: string,
   noticePeriod: string,
   reportingTo: string,
+  previousEmployer:string,
+  rate: string,
+  consultantStatus: string,
+  currency: string,
+  serviceType: string,
+  startDate: string,
+  endDate: string,
+  businessType: string,
+  paymentTerms: string,
+  service: string,
+  unit: string,
   group: string
 ) => {
   if (group === 'Employee') {
@@ -57,15 +68,35 @@ const updateClientApi = async (
 
     return response
   }
+  else if (group === 'Consultant') {
+    const dataToserver = {
+      orgId,
+      contactId,
+      updatedConsultant: {
+        rate,
+        serviceType,
+        currency,
+        paymentTerms,
+        startDate,
+        endDate
+      },
+    }
+    const response = await apiRequest('PUT', 'contacts/consultants/update', dataToserver)
+    console.log(response)
+
+    return response
+  }
   else if (group === 'Vendor') {
     const dataToserver = {
       orgId,
       contactId,
       updatedVendor: {
-        unit:businessUnit,
-        website:department,
-        businessType:designation,
-        vendorStatus:reportingTo,
+        unit,
+        rate,
+        businessType,
+        currency,
+        paymentTerms,
+        service,
       },
     }
     const response = await apiRequest('PUT', 'contacts/vendors/update', dataToserver)

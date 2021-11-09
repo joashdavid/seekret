@@ -90,5 +90,7 @@ interface ContactDetailModel {
   trnNo:string|null
   currency:string|null
   paymentTerms:string|null
+  service:string|null
+  rate:string|null
 }
 export { UserRegistrationModel, UserLoginModel, ThemeModel, ContactModel, ContactDetailModel }

@@ -23,14 +23,14 @@ const ServiceDetailVendor = (props: {
           <span className={styles.userDetails}> PRODUCT/SERVICE </span>
           <Col span={24}>
             <span className={styles.userData}>
-              {contactInfo?.employeeId ? contactInfo.employeeId : '-'}
+              {contactInfo?.service ? contactInfo.service : '-'}
             </span>
           </Col>
         </Col>
         <Col span={12}>
           <span className={styles.userDetails}>BUSINESS TYPE</span>
           <Col span={24}>
-            <span className={styles.userData}>{contactInfo?.dob ? contactInfo.dob : '-'}</span>
+            <span className={styles.userData}>{contactInfo?.businessType ? contactInfo.businessType : '-'}</span>
           </Col>
         </Col>
       </Row>
@@ -40,7 +40,7 @@ const ServiceDetailVendor = (props: {
           <span className={styles.userDetails}> RATE </span>
           <Col span={24}>
             <span className={styles.userData}>
-              {contactInfo?.gender ? contactInfo.gender : '-'}
+              {contactInfo?.rate ? contactInfo.rate : '-'}
             </span>
           </Col>
         </Col>
@@ -48,7 +48,7 @@ const ServiceDetailVendor = (props: {
           <span className={styles.userDetails}>UNIT</span>
           <Col span={24}>
             <span className={styles.userData}>
-              {contactInfo?.bloodGroup ? contactInfo.bloodGroup : '-'}
+              {contactInfo?.unit ? contactInfo.unit : '-'}
             </span>
           </Col>
         </Col>
@@ -58,14 +58,14 @@ const ServiceDetailVendor = (props: {
           <span className={styles.userDetails}> CURRENCY </span>
           <Col span={24}>
             <span className={styles.userData}>
-              {contactInfo?.aadharNo ? contactInfo.aadharNo : '-'}
+              {contactInfo?.currency ? contactInfo.currency : '-'}
             </span>
           </Col>
         </Col>
         <Col span={12}>
           <span className={styles.userDetails}>PAYMENT TERMS</span>
           <Col span={24}>
-            <span className={styles.userData}>{contactInfo?.pan ? contactInfo.pan : '-'}</span>
+            <span className={styles.userData}>{contactInfo?.paymentTerms ? contactInfo.paymentTerms : '-'}</span>
           </Col>
         </Col>
       </Row>
