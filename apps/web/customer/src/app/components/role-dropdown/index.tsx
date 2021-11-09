@@ -52,6 +52,9 @@ const RoleDropdown = (props: {
       setValueChecked(true)
     }
   }, [props])
+
+  
+
   function handleChange(value: number[]) {
     setValueChecked(true)
     props.onChange(value)

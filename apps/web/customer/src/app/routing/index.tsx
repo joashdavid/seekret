@@ -7,6 +7,7 @@ import Otp from '../otp/otp'
 import { CreateOrg } from '../create-org/create-org'
 import { GlobalRouterPath } from '../routing/constant/globalRoute'
 import AccountVerify from '../account-verify/index'
+import ResendLink from '../resend-link'
 
 
 
@@ -23,6 +24,7 @@ const AppRouter = () => {
         <Route exact path={GlobalRouterPath.INVITE} component={Invite}></Route>
         <Route  path={GlobalRouterPath.DASHBOARD} component={Dashboard}></Route>
         <Route exact path={GlobalRouterPath.VERIFY} component={AccountVerify}></Route>
+        <Route exact path={GlobalRouterPath.RESEND} component={ResendLink}></Route>
       </Switch>
     </Router>
   )

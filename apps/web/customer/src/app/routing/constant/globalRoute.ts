@@ -7,7 +7,7 @@ enum GlobalRouterPath {
     DASHBOARD = '/dashboard',
     MANAGEORG = '/dashboard/manageorg',
     INVITE = '/invite',
-    VERIFY = '/accountVerify'
-  }
+    VERIFY = '/accountVerify',
+    RESEND = '/resend'  }
 
 export {GlobalRouterPath}
