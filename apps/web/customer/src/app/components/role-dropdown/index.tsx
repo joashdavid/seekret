@@ -1,35 +1,12 @@
 import { Select } from 'antd'
-import styles from './role-dropdown.module.less'
-// import FloatLabel from '../float-label/float-label'
 import { useState, useEffect } from 'react'
+// import { useSelector } from 'react-redux'
+
+import styles from './role-dropdown.module.less'
 import { Key } from 'rc-select/lib/interface/generator'
 import RoleFloatLabel from './role-floatlabel'
-
-const Individualroles = [
-  {
-    roleId: 1,
-    roleName: 'Employee',
-  },
-  {
-    roleId: 2,
-    roleName: 'Intern',
-  },
-  {
-    roleId: 3,
-    roleName: 'Consultant',
-  },
-]
-
-const CompanyRoles = [
-  {
-    roleId: 4,
-    roleName: 'Vendor',
-  },
-  {
-    roleId: 5,
-    roleName: 'Client',
-  },
-]
+import { fetchRolesApi } from './api'
+import {Group} from '../../../model/model'
 
 const RoleDropdown = (props: {
   onChange: (arg0: number[]) => void
@@ -37,23 +14,25 @@ const RoleDropdown = (props: {
   value: number[]
   type: string
 }) => {
-  const { Option } = Select
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [roles, setRoles] = useState<any>([])
-  const [isValueChecked, setValueChecked] = useState<boolean>(false)
-  useEffect(() => {
-    if (props.type === 'individual') {
-      
-      setRoles(Individualroles)
-    } else {
-      setRoles(CompanyRoles)
-    }
-    if(props.value.length !== 0){
-      setValueChecked(true)
-    }
-  }, [props])
 
-  
+  const { Option } = Select
+  const [roles, setRoles] = useState<Group[]>([])
+  const [isValueChecked, setValueChecked] = useState<boolean>(false)
+
+
+  useEffect(() => {
+    fetchRoles()
+  }, [])
+
+  const fetchRoles = async() => {
+      const response = await fetchRolesApi()
+      if(response.success){
+        setRoles(response.data[props.type])
+      }
+      if (props.value.length !== 0) {
+        setValueChecked(true)
+      }
+  }
 
   function handleChange(value: number[]) {
     setValueChecked(true)
@@ -73,11 +52,11 @@ const RoleDropdown = (props: {
         bordered={false}
         value={props.value[0] === null ? undefined : props.value}
       >
-        {roles.map((data: { roleId: Key; roleName: string }) => {
+        {roles.map((data: { groupId: Key; groupName: string }) => {
           return (
-            <Option value={data.roleId} key={data.roleId}>
+            <Option value={data.groupId} key={data.groupId}>
               <div className={styles.optionWrapper}>
-                <span className={styles.selected}>{data.roleName}</span>
+                <span className={styles.selected}>{data.groupName}</span>
               </div>
             </Option>
           )

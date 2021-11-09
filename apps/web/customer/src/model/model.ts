@@ -98,4 +98,9 @@ interface ContactDetailModel {
   endDate:string|null
 
 }
-export { UserRegistrationModel, UserLoginModel, ThemeModel, ContactModel, ContactDetailModel }
+
+interface Group{
+  groupId: number
+  groupName: string 
+}
+export { UserRegistrationModel, UserLoginModel, ThemeModel, ContactModel, ContactDetailModel,Group }
