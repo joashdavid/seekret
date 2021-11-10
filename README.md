@@ -1,6 +1,6 @@
 
 
-# Cyclops
+# will delete in 24hrs
 
 
 ## Development server - Customer
