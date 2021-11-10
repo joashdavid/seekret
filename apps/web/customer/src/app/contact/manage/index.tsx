@@ -4,9 +4,14 @@ import { useEffect, useState } from 'react'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import 'antd/dist/antd.css'
+import './manage.css'
 import { Popconfirm } from 'antd'
+import { Input } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import { useHistory } from 'react-router'
+
+import { ReactComponent as Edit } from './assets/edit.svg'
+import { ReactComponent as Archive } from './assets/archive.svg'
 
 import { ContactTableModel } from '../model'
 import { ContactModel } from '../../../model/model'
@@ -26,6 +31,9 @@ const INVITE = 'Invite'
 const REINVITE = 'Reinvite'
 const USER = 'Active'
 const REVOKED = 'Revoked'
+
+const { Search } = Input
+
 
 const ManageContact = () => {
   const currentOrg = useSelector((state) => state)
@@ -223,20 +231,19 @@ const ManageContact = () => {
             {record.userStatus !== OWNER && (
               <div>
                 <Button
-                  type="text"
+                  type="primary"
                   onClick={() => editContact(record)}
-                  style={{ marginRight: 8, color: '#33B986' }}
+                  style={{ marginRight: 20, background: "transparent", borderColor: "transparent" }}
+                  icon={<Edit />}
                 >
-                  Edit
                 </Button>
                 {(record.userStatus !== REVOKED || record.status === 'saved') && (
                   <Button
-                    type="text"
+                    type="primary"
                     onClick={() => archiveContact(record)}
-                    style={{ marginRight: 8 }}
-                    danger
+                    style={{ marginRight: 20, background: "transparent", borderColor: "transparent" }}
+                    icon={<Archive />}
                   >
-                    Archive
                   </Button>
                 )}
               </div>
@@ -263,10 +270,42 @@ const ManageContact = () => {
   }
   return (
     <>
-      <Breadcrumb style={{ margin: '16px 0' }}>
-        <Breadcrumb.Item>Manage. Contact</Breadcrumb.Item>
+      <Breadcrumb>
+        <Breadcrumb.Item>Manage - Contact</Breadcrumb.Item>
       </Breadcrumb>
+      <div className="title">
+        Manage contacts
+      </div>
       <Divider />
+      <div className="tool-bar-container">
+        <Search placeholder="Search Name or Contact type" allowClear bordered={false} className="search-bar"/>
+        <Button
+          type="text"
+          icon={<Archive className="archive-icon"/>}
+          className="toolbar-btn"
+        >
+          FILTER
+        </Button>
+        <div className="tool-btn-left-container">
+        <Button
+          type="text"
+          icon={<Archive className="archive-icon"/>}
+          className="toolbar-btn"
+        >
+          ARCHIVE
+        </Button>
+        <Button
+          type="text"
+          icon={<Archive className="archive-icon"/>}
+          className="toolbar-btn"
+        >
+          DOWNLOAD
+        </Button>
+        </div>
+      </div>
+      <div className="bottom-divider">
+        <Divider/>
+      </div>
       <div className={tableStyles.tableHeader}>
         <Table
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -274,10 +313,6 @@ const ManageContact = () => {
           columns={columns}
           onChange={onChange}
           showSorterTooltip={false}
-          pagination={{
-            position: ['topRight'],
-            total: 20,
-          }}
           rowSelection={{ ...rowSelection }}
         ></Table>
       </div>
