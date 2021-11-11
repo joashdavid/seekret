@@ -12,6 +12,8 @@ import { useHistory } from 'react-router'
 
 import { ReactComponent as Edit } from './assets/edit.svg'
 import { ReactComponent as Archive } from './assets/archive.svg'
+import { ReactComponent as Filter } from './assets/filter.svg'
+import { ReactComponent as Download } from './assets/download.svg'
 
 import { ContactTableModel } from '../model'
 import { ContactModel } from '../../../model/model'
@@ -281,7 +283,7 @@ const ManageContact = () => {
         <Search placeholder="Search Name or Contact type" allowClear bordered={false} className="search-bar"/>
         <Button
           type="text"
-          icon={<Archive className="archive-icon"/>}
+          icon={<Filter className="archive-icon"/>}
           className="toolbar-btn"
         >
           FILTER
@@ -296,7 +298,7 @@ const ManageContact = () => {
         </Button>
         <Button
           type="text"
-          icon={<Archive className="archive-icon"/>}
+          icon={<Download className="archive-icon"/>}
           className="toolbar-btn"
         >
           DOWNLOAD

@@ -26,7 +26,7 @@ const SideNav = () => {
 
 
     return(
-          <Sider width={80} className={`side-nav-container ${isInactive ? "inactive" : ""}`}>
+          <Sider width={230} className={`side-nav-container ${isInactive ? "inactive" : ""}`}>
             <div className="toggle-menu-btn" onClick={() => {setInactive(!isInactive)}}>
                 {isInactive ? (
                 <FrontButton className="back-btn" />

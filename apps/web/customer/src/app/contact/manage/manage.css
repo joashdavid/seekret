@@ -46,6 +46,14 @@ span.anticon.anticon-search svg {
     font-size: 25px;
 }
 
+button.ant-btn.ant-btn-text.toolbar-btn:focus svg rect {
+    fill:white;
+}
+
+button.ant-btn.ant-btn-text.toolbar-btn:focus svg path {
+    fill:white;
+}
+
 input.ant-input.ant-input-borderless::placeholder {
     font-family: 'Inter';
     font-size: 16px;
