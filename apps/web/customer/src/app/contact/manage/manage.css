@@ -54,6 +54,22 @@ button.ant-btn.ant-btn-text.toolbar-btn:focus svg path {
     fill:white;
 }
 
+button.ant-btn.ant-btn-text.toolbar-btn:focus svg circle {
+    stroke:white;
+}
+
+button.ant-btn.ant-btn-text.toolbar-btn:hover svg rect {
+    fill:white;
+}
+
+button.ant-btn.ant-btn-text.toolbar-btn:hover svg path {
+    fill:white;
+}
+
+button.ant-btn.ant-btn-text.toolbar-btn:hover svg circle {
+    stroke:white;
+}
+
 input.ant-input.ant-input-borderless::placeholder {
     font-family: 'Inter';
     font-size: 16px;
@@ -160,4 +176,12 @@ span.anticon.anticon-close-circle.ant-input-clear-icon svg {
     border-collapse: separate;
     transition: all 0.3s;
     opacity: 0.2;
+}
+
+.ant-table-wrapper {
+    margin-top: 22px;
+}
+
+.ant-table-pagination.ant-pagination {
+    display: none;
 }
