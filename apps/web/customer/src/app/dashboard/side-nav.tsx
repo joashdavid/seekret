@@ -26,14 +26,46 @@ const SideNav = () => {
 
 
     return(
-          <Sider width={230} className={`side-nav-container ${isInactive ? "inactive" : ""}`}>
+          <div className={`side-nav-container ${isInactive ? "inactive" : ""}`}>
             <div className="toggle-menu-btn" onClick={() => {setInactive(!isInactive)}}>
                 {isInactive ? (
-                <FrontButton className="back-btn" />
+                <>
+                <Sider width={80}/>
+                <FrontButton className="front-btn"/>
+                </>
               ) : (
-                <BackButton className="back-btn" />
+                <Sider width={180}>
+                  <Menu
+              mode="inline"
+              defaultSelectedKeys={['manageContact']}
+              defaultOpenKeys={['sub2']}
+              style={{ height: '100%', borderRight: 0 }}
+            >
+              <SubMenu key="sub1" icon={<UserOutlined />} title="Create">
+                <Menu.Item key="createOrganization">
+                  <Link to="/dashboard/createOrg">Organization</Link>
+                </Menu.Item>
+                <Menu.Item key="createContact">
+                  <Link to="/dashboard">Contact</Link>
+                </Menu.Item>
+              </SubMenu>
+              <SubMenu key="sub2" icon={<UserOutlined />} title="Manage">
+                <Menu.Item key="manageOrganization">
+                  <Link to="/dashboard/manageOrg">Organization</Link>
+                </Menu.Item>
+                <Menu.Item key="manageContact">
+                  <Link to="/dashboard/manageContact">Contact</Link>
+                </Menu.Item>
+                <Menu.Item key="manageCatalogue">
+                  <Link to="/dashboard/manage/catalogue">Catalogue</Link>
+                </Menu.Item>
+              </SubMenu>
+            </Menu>
+                <BackButton className="back-btn"/>
+                </Sider>
               )}
             </div>
+            {/*
             <Menu
               mode="inline"
               defaultSelectedKeys={['manageContact']}
@@ -65,7 +97,8 @@ const SideNav = () => {
                 </Button>
               </div>
             </Menu>
-          </Sider>
+            */}
+          </div>
     )
 }
 
