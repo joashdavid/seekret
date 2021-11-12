@@ -14,6 +14,8 @@ import { ReactComponent as Edit } from './assets/edit.svg'
 import { ReactComponent as Archive } from './assets/archive.svg'
 import { ReactComponent as Filter } from './assets/filter.svg'
 import { ReactComponent as Download } from './assets/download.svg'
+import { ReactComponent as Action } from './assets/action.svg'
+import { ReactComponent as Fourdots } from './assets/4dots.svg'
 
 import { ContactTableModel } from '../model'
 import { ContactModel } from '../../../model/model'
@@ -119,7 +121,7 @@ const ManageContact = () => {
     {
       title: 'Name',
       dataIndex: 'contactName',
-      width: 350,
+      width: 360,
       key: 'contactName',
       sorter: true,
       sortDirections: ['descend', 'ascend'],
@@ -135,35 +137,38 @@ const ManageContact = () => {
     {
       title: 'Contact Type',
       dataIndex: 'contactType',
-      width: 250,
+      width: 240,
       key: 'contactType',
       sorter: true,
       sortDirections: ['descend', 'ascend'],
     },
     {
-      title: 'Groups',
+      title: 'Role',
       dataIndex: 'groups',
-      width: 250,
+      width: 286,
       key: 'roles',
     },
     {
       title: 'Phone Number',
       dataIndex: 'phoneNo',
-      width: 200,
+      width: 270,
       key: 'modifiedAt',
     },
     {
       title: 'Last Modified',
       dataIndex: 'modifiedAt',
-      width: 200,
+      width: 460,
       key: 'modifiedAt',
+      sorter: true,
+      sortDirections: ['descend', 'ascend'],
     },
     {
-      title: 'Contact Status',
+      title: 'Status',
       dataIndex: 'status',
       width: 200,
       key: 'status',
     },
+    /*
     {
       title: 'User Status',
       dataIndex: 'userStatus',
@@ -220,10 +225,13 @@ const ManageContact = () => {
         )
       },
     },
+    */
     {
+      /*
       title: 'Action',
+      */
       dataIndex: 'action',
-      width: 300,
+      width: 30,
       key: 'action',
 
       render: (index, record: ContactTableModel) => {
@@ -236,9 +244,10 @@ const ManageContact = () => {
                   type="primary"
                   onClick={() => editContact(record)}
                   style={{ marginRight: 20, background: "transparent", borderColor: "transparent" }}
-                  icon={<Edit />}
+                  icon={<Action />}
                 >
                 </Button>
+                {/*
                 {(record.userStatus !== REVOKED || record.status === 'saved') && (
                   <Button
                     type="primary"
@@ -246,8 +255,10 @@ const ManageContact = () => {
                     style={{ marginRight: 20, background: "transparent", borderColor: "transparent" }}
                     icon={<Archive />}
                   >
+                    text
                   </Button>
                 )}
+                */}
               </div>
             )}
           </>
@@ -270,6 +281,7 @@ const ManageContact = () => {
     )
     setContactList(response.data)
   }
+
   return (
     <>
       <Breadcrumb>
@@ -303,6 +315,12 @@ const ManageContact = () => {
         >
           DOWNLOAD
         </Button>
+        <Button
+          type="text"
+          icon={<Fourdots className="fourdots-icon"/>}
+          className="fourdots-btn"
+        >
+        </Button>
         </div>
       </div>
       <div className="bottom-divider">
@@ -316,6 +334,7 @@ const ManageContact = () => {
           onChange={onChange}
           showSorterTooltip={false}
           rowSelection={{ ...rowSelection }}
+          scroll={{ y: 570 }}
         ></Table>
       </div>
     </>

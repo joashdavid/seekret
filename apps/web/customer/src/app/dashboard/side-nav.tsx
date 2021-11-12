@@ -27,7 +27,7 @@ const SideNav = () => {
                   <Menu
               mode="inline"
               defaultSelectedKeys={['manageContact']}
-              defaultOpenKeys={['sub2']}
+              defaultOpenKeys={['sub1','sub2']}
               style={{ height: '100%', borderRight: 0 }}
             >
               <SubMenu key="sub1" icon={<UserOutlined />} title="Create">

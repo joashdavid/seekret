@@ -1,5 +1,6 @@
 main.ant-layout-content.site-layout-background{
     width: 100%;
+    height:  30px;
     background-color: #ffffff;
     padding-left: 20px;
     padding-right: 20px;
@@ -16,13 +17,13 @@ main.ant-layout-content.site-layout-background{
 
 
 span.ant-breadcrumb-link {
-    font-size: 12px;
+    font-size: 1.6vh;
     color: #6F91A8;
 }
 
 .title {
     font-family: 'Inter';
-    font-size: 20px;
+    font-size: 3vh;
     font-weight: 900;
     color: #2B3134;
     margin-top: 15px;
@@ -72,7 +73,7 @@ button.ant-btn.ant-btn-text.toolbar-btn:hover svg circle {
 
 input.ant-input.ant-input-borderless::placeholder {
     font-family: 'Inter';
-    font-size: 16px;
+    font-size: 1.82vh;
     font-weight: medium;
     color: #6F91A8;
 }
@@ -102,7 +103,7 @@ span.anticon.anticon-close-circle.ant-input-clear-icon svg {
 
 .toolbar-btn {
     font-family: 'Inter';
-    font-size: 16px;
+    font-size: 1.8vh;
     font-weight: bold;
     letter-spacing: 1.6px;
     color: #6F91A8;
@@ -118,7 +119,7 @@ span.anticon.anticon-close-circle.ant-input-clear-icon svg {
 
 .toolbar-btn:hover {
     font-family: 'Inter';
-    font-size: 16px;
+    font-size: 1.8vh;
     font-weight: bold;
     letter-spacing: 1.6px;
     color: #ffffff;
@@ -134,7 +135,7 @@ span.anticon.anticon-close-circle.ant-input-clear-icon svg {
 
 .toolbar-btn:focus {
     font-family: 'Inter';
-    font-size: 16px;
+    font-size: 1.8vh;
     font-weight: bold;
     letter-spacing: 1.6px;
     color: #ffffff;
@@ -166,17 +167,25 @@ span.anticon.anticon-close-circle.ant-input-clear-icon svg {
     position: relative;
     top: 0;
     left: 0;
+    margin-left: 15px;
+    height: 20px;
+    width: 20px;
     display: block;
-    width: 16px;
-    height: 16px;
     direction: ltr;
-    background-color: #fff;
-    border: 2px solid #6F91A8;
+    background-color: white;
+    border: 1.5px solid #6F91A8;
     border-radius: 5px;
     border-collapse: separate;
     transition: all 0.3s;
-    opacity: 0.2;
 }
+
+.ant-checkbox-indeterminate .ant-checkbox-inner::after {
+    background-color: #33B986;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+    background-color: #33B986;
+  }
 
 .ant-table-wrapper {
     margin-top: 22px;
@@ -184,4 +193,63 @@ span.anticon.anticon-close-circle.ant-input-clear-icon svg {
 
 .ant-table-pagination.ant-pagination {
     display: none;
+}
+
+.fourdots-btn {
+    font-family: 'Inter';
+    font-size: 1.8vh;
+    font-weight: bold;
+    letter-spacing: 1.6px;
+    color: #6F91A8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #F4F6F8;
+    border: 1px solid #F4F6F8;
+    border-radius: 10px;
+    width: 60px;
+    height: 48px;
+    margin-left: 20px;
+}
+
+.fourdots-btn:hover {
+    font-family: 'Inter';
+    font-size: 1.8vh;
+    font-weight: bold;
+    letter-spacing: 1.6px;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #003D63;
+    border: 1px solid #003D63;
+    border-radius: 10px;
+    width: 60px;
+    height: 48px;
+    margin-left: 20px;
+}
+
+.fourdots-btn:focus {
+    font-family: 'Inter';
+    font-size: 1.8vh;
+    font-weight: bold;
+    letter-spacing: 1.6px;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #003D63;
+    border: 1px solid #003D63;
+    border-radius: 10px;
+    width: 60px;
+    height: 48px;
+    margin-left: 20px;
+}
+
+button.ant-btn.ant-btn-text.fourdots-btn:hover svg rect {
+    fill:white;
+}
+
+button.ant-btn.ant-btn-text.fourdots-btn:focus svg rect {
+    fill:white;
 }
