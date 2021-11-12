@@ -1,0 +1,7 @@
+.App{
+    height: 0;
+}
+
+.menu-container.active {
+    display: none;
+ }
