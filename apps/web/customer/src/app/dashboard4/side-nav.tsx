@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import './dashboard.module.less'
 import './side-nav.css'
-import {ReactComponent as BackButton} from './assets/BackButton.svg'
-import {ReactComponent as FrontButton} from './assets/FrontButton.svg'
+import {ReactComponent as FixedNavBackButton} from './assets/BackButton.svg'
+import {ReactComponent as FixedNavFrontButton} from './assets/FrontButton.svg'
 import { Link, useHistory } from 'react-router-dom'
 import { Menu, Button, Layout } from 'antd'
 import { UserOutlined, LogoutOutlined } from '@ant-design/icons'
@@ -26,25 +26,23 @@ const SideNav = () => {
 
 
     return(
-          <Sider width={230} className={`side-nav-container ${isInactive ? "inactive" : ""}`}>
+          <div className={`side-nav-container ${isInactive ? "inactive" : ""}`}>
             <div className="toggle-menu-btn" onClick={() => {setInactive(!isInactive)}}>
                 {isInactive ? (
-                <FrontButton className="back-btn" />
-              ) : (
-                <BackButton className="back-btn" />
-              )}
+                  <>
+                  <Sider width={80}/>
+                  <FixedNavFrontButton className="fixed-nav-front-btn"/>
+                  </>
+                ) : (
+                  <>
+                  <Sider width={180} />
+                  <FixedNavBackButton className="fixed-nav-back-btn"/>
+                  </>
+                )}
+              </div>
             </div>
-            <Menu
-              mode="inline"
-              defaultSelectedKeys={['manageContact']}
-              defaultOpenKeys={['sub2']}
-              style={{ height: '100%', borderRight: 0 }}
-            >
-            
-            </Menu>
-          </Sider>
-    )
-}
+      )
+  }
 
 
 
