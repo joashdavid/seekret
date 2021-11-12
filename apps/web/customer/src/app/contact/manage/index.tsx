@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import 'antd/dist/antd.css'
 import './manage.css'
 import { Popconfirm } from 'antd'
-import { Input } from 'antd'
+import { Input, Select } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import { useHistory } from 'react-router'
 
@@ -16,26 +16,28 @@ import { ReactComponent as Filter } from './assets/filter.svg'
 import { ReactComponent as Download } from './assets/download.svg'
 import { ReactComponent as Action } from './assets/action.svg'
 import { ReactComponent as Fourdots } from './assets/4dots.svg'
-
+import FilterButton from './components/filter/filter'
 import { ContactTableModel } from '../model'
 import { ContactModel } from '../../../model/model'
 import tableStyles from './manage-contact.module.less'
 import { Table } from 'antd'
 import {
   getContactApi,
-  sendInviteApi,
+  //sendInviteApi,
   // deleteContactApi,
   getCurrentContactDetails,
-  revokeContactApi,
-  archiveContactApi,
+  //revokeContactApi,
+  //archiveContactApi,
 } from './api'
-import { ContactInfo } from '../view/role-from/contact-info'
+// import { ContactInfo } from '../view/role-from/contact-info'
 
 const OWNER = 'Active/Owner'
-const INVITE = 'Invite'
-const REINVITE = 'Reinvite'
-const USER = 'Active'
-const REVOKED = 'Revoked'
+//const INVITE = 'Invite'
+//const REINVITE = 'Reinvite'
+//const USER = 'Active'
+//const REVOKED = 'Revoked'
+
+
 
 const { Search } = Input
 
@@ -44,7 +46,7 @@ const ManageContact = () => {
   const currentOrg = useSelector((state) => state)
   const [contactList, setContactList] = useState<[]>([])
   const [column, setColumn] = useState<string>('')
-  const [invitedId, setInvitedId] = useState<string[]>([])
+  //const [invitedId, setInvitedId] = useState<string[]>([])
   const history = useHistory()
 
   const getContact = async () => {
@@ -59,6 +61,7 @@ const ManageContact = () => {
     getContact()
   }, [currentOrg])
 
+/*
   const sendInvite = async (contact: ContactTableModel) => {
     const selectedId = [...invitedId, contact.contactId]
     setInvitedId(selectedId)
@@ -74,7 +77,6 @@ const ManageContact = () => {
       getContact()
     }
   }
-
   // const deleteContact = async (contact: ContactTableModel) => {
   //   const response = await deleteContactApi(contact)
   //   if (response.success) {
@@ -88,6 +90,7 @@ const ManageContact = () => {
       getContact()
     }
   }
+*/
 
   const editContact = async (contact: ContactTableModel) => {
     const currentContact = await getCurrentContactDetails(contact)
@@ -294,13 +297,7 @@ const ManageContact = () => {
       <Divider />
       <div className="tool-bar-container">
         <Search placeholder="Search Name or Contact type" allowClear bordered={false} onChange={getContact} className="search-bar"/>
-        <Button
-          type="text"
-          icon={<Filter className="archive-icon"/>}
-          className="toolbar-btn"
-        >
-          FILTER
-        </Button>
+        <FilterButton />
         <div className="tool-btn-left-container">
         <Button
           type="text"
@@ -335,7 +332,7 @@ const ManageContact = () => {
           onChange={onChange}
           showSorterTooltip={false}
           rowSelection={{ ...rowSelection }}
-          scroll={{ y: 570 }}
+          scroll={{ y: 550 }}
           tableLayout={"auto"}
         ></Table>
       </div>

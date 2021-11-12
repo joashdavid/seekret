@@ -265,3 +265,8 @@ button.ant-btn.ant-btn-text.fourdots-btn:focus svg rect {
       .ant-table-body::-webkit-scrollbar {
         display: none;
       }
+
+.filterPopoverTitle {
+    font-size: 1.6vh;
+    font-weight: bold;
+}
