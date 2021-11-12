@@ -80,8 +80,10 @@ const DashBoardHeader = () => {
   }, [])
 
   return (
-    <Header style={{ background: `${selectedOrgTheme}` }} className="header">
+    <div>
       <HamburgerMenu />
+<Header style={{ background: `${selectedOrgTheme}` }} className="header">
+      
       <Select
         style={{
           width: 360,left: 45,
@@ -112,6 +114,8 @@ const DashBoardHeader = () => {
         })}
       </Select>
     </Header>
+    </div>
+    
   )
 }
 

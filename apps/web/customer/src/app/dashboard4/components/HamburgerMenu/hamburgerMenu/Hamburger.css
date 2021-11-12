@@ -1,12 +1,4 @@
-.legitClosing{
-	position: absolute;
-	background-color: red;
-	z-index: 21;
-	left: 300px;
-	width: 700px;
-	height: 700px;
-	opacity: 0;
-}
+
 
 .header-halo {
 	width: 10px;
@@ -22,6 +14,7 @@
 	justify-content: flex-start;
 	align-items: center;
 	height: 55px;
+	left: 25px;
 	
 
 	

@@ -7,16 +7,16 @@ import FloatingNavbar from '../floatingNavbar';
 function HamburgerMenu() {
     const [open, setOpen] = useState(false);
     return (
-        <>
-            <div className="header">
+        <div>
+            
                 <div className="hamburger-container">
                     <Hamburger className="menu-icon" onClick={() => setOpen(!open)}  />
                 </div>
                 
-            </div>
+            
         {open && <FloatingNavbar/>}
         
-        </>
+        </div>
     )
 }
 

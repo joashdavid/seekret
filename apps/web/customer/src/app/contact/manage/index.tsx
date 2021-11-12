@@ -29,6 +29,7 @@ import {
   revokeContactApi,
   archiveContactApi,
 } from './api'
+import { ContactInfo } from '../view/role-from/contact-info'
 
 const OWNER = 'Active/Owner'
 const INVITE = 'Invite'
@@ -292,7 +293,7 @@ const ManageContact = () => {
       </div>
       <Divider />
       <div className="tool-bar-container">
-        <Search placeholder="Search Name or Contact type" allowClear bordered={false} className="search-bar"/>
+        <Search placeholder="Search Name or Contact type" allowClear bordered={false} onChange={getContact} className="search-bar"/>
         <Button
           type="text"
           icon={<Filter className="archive-icon"/>}
@@ -323,9 +324,9 @@ const ManageContact = () => {
         </Button>
         </div>
       </div>
-      <div className="bottom-divider">
+      
         <Divider/>
-      </div>
+     
       <div className={tableStyles.tableHeader}>
         <Table
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -335,6 +336,7 @@ const ManageContact = () => {
           showSorterTooltip={false}
           rowSelection={{ ...rowSelection }}
           scroll={{ y: 570 }}
+          tableLayout={"auto"}
         ></Table>
       </div>
     </>

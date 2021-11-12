@@ -253,3 +253,15 @@ button.ant-btn.ant-btn-text.fourdots-btn:hover svg rect {
 button.ant-btn.ant-btn-text.fourdots-btn:focus svg rect {
     fill:white;
 }
+
+.ant-table-column-sorter-up{
+    display: none;
+  }
+
+  .ant-table-body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+      }
+      .ant-table-body::-webkit-scrollbar {
+        display: none;
+      }
