@@ -61,6 +61,9 @@ const ManageContact = () => {
     getContact()
   }, [currentOrg])
 
+
+
+
 /*
   const sendInvite = async (contact: ContactTableModel) => {
     const selectedId = [...invitedId, contact.contactId]
@@ -171,6 +174,7 @@ const ManageContact = () => {
       dataIndex: 'status',
       width: 200,
       key: 'status',
+      filters: [{ text: 'Saved', value: 'saved' }, { text: 'Archived', value: 'archived' }],
     },
     /*
     {
@@ -285,6 +289,7 @@ const ManageContact = () => {
     )
     setContactList(response.data)
   }
+
 
   return (
     <>
