@@ -27,6 +27,16 @@
     right: -20px;
 }
 
-.back-btn {
+.fixed-nav-back-btn {
+    position: absolute;
+    top: 80px;
+    right: 1795px;
+    cursor: pointer;
+}
+
+.fixed-nav-front-btn {
+    position: absolute;
+    top: 80px;
+    right: 1950px;
     cursor: pointer;
 }

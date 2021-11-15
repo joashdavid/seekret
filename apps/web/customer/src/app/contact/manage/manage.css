@@ -265,3 +265,16 @@ button.ant-btn.ant-btn-text.fourdots-btn:focus svg rect {
       .ant-table-body::-webkit-scrollbar {
         display: none;
       }
+
+
+.ant-table-column-sorter-up, .ant-table-column-sorter-down {
+    font-size: 1.8vh;
+}
+
+.ant-table-column-sorters {
+    display: inline-block;
+}
+
+.ant-table-column-title {
+    margin-right: 18px;
+}
